@@ -1,2 +1,2 @@
 # ProjetoMidiaIndoor
- Projeto de Midias no SENAI. Desenvolvido por Otávio, Breno, Kauanna e Isabelle.
+ Projeto de Midias no SENAI. Desenvolvido por Otávio, Breno, Kauana e Isabelle.
