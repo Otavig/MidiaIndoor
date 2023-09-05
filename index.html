@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mídia Indoor | Ways</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
 
     <!-- Botões -->
-<div class="botoes" id="meutopo">
-    <button type="button" onclick="btn_cadastro()"></button>
-    <button type="button" onclick="btn_gerenciar()"></button>
-</div>
+    <div class="topo" id="meutopo">
+        <div class="botoes" id="meutopo">
+            <button type="button" onclick="btn_cadastro()">Cadastrar</button>
+            <button type="button" onclick="btn_gerenciar()">Gerenciar</button>
+        </div>
+    </div>
+    
     <!-- Cadastro -->
-<div class="container-main" id="container">
-    <h1>Cadastro Da Mídia Indoor</h1>
+    <div class="container-main" id="container">
+        <h1>Cadastro Da Mídia Indoor</h1>
+        <button class="btn_estilo" type="button" onclick="btn_cadastro_add()">Add</button>
+        <button class="btn_estilo" type="button" onclick="btn_limpar()">Remove</button>
+    </div>
 
-
-
-
-
-
-
-    <button type="button" onclick="btn_cadastro_add()"></button>
-    <button type="button" onclick="btn_limpar()"></button>
-</div>
+    <!-- Vídeo -->
+    <video controls width="100%" poster="thumbnail.jpg">
+        <source src="" type="video/mp4">
+        Seu navegador não suporta a reprodução de vídeo.
+    </video>
 </body>
 </html>

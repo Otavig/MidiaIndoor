@@ -1,3 +1,48 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    background-color: #edf5f5;
+    background-image: url("https://www.youtube.com/watch?v=QmwIjn6rwQA");
+}
+
 .container-main{
-    display: none;
+    display: flex;
+    flex-direction: column;
+    flex: none;
+  
+    max-width: 350px;
+    width: 100%;
+    max-height: 600px;
+  
+    margin: 10% auto;
+    padding: 10px 10px 10px 10px;
+  
+    background-color: #1e457c;
+    box-shadow: 8px 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.botoes{
+    margin: 0 auto;
+}
+.btn_estilo{
+    background-color: #53b4db;
+    max-width: 100%;
+    width: 50%;
+    margin: 5px auto;
+    border: 2px solid black;
+    padding: 5%;
+    border-radius: 3%;
+    color: white;
+    transition: 1s;
+}
+.btn_estilo:hover{
+    background-color: #3390b5;
 }
