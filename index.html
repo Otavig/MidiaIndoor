@@ -8,26 +8,31 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-
+    
     <!-- Botões -->
-    <div class="topo" id="meutopo">
-        <div class="botoes" id="meutopo">
-            <button type="button" onclick="btn_cadastro()">Cadastrar</button>
-            <button type="button" onclick="btn_gerenciar()">Gerenciar</button>
-        </div>
+    <div class="botoes" id="meutopo">
+        <button type="button" class="btn_estilo_topo" onclick="btn_cadastro()">Cadastrar</button>
+        <button type="button" class="btn_estilo_topo" onclick="btn_gerenciar()">Gerenciar</button>
     </div>
     
     <!-- Cadastro -->
-    <div class="container-main" id="container">
+    <div id="tela_cadastro" class="ocultar container-main " >
         <h1>Cadastro Da Mídia Indoor</h1>
-        <button class="btn_estilo" type="button" onclick="btn_cadastro_add()">Add</button>
-        <button class="btn_estilo" type="button" onclick="btn_limpar()">Remove</button>
+        <label for="titulo">Título do Filme</label>
+        <input type="text" id="titulo" >
+    
+        <label for="titulo">End Imagem</label>
+        <input type="text" id="end_imagem" >
+    
+        <label for="titulo">Descrição</label>
+        <textarea name="" id="descricao" cols="30" rows="10"></textarea>
+        
+        <button class="btn_estilo" onclick="btn_onclick_adicionar()">Adicionar</button>
+        <button class="btn_estilo" onclick="btn_onclick_limpar()">Limpar</button>
     </div>
+        <!-- -->
+        
 
-    <!-- Vídeo -->
-    <video controls width="100%" poster="thumbnail.jpg">
-        <source src="" type="video/mp4">
-        Seu navegador não suporta a reprodução de vídeo.
-    </video>
+
 </body>
 </html>
