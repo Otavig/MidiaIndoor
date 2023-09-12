@@ -60,3 +60,7 @@ html {
 .btn_estilo_topo:hover {
     background-color: #3390b5;
 }
+
+container-filme{
+    display: none;
+}
