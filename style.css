@@ -12,7 +12,6 @@ body {
     /* Garanta que o corpo ocupe a tela inteira */
     height: 100%;
     margin: 0;
-    overflow: hidden; /* Para evitar barras de rolagem */
 }
 
 html {
