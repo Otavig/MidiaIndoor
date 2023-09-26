@@ -42,14 +42,13 @@
         <label for="termino" class="form-label">Data de Término:</label>
         <input type="date" id="termino" name="termino" class="form-control" required>
 
-
-        <h1>oi</h1>
-        <label for="status" class="form-label">Status:</label>
-        <select id="status" name="status" class="form-select">
+        <label for="atatus" class="form-label">Status:</label>
+        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Escolha o Status...">
+        <datalist id="status"> 
             <option value="Ativado">Ativado</option>
             <option value="Desativado">Desativado</option>
-        </select>
-
+        </datalist>
+        
         <label for="exibicao_tempo" class="form-label">Tempo de Exibição:</label>
         <input type="time" id="exibicao_tempo" name="exibicao_tempo" class="form-control">
 
