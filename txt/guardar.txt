@@ -1,0 +1,31 @@
+
+  <!-- Tela Editar -->
+  <div id="tela_gerenciar" class="container-main container-fluid">
+    <div id="tela_gerenciar_listagem" class="tela container-main">
+      <button id="" class="amarelo" onclick=""></button>
+    </div>
+
+    <div id="tela_gerenciar_formulario" class="tela container-main container-fluid card">
+      <h3>Editar</h3>
+      <form>
+        <label for="edit_titulo" class="form-label">Título do Filme</label>
+        <input type="text" id="edit_titulo" class="form-control">
+
+
+        <label for="formFile" class="form-label">Default file input example</label>
+        <input class="form-control" type="file" id="formFile">
+
+
+        <label for="edit_descricao" class="form-label">Descrição</label>
+        <textarea id="edit_descricao" class="form-control" rows="4"></textarea>
+
+        <button class="btn btn-success" onclick="btn_onclick_alteracoes_filme()">Salvar Edição</button>
+        <button class="btn btn-secondary" onclick="btn_onclick_limpar()">Limpar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

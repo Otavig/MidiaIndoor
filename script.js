@@ -4,18 +4,16 @@ let array_galeria = [];
 // Função para adicionar um item à lista
 function btn_onclick_adicionar() {
     // Obter os valores dos campos do formulário
-    let nome = document.getElementById("nome").value;
-    let link = document.getElementById("link").value;
-    let tipo = document.getElementById("tipo").value;
-    let inicio = document.getElementById("inicio").value;
-    let termino = document.getElementById("termino").value;
-    let status = document.getElementById("status").value;
+    let nome = document.getElementById("inputEmail4").value;
+    let tipo = document.getElementById("inputState").value;
+    let inicio = document.getElementById("floatingInput").value;
+    let termino = document.getElementById("floatingInput2").value;
+    let status = document.getElementById("inputState").value;
     let exibicao_tempo = document.getElementById("exibicao_tempo").value;
 
     // Criar um objeto com os dados do item
     let item = {
         nome: nome,
-        link: link,
         tipo: tipo,
         inicio: inicio,
         termino: termino,
@@ -34,30 +32,29 @@ function btn_onclick_adicionar() {
 
 // Função para limpar os campos do formulário
 function btn_onclick_limpar() {
-    document.getElementById("nome").value = "";
-    document.getElementById("link").value = "";
-    document.getElementById("tipo").value = "img";
-    document.getElementById("inicio").value = "";
-    document.getElementById("termino").value = "";
-    document.getElementById("status").value = "Ativado";
+
+    document.getElementById("inputEmail4").value = "";
+    document.getElementById("inputState").value = "Tipo da mídia";
+    document.getElementById("floatingInput").value = "";
+    document.getElementById("floatingInput2").value = "";
+    document.getElementById("inputState").value = "Status";
     document.getElementById("exibicao_tempo").value = "";
 }
 
 function limparCampos() {
     // Limpar os campos do formulário
-    document.getElementById("nome").value = "";
-    document.getElementById("link").value = "";
-    document.getElementById("tipo").value = "img";
-    document.getElementById("inicio").value = "";
-    document.getElementById("termino").value = "";
-    document.getElementById("status").value = "Ativado";
+    document.getElementById("inputEmail4").value = "";
+    document.getElementById("inputState").value = "Tipo da mídia";
+    document.getElementById("floatingInput").value = "";
+    document.getElementById("floatingInput2").value = "";
+    document.getElementById("inputState").value = "Status";
     document.getElementById("exibicao_tempo").value = "";
 }
 
 // Mostrar cadastro 
 function btn_cadastro() {
     ocultar_divs()
-    mostrar_div("tela_cadastro")
+    mostrar_div("tela_cadastro-main")
 }
 
 // Mostrar Lista
@@ -72,9 +69,8 @@ function btn_gerenciar() {
     for (let i = 0; i < array_galeria.length; i++) {
         let item = array_galeria[i];
 
-        conteudo_html += `<div class="container-filme">
+        conteudo_html += `<div class="container-listagem">
             <h2>${item.nome}</h2>
-            <p>Link: ${item.link}</p>
             <p>Tipo: ${item.tipo}</p>
             <p>Data de Início: ${item.inicio}</p>
             <p>Data de Término: ${item.termino}</p>
@@ -90,13 +86,13 @@ function btn_cadastro() {
     document.getElementById("meutopo").style.display = "none";
     
     // Exibir a tela de cadastro
-    mostrar_div("tela_cadastro");
+    mostrar_div("tela_cadastro-main");
 }
 
 // Função para ocultar a tela de cadastro e mostrar os botões novamente
 function btn_voltar() {
     // Ocultar a tela de cadastro
-    ocultar_div("tela_cadastro");
+    ocultar_div("tela_cadastro-main");
     
     // Mostrar os botões "Cadastrar" e "Gerenciar"
     document.getElementById("meutopo").style.display = "block";
@@ -105,7 +101,7 @@ function btn_voltar() {
 
 
 function ocultar_divs() {
-    document.getElementById("tela_cadastro").style.display = "none";
+    document.getElementById("tela_cadastro-main").style.display = "none";
     document.getElementById("tela_gerenciar").style.display = "none";
 }
 
@@ -119,3 +115,6 @@ function mostrar_div(id_div) {
 
 // Inicialmente, ocultar as divs que não devem ser exibidas
 ocultar_divs();
+
+
+

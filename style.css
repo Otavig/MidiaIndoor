@@ -1,24 +1,37 @@
-/* Reset e estilos gerais */
-* {
+.navbar{
+    padding: 4px;
+    border-bottom: 1px solid silver;
+}
+.cadastro-main{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    word-break: break-all;
+    margin: 0 auto;
+    /* display: none; */
+    max-width: 60%;
+    width: 100%;
+    justify-content: center;
+}
+.btns_cadastro{
+    display: flex;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    flex-direction: row;   
+    justify-content: space-around;
+}
+.btns_cadastro button{
+    margin: 0px;
 }
 
-body {
-    background-color: #edf5f5;
-    background-image: url("https://i.pinimg.com/originals/09/09/50/090950ba13bd9145e43c5d794d2a0675.gif");
-    /* Garanta que o corpo ocupe a tela inteira */
-    height: 100%;
-    margin: 0;
+.cadastro-main input{
+    max-width: 100%;
+    width: 100%;
 }
-
-html {
-    height: 100%;
+.cadastro-main select{
+    max-width: 100%;
+    width: 100%;
 }
-
-/* Classe para ocultar elementos */
-.ocultar {
-    display: none;
+.container-md{
+    margin: 0px;
+    padding: 0px;
 }
