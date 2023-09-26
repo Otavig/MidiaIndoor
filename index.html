@@ -4,83 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Mídia Indoor | Ways</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-
-    <!-- boosstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js"></script>
-
+    
+    
 </head>
 <body>
-
-<!-- Botões -->
-<div class="botoes row-cols-1 col-5 bs- align-content-center" id="meutopo">
-    <button type="button" class="btn_estilo_topo" onclick="btn_cadastro()">Cadastrar</button>
-    <button type="button" class="btn_estilo_topo" onclick="btn_gerenciar()">Gerenciar</button>
-</div>
-
-<!-- Cadastro -->
-<div id="tela_cadastro" class="container-main ocultar container-fluid">
-    <h1>Cadastro da Mídia Indoor</h1>
+    <!-- boosstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
     
+    <!-- Botões -->
+    <div class="botoes row-cols-1 col-5 bs- align-content-center" id="meutopo">
+        <button type="button" class="btn_estilo_topo" onclick="btn_cadastro()">Cadastrar</button>
+        <button type="button" class="btn_estilo_topo" onclick="btn_gerenciar()">Gerenciar</button>
+    </div>
+    
+    <!-- Cadastro -->
+    <div id="tela_cadastro" class="container-main ocultar container-fluid">
+        <h1>Cadastro da Mídia Indoor</h1>
+        
         <label for="nome" class="form-label">Nome:</label>
         <input type="text" id="nome" name="nome" class="form-control" required>
-
+        
         <label for="link" class="form-label">Link:</label>
         <input type="text" id="link" name="link" class="form-control" required>
-
+        
         <label for="tipo" class="form-label">Tipo:</label>
         <select id="tipo" name="tipo" class="form-select">
             <option value="img">Imagem</option>
             <option value="video">Vídeo</option>
         </select>
-
+        
         <label for="inicio" class="form-label">Data de Início:</label>
         <input type="date" id="inicio" name="inicio" class="form-control" required>
-
+        
         <label for="termino" class="form-label">Data de Término:</label>
         <input type="date" id="termino" name="termino" class="form-control" required>
-
+        
         <label for="status" class="form-label">Status:</label>
         <select id="status" name="status" class="form-select">
             <option value="Ativado">Ativado</option>
             <option value="Desativado">Desativado</option>
         </select>
-
+        
         <label for="exibicao_tempo" class="form-label">Tempo de Exibição:</label>
         <input type="time" id="exibicao_tempo" name="exibicao_tempo" class="form-control">
-
+        
         <button class="btn btn-primary" onclick="btn_onclick_adicionar()">Adicionar</button>
         <button class="btn btn-secondary" onclick="btn_onclick_limpar()">Limpar</button>
-
+        
         <button class="btn btn-secondary" onclick="btn_voltar()">Voltar</button>
-
-</div>
-
-<!-- Tela Editar -->
-<div id="tela_gerenciar" class="ocultar container-main container-fluid">
-    <div id="tela_gerenciar_listagem" class="tela container-main">
-        <button id="" class="amarelo" onclick=""></button>
+        
     </div>
-
-    <div id="tela_gerenciar_formulario" class="tela container-main container-fluid card">
-        <h3>Editar</h3>
-        <form>
-            <label for="edit_titulo" class="form-label">Título do Filme</label>
-            <input type="text" id="edit_titulo" class="form-control">
-
-            <label for="edit_end_imagem" class="form-label">End Imagem</label>
-            <input type="text" id="edit_end_imagem" class="form-control">
-
-            <label for="edit_descricao" class="form-label">Descrição</label>
-            <textarea id="edit_descricao" class="form-control" rows="4"></textarea>
-
-            <button class="btn btn-success" onclick="btn_onclick_alteracoes_filme()">Salvar Edição</button>
-            <button class="btn btn-secondary" onclick="btn_onclick_limpar()">Limpar</button>
-        </form>
+    
+    <!-- Tela Editar -->
+    <div id="tela_gerenciar" class="ocultar container-main container-fluid">
+        <div id="tela_gerenciar_listagem" class="tela container-main">
+            <button id="" class="amarelo" onclick=""></button>
+        </div>
+        
+        <div id="tela_gerenciar_formulario" class="tela container-main container-fluid card">
+            <h3>Editar</h3>
+            <form>
+                <label for="edit_titulo" class="form-label">Título do Filme</label>
+                <input type="text" id="edit_titulo" class="form-control">
+                
+                <label for="edit_end_imagem" class="form-label">End Imagem</label>
+                <input type="text" id="edit_end_imagem" class="form-control">
+                
+                <label for="edit_descricao" class="form-label">Descrição</label>
+                <textarea id="edit_descricao" class="form-control" rows="4"></textarea>
+                
+                <button class="btn btn-success" onclick="btn_onclick_alteracoes_filme()">Salvar Edição</button>
+                <button class="btn btn-secondary" onclick="btn_onclick_limpar()">Limpar</button>
+            </form>
+        </div>
     </div>
-</div>
-
+    
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
