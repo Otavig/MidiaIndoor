@@ -2,13 +2,16 @@
     padding: 0px;
     border-bottom: 1px solid silver;
 }
-.navbar-nav button{
-    margin-left: 100px;
-    border-radius: 10px;
-}
 .navbar-nav button:hover{
     color: white;
-    background-color: #0a58ca;
+    border-bottom: 1px solid silver;
+}
+.ca{
+    justify-content: space-between;
+}
+.container-fluid button{
+    margin: 0 auto;
+    justify-content: center;
 }
 
 .cadastro-main{
@@ -26,11 +29,11 @@
 .btns_cadastro{
     display: flex;
     margin: 0;
-    flex-direction: row;   
-    justify-content: space-around;
+    flex-direction: row;
 }
 .btns_cadastro button{
     margin: 0px;
+    margin-left: 5%;
 }
 
 .cadastro-main input{
