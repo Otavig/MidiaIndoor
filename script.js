@@ -4,13 +4,8 @@ const btn_cadastro = document.getElementById("btn-cadastro");
 
 btn_cadastro.addEventListener("click", async () => {
     
-    document.getElementById("tela_cadastro-main").classList.add("d-none")
-    document.getElementById("teste").classList.remove("d-none")
-    
-
-    
-    
-    
+    document.getElementById("tela_cadastro-main").classList.toggle("d-none")
+    document.getElementById("tela_gerenciar").classList.remove("d-none")
     
     // Obter os valores dos campos do formulário
     let nome = document.getElementById("nome").value;
@@ -35,6 +30,13 @@ btn_cadastro.addEventListener("click", async () => {
 
     // Limpar os campos do formulário
     limparCampos();
+})
+
+const btn_gerenciar = document.getElementById("btn-gerenciar");
+btn_gerenciar.addEventListener("click", async () => {
+
+    document.getElementById("tela_gerenciar").classList.toggle("d-none")
+    document.getElementById("tela_cadastro_main").classList.add("d-none")
 })
 
 

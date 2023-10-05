@@ -1,6 +1,14 @@
 .navbar{
-    padding: 4px;
+    padding: 0px;
     border-bottom: 1px solid silver;
+}
+.navbar-nav button{
+    margin-left: 100px;
+    border-radius: 10px;
+}
+.navbar-nav button:hover{
+    color: white;
+    background-color: #0a58ca;
 }
 
 .cadastro-main{
