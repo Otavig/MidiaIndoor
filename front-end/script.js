@@ -17,7 +17,7 @@ btn_cadastro.addEventListener("click", async () => {
     let tempo = document.getElementById("tempo").value;
 
     // Contato com a rota
-    let dados = await fetch("http://localhost:3000/api/midia", {
+    let dados = await fetch("http://localhost:3000/api/midia_indoor/", {
         method: "POST", 
         headers: {
         "Content-Type": "application/json",
@@ -75,8 +75,8 @@ const cambiarTema = () =>{
 
 // Codigo para montar a tabela de listagem
 
-btn_gerenciar.addEventListener("click", async () => {
-    let busca = document.getElementById("input").value;
+btn_busca.addEventListener("click", async () => {
+    let pesquisa = document.getElementById("input_pesquisa").value;
     let opcao = document.getElementById("").value;
     let html = `<table class="table">
                   <thead>
@@ -93,26 +93,23 @@ btn_gerenciar.addEventListener("click", async () => {
     document.getElementById("saida").innerHTML = "";
     document.getElementById("").value = ""
   
-    // let resposta = "";
-    // if (opcao == "todos") {
-    //   resposta = await fetch("http://localhost:3000/api/usuarios");
-    // } else if (opcao == "id") {
-    //   resposta = await fetch(`http://localhost:3000/api/usuarios/id/${busca}`);
-    // } else if (opcao == "nome") {
-    //   resposta = await fetch(`http://localhost:3000/api/usuarios/nome/${busca}`);
-    // } else if (opcao == "email") {
-    //   resposta = await fetch(`http://localhost:3000/api/usuarios/email/${busca}`);
-    // }
+    let resposta = "";
+    if (opcao == "todos") {
+      resposta = await fetch("http://localhost:3000/api/midia_indoor");
+    } else if (opcao == "id") {
+      resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${busca}`);
+    } else if (opcao == "nome") {
+      resposta = await fetch(`http://localhost:3000/api/midia_indoor/nome/${busca}`);
+    } 
   
     if (resposta.ok) {
       html = html;
       let array_resultado = await resposta.json();
-      if (opcao == "todos" || opcao == "nome"  || opcao == "email") {
+      if (opcao == "todos" || opcao == "nome" ) {
         for (const dados of array_resultado) {
           html += `<tr>                
           <td>${dados.id}</td>
           <td class='text-start'>${dados.nome}</td>
-          <td class='text-start'>${dados.email}</td>
           <td><i onclick="editar(${dados.id})" class="bi bi-pencil"></td>
           <td><i onclick="excluir(${dados.id})" class="bi bi-trash"></i></td>
           </tr>`;
@@ -121,7 +118,6 @@ btn_gerenciar.addEventListener("click", async () => {
         html += `<tr>                
           <td>${array_resultado.id}</td>
           <td class='text-start'>${array_resultado.nome}</td>
-          <td class='text-start'>${array_resultado.email}</td>
           <td><i class="bi bi-pencil"></td>
           <td><i class="bi bi-trash"></i></td>
           </tr>`;
@@ -132,3 +128,59 @@ btn_gerenciar.addEventListener("click", async () => {
     document.getElementById("saida").innerHTML = html;
     
   });
+
+  async function editar(id) {
+
+    let resposta = await fetch(`http://localhost:000/api/mida_indoor/id/${id}`);
+  
+    if (resposta.ok) {
+      let dados = await resposta.json();
+      console.clear()
+      console.log(dados)
+      btn_tela_atualizar.click()
+      document.getElementById("id_editado").value = dados.id
+      document.getElementById("nome_editado").value = dados.nome
+  
+    }
+  }
+  
+  async function excluir(id) {
+    const resultado = window.confirm("Deseja excluir este usuário?");
+    if (resultado) {
+      let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (dados.ok) {
+        btn_tela_busca.click()
+        btn_select.click()
+      }
+    }
+  }
+  btn_atualizar_dados.addEventListener("click", async () => {
+    let nome_atualizado = document.getElementById("nome_editado").value
+    let id = document.getElementById("id_editado").value
+    let tipo_atualizado = document.getElementById("tipo_editado").value;
+    let data_inicio_atualizado = document.getElementById("data_inicio_editado").value;
+    let data_fim_atualizado = document.getElementById("data_fim_editado").value;
+    let status_atualizado = document.getElementById("status_editado").value;
+    let tempo_atualizado = document.getElementById("tempo_editado").value;
+  
+  
+    let dados = await fetch("http://localhost:3000/api/midia_indoor/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id , nome: nome_atualizado, tipo: tipo_atualizado, data_inicio: data_inicio_atualizado, data_fim: data_fim_atualizado, status : status_atualizado, tempo: tempo_atualizado }),
+    });
+  
+    if (dados.ok) {
+      btn_tela_busca.click()
+      btn_select.click()
+    }
+  
+  })
