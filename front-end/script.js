@@ -40,30 +40,6 @@ btn_gerenciar.addEventListener("click", async () => {
 })
 
 
-// // Mostrar Lista
-// function btn_gerenciar() {
-//     ocultar_divs()
-//     mostrar_div("tela_gerenciar")
-
-//     let tela = document.getElementById("galeria")
-//     tela.innerHTML = ""
-//     let conteudo_html = ""
-
-//     for (let i = 0; i < array_galeria.length; i++) {
-//         let item = array_galeria[i];
-
-//         conteudo_html += `<div class="container-listagem">
-//             <h2>${item.nome}</h2>
-//             <p>Tipo: ${item.tipo}</p>
-//             <p>Data de Início: ${item.inicio}</p>
-//             <p>Data de Término: ${item.termino}</p>
-//             <p>Status: ${item.status}</p>
-//             <p>Tempo de Exibição: ${item.exibicao_tempo}</p>
-//         </div>`;
-//     }
-//     tela.innerHTML = conteudo_html;
-// }
-
 
 
 
