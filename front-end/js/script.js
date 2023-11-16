@@ -39,13 +39,11 @@ const btn_select = document.getElementById("verifica");
 // Adiciona um evento quando o botão for pressionado
 btn_cadastro.addEventListener("click", async () => {
   
-  document.getElementById("tela_exibir").classList.add("d-none")
   document.getElementById("tela_cadastro_main").classList.remove("d-none")
-  document.getElementById("tela_visualizar").classList.remove("d-none")
-  document.getElementById("tela_atualizar_main").classList.remove("d-none")
+  document.getElementById("tela_exibir").classList.add("d-none")
+  document.getElementById("tela_visualizar").classList.add("d-none")
+  document.getElementById("tela_atualizar_main").classList.add("d-none")
 
-  
-  
   
   try {
         // Vars locais (Pega a informações do DB)
@@ -85,19 +83,28 @@ btn_cadastro.addEventListener("click", async () => {
 btn_exibir.addEventListener("click", async () => {
 
 
-  document.getElementById("tela_cadastro_main").classList.add("d-none")
   document.getElementById("tela_exibir").classList.remove("d-none")
-  document.getElementById("tela_visualizar").classList.remove("d-none")
+  document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_visualizar").classList.add("d-none")
+  document.getElementById("tela_atualizar_main").classList.add("d-none")
+})
+
+btn_atualizar.addEventListener("click", async () => {
+
+
   document.getElementById("tela_atualizar_main").classList.remove("d-none")
+  document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_exibir").classList.add("d-none")
+  document.getElementById("tela_visualizar").classList.add("d-none")
 })
 
 btn_visualizar.addEventListener("click", async () => {
 
 
-  document.getElementById("tela_atualizar_main").classList.add("d-none")
-  document.getElementById("tela_cadastro_main").classList.remove("d-none")
-  document.getElementById("tela_exibir").classList.remove("d-none")
   document.getElementById("tela_visualizar").classList.remove("d-none")
+  document.getElementById("tela_atualizar_main").classList.add("d-none")
+  document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_exibir").classList.add("d-none")
 })
 
 // Adiciona um evento para quando o botão select for pressionado
@@ -174,15 +181,20 @@ async function editar(id) {
     btn_atualizar.click()
     document.getElementById("id_editado").value = dados.id
     document.getElementById("nome_editado").value = dados.nome
+    document.getElementById("tipo_editado").value = dados.tipo
+    document.getElementById("data_inicio_editado").value = dados.data_inicio
+    document.getElementById("data_fim_editado").value = dados.data_fim
+    document.getElementById("status_editado").value = dados.status
+    document.getElementById("tempo_editado").value = dados.tempo
+    document.getElementById("url_editado").value = dados.url
    
 
   }
 }
 
 async function excluir(id) {
-  const resultado = window.confirm("Deseja excluir este usuário?");
-  if (resultado) {
-    let dados = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+ 
+    let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -194,4 +206,30 @@ async function excluir(id) {
       btn_select.click()
     }
   }
-}
+
+  btn_atualizar.addEventListener("click", async () => {
+    
+    let nome_atualizado = document.getElementById("nome_editado").value 
+    let tipo_atualizado = document.getElementById("tipo_editado").value 
+    let data_inicio_atualizado = document.getElementById("data_inicio_editado").value 
+    let data_fim_atualizado = document.getElementById("data_fim_editado").value 
+    let status_atualizado = document.getElementById("status_editado").value 
+    let tempo_atualizado = document.getElementById("tempo_editado").value 
+    let url_atualizado = document.getElementById("url_editado").value 
+    let id = document.getElementById("id_editado").value
+  
+  
+    let dados = await fetch("http://localhost:3000/api/midia_indoor/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id , nome: nome_atualizado, tipo: tipo_atualizado, data_inicio: data_inicio_atualizado, data_fim: data_fim_atualizado, status: status_atualizado, tempo: tempo_atualizado, url: url_atualizado}),
+    });
+  
+    if (dados.ok) {
+      btn_cadastro.click()
+      btn_select.click()
+    }
+  
+  })

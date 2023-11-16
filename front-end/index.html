@@ -45,9 +45,6 @@
 
     </nav>
 
-    <!--  imagem para ficar bonito o cadastro -->
-    <!-- <img src="img/online-ads-animate.svg" class="rounded float-start w-25"  alt="imagem"> -->
-
     <div style="margin-top: 2%;" class="container-sm cadastro-main">
         <!-- Cadastro -->
         <div id="tela_cadastro_main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
@@ -151,92 +148,110 @@
     </div>
 
 
+    <div style="margin-top: 2%;" class="container-sm cadastro-main">
 
-    <div id="tela_atualizar_main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
-        <!-- formulario -->
-        <div id="tela_cadastro_formulario">
+        <div id="tela_atualizar_main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
+            <!-- formulario -->
+            <div id="tela_atualizar_formulario">
 
-            <!-- Titulo do cadastro -->
-            <h2 class="text-center">Atualizar Mídia</h2>
+                <!-- Titulo do cadastro -->
+                <h2 class="text-center">Atualizar Mídia</h2>
 
-            <!-- Formulario cadastro  -->
-            <div class="formulario p-3 m-2">
+                <!-- Formulario cadastro  -->
+                <div class="formulario p-3 m-2">
 
-                <form class="ca row g-3">
+                    <form class="ca row g-3">
 
-                    <!-- nome da midia -->
-                    <div class="col-md-4 m-1">
-                        <label for="inputEmail4" class="form-label"> Nome</label>
-                        <input type="text" class="form-control" placeholder="digite seu nome" id="nome_editado">
-                    </div>
+                        <!-- nome da midia -->
+                        <div class="col-md-4 m-1">
+                            <label for="inputEmail4" class="form-label"> Nome</label>
+                            <input type="text" class="form-control" placeholder="digite seu nome" id="nome_editado">
+                        </div>
 
-                    <!-- Datalist se é imagem ou video -->
-                    <div class="col-md-4 m-1">
-                        <label for="inputState" class="form-label">Formato</label>
-                        <select id="tipo_editado" class="form-select">
-                            <option hidden>Tipo da mídia</option>
-                            <option>Imagem</option>
-                            <option>Video</option>
-                        </select>
-                    </div>
+                        <!-- Datalist se é imagem ou video -->
+                        <div class="col-md-4 m-1">
+                            <label for="inputState" class="form-label">Formato</label>
+                            <select id="tipo_editado" class="form-select">
+                                <option hidden>Tipo da mídia</option>
+                                <option>Imagem</option>
+                                <option>Video</option>
+                            </select>
+                        </div>
 
-                    <!-- data de quando vai começar sua midia -->
-                    <div class="datas mt-2 col-4">
-                        <label>Data de Início</label>
-                        <input type="date" class="form-control mb-4" id="data_inicio_editado">
-                    </div>
+                        <!-- data de quando vai começar sua midia -->
+                        <div class="datas mt-2 col-4">
+                            <label>Data de Início</label>
+                            <input type="date" class="form-control mb-4" id="data_inicio_editado">
+                        </div>
 
-                    <!-- data que termina  -->
-                    <div class="datas mt-2  col-4">
-                        <label>Data de Termino</label>
-                        <input type="date" class="form-control mb-4" id="data_fim_editado">
-                    </div>
+                        <!-- data que termina  -->
+                        <div class="datas mt-2  col-4">
+                            <label>Data de Termino</label>
+                            <input type="date" class="form-control mb-4" id="data_fim_editado">
+                        </div>
 
-                    <div class="col-md-4 m-1 mt-1">
-                        <label for="inputState" class="form-label">Status</label>
-                        <select id="status_editado" class="form-select">
-                            <option hidden>Status</option>
-                            <option>ativado</option>
-                            <option>desativado</option>
-                        </select>
-                    </div>
+                        <div class="col-md-4 m-1 mt-1">
+                            <label for="inputState" class="form-label">Status</label>
+                            <select id="status_editado" class="form-select">
+                                <option hidden>Status</option>
+                                <option>ativado</option>
+                                <option>desativado</option>
+                            </select>
+                        </div>
 
-                    <div class="col-md-4 m-1">
-                        <label for="exibicao_tempo" class="form-label">Tempo de Exibição:</label>
-                        <input type="time" id="tempo_editado" name="exibicao_tempo" class="form-control">
-                    </div>
+                        <div class="col-md-4 m-1">
+                            <label for="exibicao_tempo" class="form-label">Tempo de Exibição:</label>
+                            <input type="time" id="tempo_editado" name="exibicao_tempo" class="form-control">
+                        </div>
 
 
-                    <div class=" mb-3 m-1 col-12">
-                        <label for="inputName" class="form-label"> URL</label>
-                        <input type="name" class="form-control" placeholder="copie e cole sua url" id="url_editado">
-                    </div>
+                        <div class=" mb-3 m-1 col-12">
+                            <label for="inputName" class="form-label"> URL</label>
+                            <input type="name" class="form-control" placeholder="copie e cole sua url" id="url_editado">
+                        </div>
 
-                    <!-- botão de cadastrar -->
-                    <div class="btns_cadastro col-12  ">
-                        <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_atualizar">Atualizar</button>
+                        <!-- botão de cadastrar -->
+                        <div class="btns_cadastro col-12  ">
+                            <button type="submit" class=" col-4 m-1 btn btn-primary"
+                                id="btn_atualizar">Atualizar</button>
 
-                    </div>
+                        </div>
 
-                </form>
+                    </form>
+
+                </div>
 
             </div>
 
         </div>
+    </div>
+
+
+    <div id="tela_visualizar" class="tela_visualizarr-main d-none">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="${}" class="d-block w-50" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="" class="d-block w-50" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="" class="d-block w-50" alt="...">
+              </div>
+            </div>
+          </div>
+        
+        <h1>NADA AQUI AINDA </h1>
+        
+    </div>
 
 
 
-        <div id="tela_visualizar" class="tela_visualizarr-main d-none">
-
-
-        </div>
-
-
-
-        <!-- bootstrap do javaScript -->
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/script.js"></script>
-        <script src="js/tema.js"></script>
+    <!-- bootstrap do javaScript -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/tema.js"></script>
 </body>
 
 </html>

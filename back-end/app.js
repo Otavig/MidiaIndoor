@@ -59,9 +59,16 @@ app.get(`/api/midia_indoor/id/:id`, async (req, res) => {
 // Rota para SELECT com o nome
 app.get(`/api/midia_indoor/nome/:nome`, async (req, res) => {
     try {
+        const nome = req.params.nome
+        const conexao = await pool.getConnection()
+        const sql = `SELECT * FROM midia WHERE nome LIKE "%${nome}%"`
+        const [linha] = await conexao.execute(sql)
+        conexao.release()
+        res.json(linha)
 
     } catch (error) {
-
+        console.log(`O erro que ocorreu foi: ${error}`)
+        res.send(500).json({ error: "Deu algum erro na busca" })
     }
 })
 
