@@ -70,7 +70,7 @@ app.post("/api/midia_indoor/", async (req, res) => {
     try {
         const { nome, tipo , status , data_inicio , data_fim , url, tempo } = req.body
         const conexao = await pool.getConnection()
-        const sql = `INSERT INTO midia (nome, tipo , status , data_inicio , data_fim , url, tempo ) VALUES ("${nome}", "${tipo}" , "${status}" , "${data_inicio}" , "${data_fim}" , "${url}" , "${tempo}")`
+        const sql = `INSERT INTO midia (nome, tipo , status , data_inicio , data_fim , url, tempo ) VALUE ("${nome}", "${tipo}" , "${status}" , "${data_inicio}" , "${data_fim}" , "${url}" , "${tempo}")`
         const [linha] = await conexao.execute(sql)
         conexao.release()
         res.json({msg: "Registro gravado!"})

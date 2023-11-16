@@ -32,15 +32,17 @@ tela_visualizar
 const btn_cadastro = document.getElementById("btn_cadastro")
 const btn_visualizar = document.getElementById("btn_visualizar")
 const btn_exibir = document.getElementById("btn_exibir")
+const btn_atualizar = document.getElementById("btn_atualizar")
 
 const btn_select = document.getElementById("verifica");
 
 // Adiciona um evento quando o botão for pressionado
 btn_cadastro.addEventListener("click", async () => {
-    
+  
+  document.getElementById("tela_exibir").classList.add("d-none")
   document.getElementById("tela_cadastro_main").classList.remove("d-none")
   document.getElementById("tela_visualizar").classList.remove("d-none")
-  document.getElementById("tela_exibir").classList.add("d-none")
+  document.getElementById("tela_atualizar_main").classList.remove("d-none")
 
   
   
@@ -84,6 +86,16 @@ btn_exibir.addEventListener("click", async () => {
 
 
   document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_exibir").classList.remove("d-none")
+  document.getElementById("tela_visualizar").classList.remove("d-none")
+  document.getElementById("tela_atualizar_main").classList.remove("d-none")
+})
+
+btn_visualizar.addEventListener("click", async () => {
+
+
+  document.getElementById("tela_atualizar_main").classList.add("d-none")
+  document.getElementById("tela_cadastro_main").classList.remove("d-none")
   document.getElementById("tela_exibir").classList.remove("d-none")
   document.getElementById("tela_visualizar").classList.remove("d-none")
 })
@@ -153,16 +165,16 @@ btn_select.addEventListener("click", async () => {
 
 async function editar(id) {
 
-  let resposta = await fetch(`http://localhost:3000/api/usuarios/id/${id}`);
+  let resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${id}`);
 
   if (resposta.ok) {
     let dados = await resposta.json();
     console.clear()
     console.log(dados)
-    btn_tela_atualizar.click()
+    btn_atualizar.click()
     document.getElementById("id_editado").value = dados.id
     document.getElementById("nome_editado").value = dados.nome
-    document.getElementById("email_editado").value = dados.email
+   
 
   }
 }
@@ -178,7 +190,7 @@ async function excluir(id) {
     });
 
     if (dados.ok) {
-      btn_tela_busca.click()
+      btn_cadastro.click()
       btn_select.click()
     }
   }

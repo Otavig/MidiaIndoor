@@ -33,6 +33,7 @@
                 <div class="navbar-nav">
                     <button class="nav-link" id="btn_cadastro">Cadastrar</button>
                     <button class="nav-link" id="btn_exibir">Exibir</button>
+                    <button class="nav-link" id="btn_atualizar">Atualizar</button>
                     <button class="nav-link" id="btn_visualizar">Visualizar</button>
 
                 </div>
@@ -103,7 +104,7 @@
                             <input type="time" id="tempo" name="exibicao_tempo" class="form-control">
                         </div>
 
-                        
+
                         <div class=" mb-3 m-1 col-12">
                             <label for="inputName" class="form-label"> URL</label>
                             <input type="name" class="form-control" placeholder="copie e cole sua url" id="url">
@@ -111,12 +112,13 @@
 
                         <!-- botão de cadastrar -->
                         <div class="btns_cadastro col-12  ">
-                            <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_cadastrar">Cadastrar</button>
+                            <button type="submit" class=" col-4 m-1 btn btn-primary"
+                                id="btn_cadastrar">Cadastrar</button>
                             <!-- Botão de limpar o cadastro -->
                             <button type="submit" class="col-4 m-1 btn btn-primary" id="btn_limpar">Limpar </i></button>
                             <!-- Botão de voltar geral -->
                             <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_voltar">Voltar</button>
-                           
+
                         </div>
 
                     </form>
@@ -129,36 +131,112 @@
 
     <!-- tela listagem e tendo como editar e excluir -->
     <div id="tela_exibir" class="tela_gerenciar-main d-none">
-        
-        <div class="content" id="busca">                           
+
+        <div class="content" id="busca">
             <div class="input-group mb-3 w-75 mx-auto p-2">
-              <input type="text" class="form-control col-7 " id="input_busca" placeholder="Digite sua busca">
-              <div class="col-3 ms-2">
-              <select name="" id="opcoes" class="form-select">
-                  <option value="todos">Todos</option>
-                  <option value="id">ID</option>
-                  <option value="nome">Nome</option>
-              </select>
-              </div>
-              <div class="input-group-append">
-                <button class="btn btn-primary ms-3" type="button" id="verifica">Buscar</button>
-              </div>
-            </div>                        
-            <div id="saida" class="text-center col-12"></div> 
-          </div>
-    </div>
-    
-
-    <div id="tela_visualizar" class="tela_visualizarr-main d-none">
-
+                <input type="text" class="form-control col-7 " id="input_busca" placeholder="Digite sua busca">
+                <div class="col-3 ms-2">
+                    <select name="" id="opcoes" class="form-select">
+                        <option value="todos">Todos</option>
+                        <option value="id">ID</option>
+                        <option value="nome">Nome</option>
+                    </select>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary ms-3" type="button" id="verifica">Buscar</button>
+                </div>
+            </div>
+            <div id="saida" class="text-center col-12"></div>
+        </div>
     </div>
 
 
 
-    <!-- bootstrap do javaScript -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/tema.js"></script>
+    <div id="tela_atualizar_main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
+        <!-- formulario -->
+        <div id="tela_cadastro_formulario">
+
+            <!-- Titulo do cadastro -->
+            <h2 class="text-center">Cadastro da Mídia Indoor</h2>
+
+            <!-- Formulario cadastro  -->
+            <div class="formulario p-3 m-2">
+
+                <form class="ca row g-3">
+
+                    <!-- nome da midia -->
+                    <div class="col-md-4 m-1">
+                        <label for="inputEmail4" class="form-label"> Nome</label>
+                        <input type="text" class="form-control" placeholder="digite seu nome" id="nome_editado">
+                    </div>
+
+                    <!-- Datalist se é imagem ou video -->
+                    <div class="col-md-4 m-1">
+                        <label for="inputState" class="form-label">Formato</label>
+                        <select id="tipo_editado" class="form-select">
+                            <option hidden>Tipo da mídia</option>
+                            <option>Imagem</option>
+                            <option>Video</option>
+                        </select>
+                    </div>
+
+                    <!-- data de quando vai começar sua midia -->
+                    <div class="datas mt-2 col-4">
+                        <label>Data de Início</label>
+                        <input type="date" class="form-control mb-4" id="data_inicio_editado">
+                    </div>
+
+                    <!-- data que termina  -->
+                    <div class="datas mt-2  col-4">
+                        <label>Data de Termino</label>
+                        <input type="date" class="form-control mb-4" id="data_fim_editado">
+                    </div>
+
+                    <div class="col-md-4 m-1 mt-1">
+                        <label for="inputState" class="form-label">Status</label>
+                        <select id="status_editado" class="form-select">
+                            <option hidden>Status</option>
+                            <option>ativado</option>
+                            <option>desativado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 m-1">
+                        <label for="exibicao_tempo" class="form-label">Tempo de Exibição:</label>
+                        <input type="time" id="tempo_editado" name="exibicao_tempo" class="form-control">
+                    </div>
+
+
+                    <div class=" mb-3 m-1 col-12">
+                        <label for="inputName" class="form-label"> URL</label>
+                        <input type="name" class="form-control" placeholder="copie e cole sua url" id="url_editado">
+                    </div>
+
+                    <!-- botão de cadastrar -->
+                    <div class="btns_cadastro col-12  ">
+                        <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_atualizar">Atualizar</button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="tela_visualizar" class="tela_visualizarr-main d-none">
+
+
+        </div>
+
+
+
+        <!-- bootstrap do javaScript -->
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/tema.js"></script>
 </body>
 
-</html> 
+</html>
