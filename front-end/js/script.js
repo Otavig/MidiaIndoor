@@ -29,55 +29,62 @@ tela_visualizar
 */
 
 // Vars Botões
-const btn_cadastro = document.getElementById("btn_cadastro")
-const btn_visualizar = document.getElementById("btn_visualizar")
-const btn_exibir = document.getElementById("btn_exibir")
-const btn_atualizar = document.getElementById("btn_atualizar")
-
+const btn_cadastro = document.getElementById("btn_cadastro");
+const btn_visualizar = document.getElementById("btn_visualizar");
+const btn_exibir = document.getElementById("btn_exibir");
+const btn_atualizar = document.getElementById("btn_atualizar");
 const btn_select = document.getElementById("verifica");
 
-// Adiciona um evento quando o botão for pressionado
 btn_cadastro.addEventListener("click", async () => {
-  
-  document.getElementById("tela_cadastro_main").classList.remove("d-none")
-  document.getElementById("tela_exibir").classList.add("d-none")
-  document.getElementById("tela_visualizar").classList.add("d-none")
-  document.getElementById("tela_atualizar_main").classList.add("d-none")
+  // Desabilita o botão para evitar cliques repetidos
+  btn_cadastro.disabled = true;
 
-  
+  document.getElementById("tela_cadastro_main").classList.remove("d-none");
+  document.getElementById("tela_exibir").classList.add("d-none");
+  document.getElementById("tela_visualizar").classList.add("d-none");
+  document.getElementById("tela_atualizar_main").classList.add("d-none");
+
+  let nome = document.getElementById("nome").value;
+  let tipo = document.getElementById("tipo").value;
+  let data_inicio = document.getElementById("data_inicio").value;
+  let data_fim = document.getElementById("data_fim").value;
+  let status = document.getElementById("status").value;
+  let tempo = document.getElementById("tempo").value;
+  let url = document.getElementById("url").value;
+
+  var infoDB = {
+      nome: nome,
+      tipo: tipo,
+      data_inicio: data_inicio,
+      data_fim: data_fim,
+      status: status,
+      tempo: tempo,
+      url: url
+  };
+
+  console.log(infoDB);
+
   try {
-        // Vars locais (Pega a informações do DB)
-        let nome = document.getElementById("nome").value
-        let tipo = document.getElementById("tipo").value
-        let data_inicio = document.getElementById("data_inicio").value
-        let data_fim = document.getElementById("data_fim").value
-        let status = document.getElementById("status").value
-        let tempo = document.getElementById("tempo").value
-        let url = document.getElementById("url").value
-      
-        // Body do fetch() com as infos
-        var infoDB = { nome: nome, tipo: tipo, data_inicio: data_inicio, data_fim: data_fim, data_fim: data_fim, status: status, tempo: tempo, url: url }
-        console.log(infoDB)
-
-        // Conexação com API
-        let dados = await fetch("http://localhost:3000/api/midia_indoor", {
+      let dados = await fetch("http://localhost:3000/api/midia_indoor", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+              "Content-Type": "application/json",
           },
           body: JSON.stringify(infoDB),
-        });
-  
-  // Check de conexão
-  if (dados.ok) {
-    btn_cadastro.click()
-    btn_select.click()
-  }
-    } catch(error) {
-        console.log(error)
-    }
+      });
 
-})
+      if (dados.ok) {
+          btn_cadastro.click();
+          btn_select.click();
+      }
+  } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+  } finally {
+      // Ativa o botão novamente após a conclusão (com sucesso ou falha)
+      btn_cadastro.disabled = false;
+  }
+});
+
 
 // Adiciona um evento ao botão pressionado btn_exibir
 btn_exibir.addEventListener("click", async () => {
@@ -208,28 +215,34 @@ async function excluir(id) {
   }
 
   btn_atualizar.addEventListener("click", async () => {
-    
-    let nome_atualizado = document.getElementById("nome_editado").value 
-    let tipo_atualizado = document.getElementById("tipo_editado").value 
-    let data_inicio_atualizado = document.getElementById("data_inicio_editado").value 
-    let data_fim_atualizado = document.getElementById("data_fim_editado").value 
-    let status_atualizado = document.getElementById("status_editado").value 
-    let tempo_atualizado = document.getElementById("tempo_editado").value 
-    let url_atualizado = document.getElementById("url_editado").value 
-    let id = document.getElementById("id_editado").value
-  
-  
+    let nome_atualizado = document.getElementById("nome_editado").value;
+    let tipo_atualizado = document.getElementById("tipo_editado").value;
+    let data_inicio_atualizado = document.getElementById("data_inicio_editado").value;
+    let data_fim_atualizado = document.getElementById("data_fim_editado").value;
+    let status_atualizado = document.getElementById("status_editado").value;
+    let tempo_atualizado = document.getElementById("tempo_editado").value;
+    let url_atualizado = document.getElementById("url_editado").value;
+    let id = document.getElementById("id_editado").value;
+
     let dados = await fetch("http://localhost:3000/api/midia_indoor/", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id , nome: nome_atualizado, tipo: tipo_atualizado, data_inicio: data_inicio_atualizado, data_fim: data_fim_atualizado, status: status_atualizado, tempo: tempo_atualizado, url: url_atualizado}),
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            id: id,
+            nome: nome_atualizado,
+            tipo: tipo_atualizado,
+            data_inicio: data_inicio_atualizado,
+            data_fim: data_fim_atualizado,
+            status: status_atualizado,
+            tempo: tempo_atualizado,
+            url: url_atualizado
+        }),
     });
-  
+
     if (dados.ok) {
-      btn_cadastro.click()
-      btn_select.click()
+        btn_cadastro.click();
+        btn_select.click();
     }
-  
-  })
+});

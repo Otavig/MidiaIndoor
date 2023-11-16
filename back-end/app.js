@@ -75,47 +75,46 @@ app.get(`/api/midia_indoor/nome/:nome`, async (req, res) => {
 // rota para cadastrar 
 app.post("/api/midia_indoor/", async (req, res) => {
     try {
-        const { nome, tipo , status , data_inicio , data_fim , url, tempo } = req.body
-        const conexao = await pool.getConnection()
-        const sql = `INSERT INTO midia (nome, tipo , status , data_inicio , data_fim , url, tempo ) VALUE ("${nome}", "${tipo}" , "${status}" , "${data_inicio}" , "${data_fim}" , "${url}" , "${tempo}")`
-        const [linha] = await conexao.execute(sql)
-        conexao.release()
-        res.json({msg: "Registro gravado!"})
-
+        const { nome, tipo, status, data_inicio, data_fim, url, tempo } = req.body;
+        const conexao = await pool.getConnection();
+        const sql = `INSERT INTO midia (nome, tipo, status, data_inicio, data_fim, url, tempo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const [linha] = await conexao.execute(sql, [nome, tipo, status, data_inicio, data_fim, url, tempo]);
+        conexao.release();
+        res.json({ msg: "Registro gravado!" });
     } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`)
-        res.send(500).json({ error: "Deu algum erro na busca" })
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro no cadastro" });
     }
-})
+});
+
 
 // Rota para Editar
 app.put("/api/midia_indoor/", async (req, res) => {
     try {
-        const {id, nome, tipo , status , data_inicio , data_fim , url, tempo} = req.body
-        const conexao = await pool.getConnection()
-        const sql = `UPDATE usuario SET nome = "${nome}", tipo = "${tipo}" , status = "${status}", data_inicio = "${data_inicio}" , data_fim = "${data_fim}" , url = "${url}" , tempo = "${tempo}" WHERE id = ${id}`
-        const [linha] = await conexao.execute(sql)
-        conexao.release()
-        res.json({ msg: "Registro Atualizado!" })
-
+        const { id, nome, tipo, status, data_inicio, data_fim, url, tempo } = req.body;
+        const conexao = await pool.getConnection();
+        const sql = `UPDATE midia   SET nome = "${nome}", tipo = "${tipo}", status = "${status}", data_inicio = "${data_inicio}", data_fim = "${data_fim}", url = "${url}", tempo = "${tempo}" WHERE id = ${id}`;
+        const [linha] = await conexao.execute(sql);
+        conexao.release();
+        res.json({ msg: "Registro Atualizado!" });
     } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`)
-        res.send(500).json({ error: "Deu algum erro na exclusão" })
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro na atualização" });
     }
-})
+});
+
 
 // Rota pra deletar
 app.delete("/api/midia_indoor/:id", async (req, res) => {
     try {
-        const id = req.params.id
-        const conexao = await pool.getConnection()
-        const sql = `DELETE FROM midia WHERE id = ${id}`
-        const [linha] = await conexao.execute(sql)
-        conexao.release()
-        res.json({ msg: "Registro excluido!" })
-
+        const id = req.params.id;
+        const conexao = await pool.getConnection();
+        const sql = `DELETE FROM midia WHERE id = ?`;
+        const [linha] = await conexao.execute(sql, [id]);
+        conexao.release();
+        res.json({ msg: "Registro excluído!" });
     } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`)
-        res.send(500).json({ error: "Deu algum erro na exclusão" })
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro na exclusão" });
     }
-})
+});
