@@ -105,11 +105,11 @@ app.put("/api/midia_indoor/", async (req, res) => {
 })
 
 // Rota pra deletar
-app.delete("/api/usuarios/:id", async (req, res) => {
+app.delete("/api/midia_indoor/:id", async (req, res) => {
     try {
         const id = req.params.id
         const conexao = await pool.getConnection()
-        const sql = `DELETE FROM usuario WHERE id = ${id}`
+        const sql = `DELETE FROM midia WHERE id = ${id}`
         const [linha] = await conexao.execute(sql)
         conexao.release()
         res.json({ msg: "Registro excluido!" })
