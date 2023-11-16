@@ -15,7 +15,7 @@
 
 
     <!-- barra de navegação -->
-    <nav class="navbar navbar-expand-lg" id="teste"
+    <nav class="navbar navbar-expand-lg" id="nav-container"
         style="background-color: #2175d4e4; text-decoration-color: aliceblue;">
 
         <div class="container-fluid">
@@ -31,10 +31,10 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav">
-                    <button class="nav-link" id="btn-cadastro">Cadastrar</button>
-                    <button class="nav-link" id="btn-gerenciar">Gerenciamento</button>
-                    <button class="nav-link" id="btn-visualizar">Visualizar</button>
-                    <button class="nav-link" id="btn-exibir">Exibir</button>
+                    <button class="nav-link" id="btn_cadastro">Cadastrar</button>
+                    <button class="nav-link" id="btn_gerenciar">Gerenciamento</button>
+                    <button class="nav-link" id="btn_visualizar">Visualizar</button>
+                    <button class="nav-link" id="btn_exibir">Exibir</button>
 
                 </div>
 
@@ -107,16 +107,16 @@
                         
                         <div class=" mb-3 m-1 col-12">
                             <label for="inputName" class="form-label"> URL</label>
-                            <input type="name" class="form-control" placeholder="copie e cole sua url" id="inputName">
+                            <input type="name" class="form-control" placeholder="copie e cole sua url" id="url">
                         </div>
 
                         <!-- botão de cadastrar -->
                         <div class="btns_cadastro col-12  ">
-                            <button type="submit" class=" col-4 m-1 btn btn-primary ">Cadastrar</button>
+                            <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_cadastrar">Cadastrar</button>
                             <!-- Botão de limpar o cadastro -->
-                            <button type="submit" class="col-4 m-1 btn btn-primary">Limpar </i></button>
+                            <button type="submit" class="col-4 m-1 btn btn-primary" id="btn_limpar">Limpar </i></button>
                             <!-- Botão de voltar geral -->
-                            <button type="submit" class=" col-4 m-1 btn btn-primary">Voltar</button>
+                            <button type="submit" class=" col-4 m-1 btn btn-primary" id="btn_voltar">Voltar</button>
                            
                         </div>
 
@@ -131,22 +131,26 @@
     <!-- tela listagem e tendo como editar e excluir -->
     <div id="tela_gerenciar" class="tela_gerenciar-main d-none">
         
-            <!-- <div class="input-group mb-3 ">
-                <input type="text" class="form-control  " id="input_pesquisa" placeholder="Digite o que você procura" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <button class="btn btn-outline-primary" type="button" id="btn_busca">Button</button>
+        <div class="content" id="busca">                           
+            <div class="input-group mb-3">
+              <input type="text" class="form-control col-7" id="input_busca" placeholder="Digite sua busca">
+              <div class="col-3 ms-2">
+              <select name="" id="opcoes" class="form-select">
+                  <option value="todos">Todos</option>
+                  <option value="id">ID</option>
+                  <option value="nome">Nome</option>
+                  <option value="email">e-mail</option>
+              </select>
               </div>
-        -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Text input with dropdown button">
-            <button id="btn_busca" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">ID</a></li>
-              <li><a class="dropdown-item" href="#">NOME</a></li>
-            </ul>
+              <div class="input-group-append">
+                <button class="btn btn-primary ms-3" type="button" id="verifica">Buscar</button>
+              </div>
+            </div>                        
+            <div id="saida" class="text-center col-12"></div> 
           </div>
     </div>
     
-    <div id="tela_exibir2" class="tela_exibir-main d-none">
+    <div id="tela_exibir" class="tela_exibir-main d-none">
 
     </div>
 
@@ -158,7 +162,7 @@
 
     <!-- bootstrap do javaScript -->
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 
 </html> 
