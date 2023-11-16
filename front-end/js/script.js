@@ -1,25 +1,10 @@
-// mudança de cor de fundo
-const temaOscuro = () => {
-  document.querySelector("body").setAttribute("data-bs-theme", "dark");
-  document.querySelector("#d1-icon").setAttribute("class", "bi bi-sun-fill");
-}
-
-const temaClaro = () => {
-  document.querySelector("body").setAttribute("data-bs-theme", "light");
-  document.querySelector("#d1-icon").setAttribute("class", "bi bi-moon-fill");
-}
-
-const cambiarTema = () => {
-  document.querySelector("body").getAttribute("data-bs-theme") === "light" ?
-    temaOscuro() : temaClaro();
-}
 /*
- IDs:
+IDs:
 
- btn_cadastro
- btn_gerenciar
- btn_visualizar
- btn_exibir
+btn_cadastro
+btn_gerenciar
+btn_visualizar
+btn_exibir
 
 tela_cadastro_formulario
 nome
@@ -39,21 +24,28 @@ btn_busca
 opcoes
 
 tela_exibir
-
 tela_visualizar
 
 */
 
-
 // Vars Botões
 const btn_cadastro = document.getElementById("btn_cadastro")
-const btn_gerenciar = document.getElementById("btn_gerenciar")
 const btn_visualizar = document.getElementById("btn_visualizar")
 const btn_exibir = document.getElementById("btn_exibir")
 
+const btn_select = document.getElementById("verifica");
+
 // Adiciona um evento quando o botão for pressionado
 btn_cadastro.addEventListener("click", async () => {
-    try {
+    
+  document.getElementById("tela_cadastro_main").classList.remove("d-none")
+  document.getElementById("tela_visualizar").classList.remove("d-none")
+  document.getElementById("tela_exibir").classList.add("d-none")
+
+  
+  
+  
+  try {
         // Vars locais (Pega a informações do DB)
         let nome = document.getElementById("nome").value
         let tipo = document.getElementById("tipo").value
@@ -65,23 +57,40 @@ btn_cadastro.addEventListener("click", async () => {
       
         // Body do fetch() com as infos
         var infoDB = { nome: nome, tipo: tipo, data_inicio: data_inicio, data_fim: data_fim, data_fim: data_fim, status: status, tempo: tempo, url: url }
-      
+        console.log(infoDB)
+
         // Conexação com API
-        let dados = await fetch("http://localhost:3000/api/usuarios", {
+        let dados = await fetch("http://localhost:3000/api/midia_indoor", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(infoDB),
-        })
+        });
+  
+  // Check de conexão
+  if (dados.ok) {
+    btn_cadastro.click()
+    btn_select.click()
+  }
     } catch(error) {
         console.log(error)
     }
 
 })
 
+// Adiciona um evento ao botão pressionado btn_exibir
+btn_exibir.addEventListener("click", async () => {
+
+
+  document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_exibir").classList.remove("d-none")
+  document.getElementById("tela_visualizar").classList.remove("d-none")
+})
+
 // Adiciona um evento para quando o botão select for pressionado
 btn_select.addEventListener("click", async () => {
+    
     // Vars locais
     let busca = document.getElementById("busca").value;
     let opcao = document.getElementById("opcoes").value;    
@@ -103,21 +112,21 @@ btn_select.addEventListener("click", async () => {
     // Busca as conexões
     let resposta = "";
     if (opcao == "todos") {
-        resposta = await fetch("http://localhost:3000/api/usuarios");
+        resposta = await fetch("http://localhost:3000/api/midia_indoor");
     } else if (opcao == "id") {
-        resposta = await fetch(`http://localhost:3000/api/usuarios/id/${busca}`);
+        resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${busca}`);
     } else if (opcao == "nome") {
-        resposta = await fetch(`http://localhost:3000/api/usuarios/nome/${busca}`);
-
+        resposta = await fetch(`http://localhost:3000/api/midia_indoor/nome/${busca}`);
+    }
     // Se a reposta do servidor for 200 (ok) inicia uma varredura de dados
     if (resposta.ok) {
         // Vars
         html = html;
-        let array_resultado = await resposta.json();
+        let array_banco = await resposta.json();
         
         // Condição e varredura
         if (opcao == "todos" || opcao == "nome") {
-        for (const dados of array_resultado) {
+        for (const dados of array_banco) {
             html += `<tr>                
             <td>${dados.id}</td>
             <td class='text-start'>${dados.nome}</td>
@@ -127,8 +136,8 @@ btn_select.addEventListener("click", async () => {
         }
         } else if (opcao == "id") {
         html += `<tr>                
-            <td>${array_resultado.id}</td>
-            <td class='text-start'>${array_resultado.nome}</td>
+            <td>${array_banco.id}</td>
+            <td class='text-start'>${array_banco.nome}</td>
             <td><i class="bi bi-pencil"></td>
             <td><i class="bi bi-trash"></i></td>
             </tr>`;
@@ -140,101 +149,37 @@ btn_select.addEventListener("click", async () => {
   // Preenche a saida do html
   document.getElementById("saida").innerHTML = html;
 
-
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+async function editar(id) {
+
+  let resposta = await fetch(`http://localhost:3000/api/usuarios/id/${id}`);
+
+  if (resposta.ok) {
+    let dados = await resposta.json();
+    console.clear()
+    console.log(dados)
+    btn_tela_atualizar.click()
+    document.getElementById("id_editado").value = dados.id
+    document.getElementById("nome_editado").value = dados.nome
+    document.getElementById("email_editado").value = dados.email
+
+  }
+}
+
+async function excluir(id) {
+  const resultado = window.confirm("Deseja excluir este usuário?");
+  if (resultado) {
+    let dados = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (dados.ok) {
+      btn_tela_busca.click()
+      btn_select.click()
+    }
+  }
+}

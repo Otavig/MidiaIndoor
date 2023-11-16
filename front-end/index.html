@@ -32,9 +32,8 @@
 
                 <div class="navbar-nav">
                     <button class="nav-link" id="btn_cadastro">Cadastrar</button>
-                    <button class="nav-link" id="btn_gerenciar">Gerenciamento</button>
-                    <button class="nav-link" id="btn_visualizar">Visualizar</button>
                     <button class="nav-link" id="btn_exibir">Exibir</button>
+                    <button class="nav-link" id="btn_visualizar">Visualizar</button>
 
                 </div>
 
@@ -50,7 +49,7 @@
 
     <div style="margin-top: 2%;" class="container-sm cadastro-main">
         <!-- Cadastro -->
-        <div id="tela_cadastro-main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
+        <div id="tela_cadastro_main" class="border border-black shadow p-3 mb-5 bg-body-tertiary rounded d-none">
             <!-- formulario -->
             <div id="tela_cadastro_formulario">
 
@@ -65,7 +64,7 @@
                         <!-- nome da midia -->
                         <div class="col-md-4 m-1">
                             <label for="inputEmail4" class="form-label"> Nome</label>
-                            <input type="email" class="form-control" placeholder="digite seu nome" id="nome">
+                            <input type="text" class="form-control" placeholder="digite seu nome" id="nome">
                         </div>
 
                         <!-- Datalist se é imagem ou video -->
@@ -129,17 +128,16 @@
     </div>
 
     <!-- tela listagem e tendo como editar e excluir -->
-    <div id="tela_gerenciar" class="tela_gerenciar-main d-none">
+    <div id="tela_exibir" class="tela_gerenciar-main d-none">
         
         <div class="content" id="busca">                           
-            <div class="input-group mb-3">
-              <input type="text" class="form-control col-7" id="input_busca" placeholder="Digite sua busca">
+            <div class="input-group mb-3 w-75 mx-auto p-2">
+              <input type="text" class="form-control col-7 " id="input_busca" placeholder="Digite sua busca">
               <div class="col-3 ms-2">
               <select name="" id="opcoes" class="form-select">
                   <option value="todos">Todos</option>
                   <option value="id">ID</option>
                   <option value="nome">Nome</option>
-                  <option value="email">e-mail</option>
               </select>
               </div>
               <div class="input-group-append">
@@ -150,9 +148,6 @@
           </div>
     </div>
     
-    <div id="tela_exibir" class="tela_exibir-main d-none">
-
-    </div>
 
     <div id="tela_visualizar" class="tela_visualizarr-main d-none">
 
@@ -162,7 +157,8 @@
 
     <!-- bootstrap do javaScript -->
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="scripts/script.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/tema.js"></script>
 </body>
 
 </html> 

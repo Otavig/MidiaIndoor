@@ -5,7 +5,7 @@ const bodyparser = require("body-parser")
 
 const app = express()
 app.use(cors())
-const porta = 3000
+const porta = 3000  
 app.use(bodyparser.json())
 
 app.listen(porta, () => {
@@ -14,7 +14,7 @@ app.listen(porta, () => {
 
 // criar uma pool de conexão
 const pool = mysql.createPool({
-    host: `10.111.9.16`,
+    host: `localhost`,
     user: `root`,
     password: ``,
     database: `midia_indoor`,
@@ -29,6 +29,7 @@ app.get(`/api/midia_indoor`, async (req, res) => {
     try {
         const conexao = await pool.getConnection()
         const sql = `SELECT * FROM midia`
+        //console.log(sql)
         const [linha] = await conexao.execute(sql)
         conexao.release()
         res.json(linha)
