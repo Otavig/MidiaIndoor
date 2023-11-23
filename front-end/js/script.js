@@ -33,17 +33,22 @@ const btn_cadastro = document.getElementById("btn_cadastro");
 const btn_visualizar = document.getElementById("btn_visualizar");
 const btn_exibir = document.getElementById("btn_exibir");
 const btn_atualizar = document.getElementById("btn_atualizar");
+const btn_cadastrar = document.getElementById("btn_cadastrar");
 
 const btn_select = document.getElementById("verifica");
 
 btn_cadastro.addEventListener("click", async () => {
-  // Desabilita o botão para evitar cliques repetidos
   btn_cadastro.disabled = true;
 
   document.getElementById("tela_cadastro_main").classList.remove("d-none");
   document.getElementById("tela_exibir").classList.add("d-none");
   document.getElementById("tela_visualizar").classList.add("d-none");
   document.getElementById("tela_atualizar_main").classList.add("d-none");
+})
+
+btn_cadastrar.addEventListener("click", async () => {
+  // Desabilita o botão para evitar cliques repetidos
+ 
 
   let nome = document.getElementById("nome").value;
   let tipo = document.getElementById("tipo").value;
@@ -89,7 +94,8 @@ btn_cadastro.addEventListener("click", async () => {
 
 // Adiciona um evento ao botão pressionado btn_exibir
 btn_exibir.addEventListener("click", async () => {
-
+  btn_exibir.disabled = true
+  btn_cadastro.disabled = false
 
   document.getElementById("tela_exibir").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
@@ -98,7 +104,8 @@ btn_exibir.addEventListener("click", async () => {
 })
 
 btn_atualizar.addEventListener("click", async () => {
-
+  btn_atualizar.disabled = true
+  btn_cadastro.disabled = false
 
   document.getElementById("tela_atualizar_main").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
@@ -106,14 +113,6 @@ btn_atualizar.addEventListener("click", async () => {
   document.getElementById("tela_visualizar").classList.add("d-none")
 })
 
-btn_visualizar.addEventListener("click", async () => {
-
-
-  document.getElementById("tela_visualizar").classList.remove("d-none")
-  document.getElementById("tela_atualizar_main").classList.add("d-none")
-  document.getElementById("tela_cadastro_main").classList.add("d-none")
-  document.getElementById("tela_exibir").classList.add("d-none")
-})
 
 // Adiciona um evento para quando o botão select for pressionado
 btn_select.addEventListener("click", async () => {
