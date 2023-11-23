@@ -33,6 +33,7 @@ const btn_cadastro = document.getElementById("btn_cadastro");
 const btn_visualizar = document.getElementById("btn_visualizar");
 const btn_exibir = document.getElementById("btn_exibir");
 const btn_atualizar = document.getElementById("btn_atualizar");
+
 const btn_select = document.getElementById("verifica");
 
 btn_cadastro.addEventListener("click", async () => {
