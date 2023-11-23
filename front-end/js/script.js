@@ -224,27 +224,36 @@ async function excluir(id) {
     let url_atualizado = document.getElementById("url_editado").value;
     let id = document.getElementById("id_editado").value;
 
+    // Create an object with the updated data
     var infoDB_2 = {
-      id: id,
-      nome: nome_atualizado,
-      tipo: tipo_atualizado,
-      data_inicio: data_inicio_atualizado,
-      data_fim: data_fim_atualizado,
-      status: status_atualizado,
-      tempo: tempo_atualizado,
-      url: url_atualizado
-    }
+        id: id,
+        nome: nome_atualizado,
+        tipo: tipo_atualizado,
+        data_inicio: data_inicio_atualizado,
+        data_fim: data_fim_atualizado,
+        status: status_atualizado,
+        tempo: tempo_atualizado,
+        url: url_atualizado
+    };
 
-    let dados = await fetch("http://localhost:3000/api/midia_indoor", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({infoDB_2}),
-    });
+    try {
+        // Use the correct PUT endpoint with the ID
+        let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(infoDB_2),
+        });
 
-    if (dados.ok) {
-        btn_exibir.click();
-        btn_select.click();
+        if (dados.ok) {
+            btn_exibir.click();
+            btn_select.click();
+        } else {
+            console.error("Erro ao atualizar:", dados.statusText);
+        }
+    } catch (error) {
+        console.error("Erro ao atualizar:", error);
     }
 });
+
