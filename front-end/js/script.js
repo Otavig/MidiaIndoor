@@ -235,7 +235,7 @@ async function excluir(id) {
       url: url_atualizado
     }
 
-    let dados = await fetch(`http://localhost:3000/api/midia_indoor`, {
+    let dados = await fetch("http://localhost:3000/api/midia_indoor", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
