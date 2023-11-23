@@ -38,7 +38,7 @@ const btn_cadastrar = document.getElementById("btn_cadastrar");
 const btn_select = document.getElementById("verifica");
 
 btn_cadastro.addEventListener("click", async () => {
-  btn_cadastro.disabled = true;
+  
 
   document.getElementById("tela_cadastro_main").classList.remove("d-none");
   document.getElementById("tela_exibir").classList.add("d-none");
@@ -94,9 +94,6 @@ btn_cadastrar.addEventListener("click", async () => {
 
 // Adiciona um evento ao botão pressionado btn_exibir
 btn_exibir.addEventListener("click", async () => {
-  btn_exibir.disabled = true
-  btn_cadastro.disabled = false
-  btn_atualizar.disabled = false
 
   document.getElementById("tela_exibir").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
@@ -105,14 +102,18 @@ btn_exibir.addEventListener("click", async () => {
 })
 
 btn_atualizar.addEventListener("click", async () => {
-  btn_atualizar.disabled = true
-  btn_cadastro.disabled = false
-  btn_exibir.disabled = false
 
   document.getElementById("tela_atualizar_main").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
   document.getElementById("tela_exibir").classList.add("d-none")
   document.getElementById("tela_visualizar").classList.add("d-none")
+})
+btn_visualizar.addEventListener("click", async () => {
+
+  document.getElementById("tela_visualizar").classList.remove("d-none")
+  document.getElementById("tela_atualizar_main").classList.add("d-none")
+  document.getElementById("tela_cadastro_main").classList.add("d-none")
+  document.getElementById("tela_exibir").classList.add("d-none")
 })
 
 
