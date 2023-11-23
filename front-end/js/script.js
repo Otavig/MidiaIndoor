@@ -80,15 +80,12 @@ btn_cadastrar.addEventListener("click", async () => {
       });
 
       if (dados.ok) {
-          btn_cadastro.click();
+          btn_exibir.click();
           btn_select.click();
       }
   } catch (error) {
       console.error("Erro ao cadastrar:", error);
-  } finally {
-      // Ativa o botão novamente após a conclusão (com sucesso ou falha)
-      btn_cadastro.disabled = false;
-  }
+  } 
 });
 
 
@@ -212,7 +209,7 @@ async function excluir(id) {
     });
 
     if (dados.ok) {
-      btn_cadastro.click()
+      btn_exibir.click()
       btn_select.click()
     }
   }
@@ -227,25 +224,27 @@ async function excluir(id) {
     let url_atualizado = document.getElementById("url_editado").value;
     let id = document.getElementById("id_editado").value;
 
-    let dados = await fetch("http://localhost:3000/api/midia_indoor/", {
+    var infoDB_2 = {
+      id: id,
+      nome: nome_atualizado,
+      tipo: tipo_atualizado,
+      data_inicio: data_inicio_atualizado,
+      data_fim: data_fim_atualizado,
+      status: status_atualizado,
+      tempo: tempo_atualizado,
+      url: url_atualizado
+    }
+
+    let dados = await fetch(`http://localhost:3000/api/midia_indoor`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            id: id,
-            nome: nome_atualizado,
-            tipo: tipo_atualizado,
-            data_inicio: data_inicio_atualizado,
-            data_fim: data_fim_atualizado,
-            status: status_atualizado,
-            tempo: tempo_atualizado,
-            url: url_atualizado
-        }),
+        body: JSON.stringify({infoDB_2}),
     });
 
     if (dados.ok) {
-        btn_cadastro.click();
+        btn_exibir.click();
         btn_select.click();
     }
 });
