@@ -96,6 +96,7 @@ btn_cadastrar.addEventListener("click", async () => {
 btn_exibir.addEventListener("click", async () => {
   btn_exibir.disabled = true
   btn_cadastro.disabled = false
+  btn_atualizar.disabled = false
 
   document.getElementById("tela_exibir").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
@@ -106,6 +107,7 @@ btn_exibir.addEventListener("click", async () => {
 btn_atualizar.addEventListener("click", async () => {
   btn_atualizar.disabled = true
   btn_cadastro.disabled = false
+  btn_exibir.disabled = false
 
   document.getElementById("tela_atualizar_main").classList.remove("d-none")
   document.getElementById("tela_cadastro_main").classList.add("d-none")
@@ -118,7 +120,7 @@ btn_atualizar.addEventListener("click", async () => {
 btn_select.addEventListener("click", async () => {
     
     // Vars locais
-    let busca = document.getElementById("busca").value;
+    let busca = document.getElementById("input_busca").value;
     let opcao = document.getElementById("opcoes").value;    
     let html = `<table class="table">
                     <thead>

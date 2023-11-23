@@ -44,9 +44,12 @@ app.get(`/api/midia_indoor`, async (req, res) => {
 app.get(`/api/midia_indoor/id/:id`, async (req, res) => {
     try {
         const id = req.params.id
+        console.log(id)
         const conexao = await pool.getConnection()
         const sql = `SELECT * FROM midia WHERE id = ${id}`
+
         const [linha] = await conexao.execute(sql)
+        console.log(sql)
         conexao.release()
         res.json(linha[0])
 
@@ -61,8 +64,9 @@ app.get(`/api/midia_indoor/nome/:nome`, async (req, res) => {
     try {
         const nome = req.params.nome
         const conexao = await pool.getConnection()
-        const sql = `SELECT * FROM midia WHERE nome LIKE "%${nome}%"`
+        const sql = `SELECT * FROM midia WHERE nome LIKE "${nome}%"`
         const [linha] = await conexao.execute(sql)
+        console.log(sql)
         conexao.release()
         res.json(linha)
 
