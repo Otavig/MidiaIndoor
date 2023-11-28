@@ -2,6 +2,9 @@
 // DECLARAR AS VARS 
 // --------------------
 
+// URL
+const URL_API = "http://10.111.9.16:3000"
+
 // NAVBAR
 const btn_Cadastrar = document.getElementById("btn_Cadastrar");
 const btn_Atualizar = document.getElementById("btn_Atualizar");
@@ -80,7 +83,7 @@ function mostrarDiv(id) {
 
 async function editar(id) {
     try {
-        let resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${id}`);
+        let resposta = await fetch(`${URL_API}/api/midia_indoor/id/${id}`);
         if (resposta.ok) {
             let dados = await resposta.json();
 
@@ -142,7 +145,7 @@ async function excluir(id) {
     const resultado = window.confirm("Deseja excluir este midía?");
     if (resultado) {
         try {
-            let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
+            let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -179,7 +182,7 @@ btn_Cadastrar.addEventListener("click", async () => {
         let url = document.getElementById("cadastro_url").value
 
         // Enviar dados para o servidor
-        let dados = await fetch("http://localhost:3000/api/midia_indoor", {
+        let dados = await fetch(`${URL_API}/api/midia_indoor`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -231,11 +234,11 @@ btn_Busca.addEventListener("click", async () => {
         // Vê qual a escolha da procura
         let resposta = "";
         if (opcao == "todos") {
-            resposta = await fetch("http://localhost:3000/api/midia_indoor");
+            resposta = await fetch(`${URL_API}/api/midia_indoor`);
         } else if (opcao == "id") {
-            resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${busca}`);
+            resposta = await fetch(`${URL_API}/api/midia_indoor/id/${busca}`);
         } else if (opcao == "nome") {
-            resposta = await fetch(`http://localhost:3000/api/midia_indoor/nome/${busca}`);
+            resposta = await fetch(`${URL_API}/api/midia_indoor/nome/${busca}`);
         } 
 
         // Se a conexão com o servidor for boa
@@ -247,6 +250,7 @@ btn_Busca.addEventListener("click", async () => {
                     html += `<tr>                
                         <td>${dados.id}</td>
                         <td class='text-start'>${dados.nome}</td>
+                        <td class='text-start'>${dados.status}</td>
                         <td class='text-start'>${dados.url}</td>
                         <td><i onclick="editar(${dados.id})" class="bi bi-pencil"></td>
                         <td><i onclick="excluir(${dados.id})" class="bi bi-trash"></i></td>
@@ -288,7 +292,7 @@ btn_Atualizar.addEventListener("click", async () => {
         let url_atualizado = document.getElementById("atualizar_url").value;
 
         // Enviar dados para o servidor
-        let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
+        let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -324,25 +328,6 @@ atualizar_btn_limpar.addEventListener("click", () => {
     // Chama a função para limpar os campos
     limparFormularioAtualizacao();
 });
-
-// Evento para perguntar se deve abrir em outra guia ou não as midias
-// Verificando se o botão foi encontrado
-
-if (btn_Exibir) {
-    btn_Exibir.addEventListener('click', function () {
-        document.getElementById('custom-confirm').style.display = 'block';
-    });
-}
-
-document.getElementById('confirm-yes').addEventListener('click', function () {
-    window.open('./midia.html', '_blank');
-    document.getElementById('custom-confirm').style.display = 'none';
-});
-
-document.getElementById('confirm-no').addEventListener('click', function () {
-    document.getElementById('custom-confirm').style.display = 'none';
-});
-
 
 
 // Copyright @ 2023
