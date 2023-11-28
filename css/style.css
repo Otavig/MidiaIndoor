@@ -125,3 +125,7 @@ body {
         display: block; /* Exibe a barra de navegação em telas menores */
     }
 }
+
+.oculto{
+    display: none;
+}

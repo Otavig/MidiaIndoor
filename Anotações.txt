@@ -63,7 +63,8 @@ busca_saida
 -----
 Breno fazer Back end
 Midia fazer um sistema que pegue a imagem no DB
-fazer aparecer o scroll nas buscas
+Fazer aparecer o scroll nas buscas
+Tirar o botão atualizar e deixar apenas no lapis
 Fazer script Busca novo com novas especificações
 Fazer botão de mudar tema funcionar (clique duas vezes)
 Alerta no exibir para escolher outra guia ou não
