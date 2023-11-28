@@ -218,7 +218,12 @@ btn_Busca.addEventListener("click", async () => {
                         <tr>    
                             <th scope="col">id</th>
                             <th scope="col" class='text-start'>Nome</th>
-                            <th scope="col" class='text-start'>e-mail</th>
+                            <th scope="col" class='text-start'>Formato</th>
+                            <th scope="col" class='text-start'>Data inicio</th>
+                            <th scope="col" class='text-start'>Data fim</th>
+                            <th scope="col" class='text-start'>Status</th>
+                            <th scope="col" class='text-start'>Tempo/th>
+                            <th scope="col" class='text-start'>Url</th>
                             <th scope="col">Editar</i></th>
                             <th scope="col">Excluir</th>
                         </tr>
@@ -326,7 +331,21 @@ atualizar_btn_limpar.addEventListener("click", () => {
     limparFormularioAtualizacao();
 });
 
+// Evento para perguntar se deve abrir em outra guia ou não as midias
+document.getElementById('btn_Exibir').addEventListener('click', function () {
+    document.getElementById('custom-confirm').style.display = 'block';
+    });
+
+    document.getElementById('confirm-yes').addEventListener('click', function () {
+        window.open('./midia.html', '_blank');
+        document.getElementById('custom-confirm').style.display = 'none';
+    });
+
+    document.getElementById('confirm-no').addEventListener('click', function () {
+        document.getElementById('custom-confirm').style.display = 'none';
+    });
+
 // Copyright @ 2023
 console.log("        /\\_/\\ Copyright © 2023");
-console.log("       ( o.o ) Otávio, Breno, Isa e Kauna.");
+console.log("       ( o.o ) Otávio, Breno, Isa e Kauana.");
 console.log("        > ^ < Todos os direitos reservados.");
