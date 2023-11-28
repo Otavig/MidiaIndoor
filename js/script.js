@@ -1,5 +1,5 @@
 // --------------------
-// DECLARAR AS VARS
+// DECLARAR AS VARS 
 // --------------------
 
 // NAVBAR
@@ -80,7 +80,7 @@ function mostrarDiv(id) {
 
 async function editar(id) {
     try {
-        let resposta = await fetch(`http://localhost:3000/api/usuarios/id/${id}`);
+        let resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${id}`);
         if (resposta.ok) {
             let dados = await resposta.json();
 
@@ -139,10 +139,10 @@ function limparFormularioAtualizacao() {
  */
 
 async function excluir(id) {
-    const resultado = window.confirm("Deseja excluir este usuário?");
+    const resultado = window.confirm("Deseja excluir este midía?");
     if (resultado) {
         try {
-            let dados = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -170,16 +170,16 @@ btn_Cadastrar.addEventListener("click", async () => {
         mostrarDiv('cadastro');
 
         // Obter valores do formulário
-        let nome = cadastro_nome_midia.value;
-        let tipo = cadastro_tipos.value;
-        let dataInicio = cadastro_data_inicio.value;
-        let dataFim = cadastro_data_fim.value;
-        let status = cadastro_status.value;
-        let tempo = cadastro_tempo.value;
-        let url = cadastro_url.value;
+        let nome = document.getElementById("cadastro_nome_midia").value
+        let tipo = document.getElementById("cadastro_tipo").value
+        let data_inicio = document.getElementById("cadastro_data_inicio").value
+        let data_fim = document.getElementById("cadastro_data_fim").value
+        let status = document.getElementById("cadastro_status").value
+        let tempo = document.getElementById("cadastro_tempo").value
+        let url = document.getElementById("cadastro_url").value
 
         // Enviar dados para o servidor
-        let dados = await fetch("http://localhost:3000/api/usuarios", {
+        let dados = await fetch("http://localhost:3000/api/midia_indoor", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -187,8 +187,8 @@ btn_Cadastrar.addEventListener("click", async () => {
             body: JSON.stringify({
                 nome: nome,
                 tipo: tipo,
-                dataInicio: dataInicio,
-                dataFim: dataFim,
+                data_inicio: data_inicio,
+                data_fim: data_fim,
                 status: status,
                 tempo: tempo,
                 url: url,
@@ -196,11 +196,10 @@ btn_Cadastrar.addEventListener("click", async () => {
         });
 
         if (dados.ok) {
-            btn_tela_busca.click();
-            btn_select.click();
+            
         }
     } catch (erro) {
-        console.error("Erro ao cadastrar usuário:", erro);
+        console.error("Erro ao cadastrar midía:", erro);
     }
 });
 
@@ -218,11 +217,7 @@ btn_Busca.addEventListener("click", async () => {
                         <tr>    
                             <th scope="col">id</th>
                             <th scope="col" class='text-start'>Nome</th>
-                            <th scope="col" class='text-start'>Formato</th>
-                            <th scope="col" class='text-start'>Data inicio</th>
-                            <th scope="col" class='text-start'>Data fim</th>
                             <th scope="col" class='text-start'>Status</th>
-                            <th scope="col" class='text-start'>Tempo/th>
                             <th scope="col" class='text-start'>Url</th>
                             <th scope="col">Editar</i></th>
                             <th scope="col">Excluir</th>
@@ -236,25 +231,23 @@ btn_Busca.addEventListener("click", async () => {
         // Vê qual a escolha da procura
         let resposta = "";
         if (opcao == "todos") {
-            resposta = await fetch("http://localhost:3000/api/usuarios");
+            resposta = await fetch("http://localhost:3000/api/midia_indoor");
         } else if (opcao == "id") {
-            resposta = await fetch(`http://localhost:3000/api/usuarios/id/${busca}`);
+            resposta = await fetch(`http://localhost:3000/api/midia_indoor/id/${busca}`);
         } else if (opcao == "nome") {
-            resposta = await fetch(`http://localhost:3000/api/usuarios/nome/${busca}`);
-        } else if (opcao == "email") {
-            resposta = await fetch(`http://localhost:3000/api/usuarios/email/${busca}`);
-        }
+            resposta = await fetch(`http://localhost:3000/api/midia_indoor/nome/${busca}`);
+        } 
 
         // Se a conexão com o servidor for boa
         if (resposta.ok) {
             html = html;
             let array_resultado = await resposta.json();
-            if (opcao == "todos" || opcao == "nome" || opcao == "email") {
+            if (opcao == "todos" || opcao == "nome") {
                 for (const dados of array_resultado) {
                     html += `<tr>                
                         <td>${dados.id}</td>
                         <td class='text-start'>${dados.nome}</td>
-                        <td class='text-start'>${dados.email}</td>
+                        <td class='text-start'>${dados.url}</td>
                         <td><i onclick="editar(${dados.id})" class="bi bi-pencil"></td>
                         <td><i onclick="excluir(${dados.id})" class="bi bi-trash"></i></td>
                     </tr>`;
@@ -263,7 +256,7 @@ btn_Busca.addEventListener("click", async () => {
                 html += `<tr>                
                     <td>${array_resultado.id}</td>
                     <td class='text-start'>${array_resultado.nome}</td>
-                    <td class='text-start'>${array_resultado.email}</td>
+                    <td class='text-start'>${array_resultado.url}</td>
                     <td><i class="bi bi-pencil"></td>
                     <td><i class="bi bi-trash"></i></td>
                 </tr>`;
@@ -274,7 +267,7 @@ btn_Busca.addEventListener("click", async () => {
 
         busca_saida.innerHTML = html;
     } catch (erro) {
-        console.error("Erro ao buscar usuário:", erro);
+        console.error("Erro ao buscar midía:", erro);
     }
 });
 
@@ -285,16 +278,17 @@ btn_Atualizar.addEventListener("click", async () => {
         mostrarDiv('update');
 
         // Obter valores do formulário de atualização
-        let id = atualizar_id_editar.value;
-        let tipo = atualizar_tipos.value;
-        let dataInicio = atualizar_data_inicio.value;
-        let dataFim = atualizar_data_fim.value;
-        let status = atualizar_status.value;
-        let tempo = atualizar_tempo.value;
-        let url = atualizar_url.value;
+        let id = document.getElementById("atualizar_id_editar").value;
+        let nome_atualizado = document.getElementById("atualizar_nome_midia").value;
+        let tipo_atualizado = document.getElementById("atualizar_tipos").value;
+        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value;
+        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value;
+        let status_atualizado = document.getElementById("atualizar_status").value;
+        let tempo_atualizado = document.getElementById("atualizar_tempo").value;
+        let url_atualizado = document.getElementById("atualizar_url").value;
 
         // Enviar dados para o servidor
-        let dados = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+        let dados = await fetch(`http://localhost:3000/api/midia_indoor/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -315,7 +309,7 @@ btn_Atualizar.addEventListener("click", async () => {
             btn_Busca.click();
         }
     } catch (erro) {
-        console.error("Erro ao atualizar usuário:", erro);
+        console.error("Erro ao atualizar midia indoor:", erro);
     }
 });
 
@@ -332,18 +326,24 @@ atualizar_btn_limpar.addEventListener("click", () => {
 });
 
 // Evento para perguntar se deve abrir em outra guia ou não as midias
-document.getElementById('btn_Exibir').addEventListener('click', function () {
-    document.getElementById('custom-confirm').style.display = 'block';
-    });
+// Verificando se o botão foi encontrado
 
-    document.getElementById('confirm-yes').addEventListener('click', function () {
-        window.open('./midia.html', '_blank');
-        document.getElementById('custom-confirm').style.display = 'none';
+if (btn_Exibir) {
+    btn_Exibir.addEventListener('click', function () {
+        document.getElementById('custom-confirm').style.display = 'block';
     });
+}
 
-    document.getElementById('confirm-no').addEventListener('click', function () {
-        document.getElementById('custom-confirm').style.display = 'none';
-    });
+document.getElementById('confirm-yes').addEventListener('click', function () {
+    window.open('./midia.html', '_blank');
+    document.getElementById('custom-confirm').style.display = 'none';
+});
+
+document.getElementById('confirm-no').addEventListener('click', function () {
+    document.getElementById('custom-confirm').style.display = 'none';
+});
+
+
 
 // Copyright @ 2023
 console.log("        /\\_/\\ Copyright © 2023");

@@ -61,10 +61,10 @@ busca_saida
 
 
 -----
-Fazer script Busca novo com novas especificações
-Fazer botão de mudar tema funcionar (clique duas vezes)
-Mudar o readme faltando coisa
+Breno fazer Back end
 Midia fazer um sistema que pegue a imagem no DB
 fazer aparecer o scroll nas buscas
-Diminuir NAVBAR
+Fazer script Busca novo com novas especificações
+Fazer botão de mudar tema funcionar (clique duas vezes)
 Alerta no exibir para escolher outra guia ou não
+Arrumar resonsividade do site para celular
