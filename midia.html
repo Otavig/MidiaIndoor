@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midias | Ways</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- ICON DO SITE -->
+    <link rel="icon" type="image/x-icon" href="imgs/SENAIERS.png">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #meuCarrossel {
+            height: 100vh; /* Altura total da janela do navegador */
+            margin-bottom: 30px; /* Espaçamento inferior */
+        }
+
+        .carousel-inner {
+            height: 100%;
+        }
+
+        .carousel-item {
+            height: 100%;
+        }
+
+        .carousel-item img,
+        .carousel-item video {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CARROSSEL -->
+    <div id="meuCarrossel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <!-- TESTE 1 -->
+            <div class="carousel-item active">
+                <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="d-block w-100" alt="Imagem 1">
+            </div>
+            <!-- TESTE 2 -->
+            <div class="carousel-item">
+                <img src="https://blog.emania.com.br/wp-content/uploads/2016/02/direitos-autorais-e-de-imagem.jpg" class="d-block w-100" alt="Imagem 2">
+            </div>
+            <!-- TESTE 3 -->
+            <div class="carousel-item">
+                <video class="d-block w-100" alt="Imagem 2" autoplay muted loop>
+                    <source src="imgs/airport.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <!-- CONTROLADORES DA NAVEGAÇÃO -->
+        <a class="carousel-control-prev" href="#meuCarrossel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#meuCarrossel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        // Função para trocar automaticamente os slides a cada 3 segundos
+        setInterval(function() {
+            $('.carousel').carousel('next');
+        }, 20000);
+    </script>
+
+</body>
+
+</html>

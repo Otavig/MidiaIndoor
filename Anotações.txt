@@ -1,0 +1,70 @@
+NAVBAR
+
+btn_Cadastrar
+btn_Atualizar
+btn_Busca
+btn_Exibir"
+
+
+
+CADASTRO (cadastro)
+
+cadastro_nome_midia
+cadastro_tipos
+cadastro_data_inicio
+cadastro_data_fim
+cadastro_status
+cadastro_tempo
+cadastro_url
+
+cadastro_btn_cadastro
+cadastro_btn_limpar
+cadastro_btn_voltar
+
+---------------------
+
+ATUALIZAR (update)
+
+atualizar_id_editar
+
+atualizar_tipos
+atualizar_data_inicio
+atualizar_data_fim
+atualizar_status
+atualizar_tempo
+atualizar_url
+
+atualizar_btn_dados
+atualizar_btn_limpar
+atualizar_btn_voltar
+
+---------------------
+
+BUSCAR (busca)
+
+input_busca
+busca_opcoes
+
+Values
+***
+todos
+id
+nome
+email
+***
+
+busca_btn_verificar
+
+busca_saida
+
+
+
+
+-----
+Fazer script Busca novo com novas especificações
+Fazer botão de mudar tema funcionar (clique duas vezes)
+Mudar o readme faltando coisa
+Midia fazer um sistema que pegue a imagem no DB
+fazer aparecer o scroll nas buscas
+Diminuir NAVBAR
+Alerta no exibir para escolher outra guia ou não
