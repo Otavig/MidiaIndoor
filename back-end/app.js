@@ -64,7 +64,7 @@ app.get(`/api/midia_indoor/nome/:nome`, async (req, res) => {
     try {
         const nome = req.params.nome
         const conexao = await pool.getConnection()
-        const sql = `SELECT * FROM midia WHERE nome LIKE "${nome}%"`
+        const sql = `SELECT * FROM midia WHERE nome = "${nome}%"`
         const [linha] = await conexao.execute(sql)
         console.log(sql)
         conexao.release()
