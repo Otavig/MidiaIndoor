@@ -155,9 +155,12 @@ busca_btn_verificar.addEventListener("click", async() => {
 
 // Evento para atualizar os dados
 btn_Atualizar.addEventListener("click", async () => {
+    mostrarDiv('update');
+});
+
+atualizar_btn_dados.addEventListener("click", async () => {
     try {
         // Mostrar div escondida
-        mostrarDiv('update');
 
         // Obter valores do formulário de atualização
         let nome_atualizado = document.getElementById("atualizar_nome_midia").value
@@ -195,7 +198,7 @@ btn_Atualizar.addEventListener("click", async () => {
     } catch (erro) {
         console.error("Erro ao atualizar midia indoor:", erro);
     }
-});
+})
 
 /**
  * Função para editar usuário
@@ -231,8 +234,6 @@ async function editar(id) {
 */
 
 async function excluir(id) {
-    const resultado = window.confirm("Deseja excluir este usuário?");
-    if (resultado) {
         let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
             method: "DELETE",
             headers: {
@@ -245,7 +246,7 @@ async function excluir(id) {
             busca_btn_verificar.click();
         }
     }
-}
+
 
 
 // Evento para resolver click inicial da pagina
