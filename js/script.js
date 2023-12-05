@@ -25,6 +25,65 @@ const busca_saida = document.getElementById("busca_saida");
 // FUNÇÕES DO CÓDIGO
 // ---------------------
 
+/**
+ * Função para atualizar o ocultar
+ */
+function toggleOculto() {
+    var navItem = document.querySelector('.oculto');
+
+    if (navItem.classList.contains('oculto')) {
+        navItem.classList.remove('oculto');
+    } else {
+        navItem.classList.add('oculto');
+    }
+}
+
+// Evento cadastrar
+btn_Cadastrar.addEventListener("click", async () => {
+    mostrarDiv('cadastro');
+
+});
+
+cadastro_btn_cadastro.addEventListener("click", async () =>{
+    try {
+        // Mostrar div escondida
+
+        // Obter valores do formulário
+        let nome = document.getElementById("cadastro_nome_midia").value;
+        let tipo = document.getElementById("cadastro_tipo").value;
+        let data_inicio = document.getElementById("cadastro_data_inicio").value;
+        let data_fim = document.getElementById("cadastro_data_fim").value;
+        let status = document.getElementById("cadastro_status").value;
+        let tempo = document.getElementById("cadastro_tempo").value;
+        let url = document.getElementById("cadastro_url").value;
+
+        // Enviar dados para o servidor
+        let dados = await fetch(`${URL_API}/api/midia_indoor`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome,
+                tipo,
+                data_inicio,
+                data_fim,
+                status,
+                tempo,
+                url,
+            }),
+        });
+
+        if (dados.ok) {
+            btn_Busca.click();
+            busca_btn_verificar.click();
+        }
+    } catch (erro) {
+        console.error("Erro ao cadastrar midía:", erro);
+    }
+})
+
+
 busca_btn_verificar.addEventListener("click", async() => {
     try {
         // Mostrar div escondida
@@ -94,157 +153,6 @@ busca_btn_verificar.addEventListener("click", async() => {
     }
 })
 
-/**
- * Função para atualizar o ocultar
- */
-function toggleOculto() {
-    var navItem = document.querySelector('.oculto');
-
-    if (navItem.classList.contains('oculto')) {
-        navItem.classList.remove('oculto');
-    } else {
-        navItem.classList.add('oculto');
-    }
-}
-
-// Evento cadastrar
-btn_Cadastrar.addEventListener("click", async () => {
-    try {
-        // Mostrar div escondida
-        mostrarDiv('cadastro');
-
-        // Obter valores do formulário
-        let nome = document.getElementById("cadastro_nome_midia").value;
-        let tipo = document.getElementById("cadastro_tipo").value;
-        let data_inicio = document.getElementById("cadastro_data_inicio").value;
-        let data_fim = document.getElementById("cadastro_data_fim").value;
-        let status = document.getElementById("cadastro_status").value;
-        let tempo = document.getElementById("cadastro_tempo").value;
-        let url = document.getElementById("cadastro_url").value;
-
-        // Enviar dados para o servidor
-        let dados = await fetch(`${URL_API}/api/midia_indoor`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nome,
-                tipo,
-                data_inicio,
-                data_fim,
-                status,
-                tempo,
-                url,
-            }),
-        });
-
-        if (dados.ok) {
-            btn_Busca.click();
-            busca_btn_verificar.click();
-        }
-    } catch (erro) {
-        console.error("Erro ao cadastrar midía:", erro);
-    }
-});
-
-/**
- * Função para mostrar/ocultar divs
- */
-
-/**
- * Função para editar usuário
- */
-async function editar(id) {
-    try {
-        let resposta = await fetch(`${URL_API}/api/midia_indoor/id/${id}`);
-        if (resposta.ok) {
-            let dados = await resposta.json();
-
-            // Abre a tela de atualizar
-            btn_Atualizar.click();
-
-            // Preenche os campos de atualização
-            document.getElementById("atualizar_data_inicio").value = dados.data_inicio
-            document.getElementById("atualizar_data_fim").value = dados.data_fim
-            document.getElementById("atualizar_status").value = dados.status
-            document.getElementById("atualizar_tempo").value = dados.tempo
-            document.getElementById("atualizar_url").value = dados.url
-            document.getElementById("atualizar_id_editar").value = dados.id
-
-            // Ativa o modo de edição
-            modoEdicaoAtivo = true;
-        }
-    } catch (erro) {
-        console.error("Erro ao editar usuário:", erro);
-    }
-}
-
-/**
- * Função para limpar os campos do formulário de cadastro
- */
-function limparFormularioCadastro() {
-    // Limpa os valores dos campos
-    cadastro_nome_midia.value = "";
-    cadastro_tipos.value = "";
-    cadastro_data_inicio.value = "";
-    cadastro_data_fim.value = "";
-    cadastro_status.value = "";
-    cadastro_tempo.value = "";
-    cadastro_url.value = "";
-}
-
-/**
- * Função para limpar os campos do formulário de atualização
- */
-function limparFormularioAtualizacao() {
-    // Limpa os valores dos campos
-    atualizar_id_editar.value = "";
-    atualizar_nome_midia.value = "";
-    atualizar_tipos.value = "";
-    atualizar_data_inicio.value = "";
-    atualizar_data_fim.value = "";
-    atualizar_status.value = "";
-    atualizar_tempo.value = "";
-    atualizar_url.value = "";
-}
-
-/**
- * Função para excluir usuário
- */
-async function excluir(id) {
-    const resultado = window.confirm("Deseja excluir este usuário?");
-    if (resultado) {
-        let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (dados.ok) {
-            btn_tela_busca.click();
-            btn_select.click();
-        }
-    }
-}
-
-// ---------------------
-// EVENTOS DO CÓDIGO
-// ---------------------
-
-// Evento para resolver click inicial da pagina
-document.addEventListener("DOMContentLoaded", async () => {
-    // Chama a função cambiarTema() diretamente
-    cambiarTema();
-});
-
-// Evento buscar {REFAZER COM AS NOVAS OPÇÕES}
-btn_Busca.addEventListener("click", async () => {
-    mostrarDiv('busca');
-    
-});
-
 // Evento para atualizar os dados
 btn_Atualizar.addEventListener("click", async () => {
     try {
@@ -288,6 +196,99 @@ btn_Atualizar.addEventListener("click", async () => {
         console.error("Erro ao atualizar midia indoor:", erro);
     }
 });
+
+/**
+ * Função para editar usuário
+ */
+async function editar(id) {
+    try {
+        let resposta = await fetch(`${URL_API}/api/midia_indoor/id/${id}`);
+        if (resposta.ok) {
+            let dados = await resposta.json();
+
+            // Abre a tela de atualizar
+            btn_Atualizar.click();
+
+            // Preenche os campos de atualização
+            document.getElementById("atualizar_data_inicio").value = dados.data_inicio
+            document.getElementById("atualizar_data_fim").value = dados.data_fim
+            document.getElementById("atualizar_status").value = dados.status
+            document.getElementById("atualizar_tempo").value = dados.tempo
+            document.getElementById("atualizar_url").value = dados.url
+            document.getElementById("atualizar_id_editar").value = dados.id
+
+            // Ativa o modo de edição
+            modoEdicaoAtivo = true;
+        }
+    } catch (erro) {
+        console.error("Erro ao editar usuário:", erro);
+    }
+}
+
+
+/**
+ * Função para excluir usuário
+*/
+
+async function excluir(id) {
+    const resultado = window.confirm("Deseja excluir este usuário?");
+    if (resultado) {
+        let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (dados.ok) {
+            btn_Busca.click();
+            busca_btn_verificar.click();
+        }
+    }
+}
+
+
+// Evento para resolver click inicial da pagina
+document.addEventListener("DOMContentLoaded", async () => {
+    // Chama a função cambiarTema() diretamente
+    cambiarTema();
+});
+
+// Evento buscar {REFAZER COM AS NOVAS OPÇÕES}
+btn_Busca.addEventListener("click", async () => {
+    mostrarDiv('busca');
+    
+});
+
+/**
+ * Função para limpar os campos do formulário de cadastro
+ */
+function limparFormularioCadastro() {
+    // Limpa os valores dos campos
+    cadastro_nome_midia.value = "";
+    cadastro_tipos.value = "";
+    cadastro_data_inicio.value = "";
+    cadastro_data_fim.value = "";
+    cadastro_status.value = "";
+    cadastro_tempo.value = "";
+    cadastro_url.value = "";
+}
+
+/**
+ * Função para limpar os campos do formulário de atualização
+ */
+function limparFormularioAtualizacao() {
+    // Limpa os valores dos campos
+    atualizar_id_editar.value = "";
+    atualizar_nome_midia.value = "";
+    atualizar_tipos.value = "";
+    atualizar_data_inicio.value = "";
+    atualizar_data_fim.value = "";
+    atualizar_status.value = "";
+    atualizar_tempo.value = "";
+    atualizar_url.value = "";
+}
+
 
 // Evento para limpar os inputs do cadastrar
 cadastro_btn_limpar.addEventListener("click", () => {

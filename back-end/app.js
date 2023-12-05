@@ -43,15 +43,15 @@ app.get(`/api/midia_indoor`, async (req, res) => {
 // rota pra SELECT com o ID
 app.get(`/api/midia_indoor/id/:id`, async (req, res) => {
     try {
-        const id = req.params.id
-        console.log(id)
-        const conexao = await pool.getConnection()
-        const sql = `SELECT * FROM midia WHERE id = ${id}`
+        const id = req.params.id;
+        console.log(id);
+        const conexao = await pool.getConnection();
+        const sql = `SELECT * FROM midia WHERE id = ${id}`;
 
-        const [linha] = await conexao.execute(sql)
-        console.log(sql)
-        conexao.release()
-        res.json(linha[0])
+        const [linha] = await conexao.execute(sql);
+        console.log(sql);
+        conexao.release();
+        res.json(linha[0]);
 
     } catch (error) {
         console.log(`O erro que ocorreu foi: ${error}`)
@@ -62,13 +62,13 @@ app.get(`/api/midia_indoor/id/:id`, async (req, res) => {
 // Rota para SELECT com o nome
 app.get(`/api/midia_indoor/nome/:nome`, async (req, res) => {
     try {
-        const nome = req.params.nome
-        const conexao = await pool.getConnection()
-        const sql = `SELECT * FROM midia WHERE nome = "${nome}%"`
-        const [linha] = await conexao.execute(sql)
-        console.log(sql)
-        conexao.release()
-        res.json(linha)
+        const nome = req.params.nome;
+        const conexao = await pool.getConnection();
+        const sql = `SELECT * FROM midia WHERE nome = "${nome}%"`;
+        const [linha] = await conexao.execute(sql);
+        console.log(sql);
+        conexao.release();
+        res.json(linha);
 
     } catch (error) {
         console.log(`O erro que ocorreu foi: ${error}`)
@@ -82,7 +82,7 @@ app.post("/api/midia_indoor/", async (req, res) => {
         const { nome, tipo, status, data_inicio, data_fim, url, tempo } = req.body;
         const conexao = await pool.getConnection();
         const sql = `INSERT INTO midia (nome, tipo, status, data_inicio, data_fim, url, tempo) VALUES ("${nome}", "${tipo}", "${status}", "${data_inicio}", "${data_fim}", "${url}", ${tempo})`;
-        console.log(sql)
+        console.log(sql);
         const [linha] = await conexao.execute(sql);
         conexao.release();
         res.json({ msg: "Registro gravado!" });
