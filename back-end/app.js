@@ -125,4 +125,19 @@ app.delete("/api/midia_indoor/:id", async (req, res) => {
         res.status(500).json({ error: "Deu algum erro na exclusão" });
     }
 });
-// fazer rota de imagem
+
+// fazer rota de imagem 
+// app.get(`/api/midia_indoor`, async (req, res) => {
+//     try {
+//         const conexao = await pool.getConnection();
+//         const sql = `SELECT * FROM midia`;
+//         //console.log(sql)
+//         const [linha] = await conexao.execute(sql);
+//         conexao.release();
+//         res.json(linha);
+
+//     } catch (error) {
+//         console.log(`O erro que ocorreu foi: ${error}`)
+//         res.send(500).json({ error: "Deu algum erro na busca" })
+//     }
+// })
