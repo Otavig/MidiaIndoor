@@ -1,103 +1,57 @@
+
+// --------------------
+// DECLARAR AS VARS 
+// --------------------
+
 // URL
 const URL_API = "http://10.111.9.16:3000";
 
-// Variáveis para a Navbar
-const btnCadastrar = document.getElementById("btn_Cadastrar");
-const btnAtualizar = document.getElementById("btn_Atualizar");
-const btnBusca = document.getElementById("btn_Busca");
-const btnExibir = document.getElementById("btn_Exibir");
-
-// Função para mostrar/ocultar divs
-function mostrarDiv(id) {
-    // Obtém todas as divs
-    var divs = document.querySelectorAll('.content');
-
-    // Oculta todas as outras divs
-    divs.forEach(div => {
-        if (div.id !== id) {
-            div.style.display = 'none';
-        }
-    });
-
-    // Obtém a div desejada
-    var div = document.getElementById(id);
-
-    // Alterna a visibilidade da div
-    div.style.display = div.style.display === 'block' ? 'none' : 'block';
-}
+// NAVBAR
+const btn_Cadastrar = document.getElementById("btn_Cadastrar");
+const btn_Atualizar = document.getElementById("btn_Atualizar");
+const btn_Busca = document.getElementById("btn_Busca");
+const btn_Exibir = document.getElementById("btn_Exibir");
 
 
-// Função para limpar os campos do formulário de cadastro
-function limparFormularioCadastro() {
-    // Limpar os campos conforme necessário
-    cadastro_nome_midia.value = "";
-    cadastro_tipo.value = "";
-    cadastro_data_inicio.value = "";
-    cadastro_data_fim.value = "";
-    cadastro_status.value = "";
-    cadastro_tempo.value = "";
-    cadastro_url.value = "";
-}
+// BUSCA
+let modoEdicaoAtivo = false;
+const input_busca = document.getElementById("input_busca");
+const busca_formulario = document.getElementById("busca_formulario");
+const busca_opcoes = document.getElementById("busca_opcoes");
+const busca_btn_verificar = document.getElementById("busca_btn_verificar");
+const busca_saida = document.getElementById("busca_saida");
 
-// Função para limpar os campos do formulário de atualização
-function limparFormularioAtualizacao() {
-    // Limpar os campos conforme necessário
-    atualizar_nome_midia.value = "";
-    atualizar_tipos.value = "";
-    atualizar_data_inicio.value = "";
-    atualizar_data_fim.value = "";
-    atualizar_status.value = "";
-    atualizar_tempo.value = "";
-    atualizar_url.value = "";
-    atualizar_id_editar.value = "";
-}
+// ---------------------
+// FUNÇÕES DO CÓDIGO
+// ---------------------
 
-// Evento cadastrar
-btnCadastrar.addEventListener("click", async () => {
+busca_btn_verificar.addEventListener("click", async() => {
     try {
-        const nome = cadastro_nome_midia.value;
-        const tipo = cadastro_tipo.value;
-        const data_inicio = cadastro_data_inicio.value;
-        const data_fim = cadastro_data_fim.value;
-        const status = cadastro_status.value;
-        const tempo = cadastro_tempo.value;
-        const url = cadastro_url.value;
+        // Mostrar div escondida
 
-        const response = await fetch(`${URL_API}/api/midia_indoor`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nome: nome,
-                tipo: tipo,
-                data_inicio: data_inicio,
-                data_fim: data_fim,
-                status: status,
-                tempo: tempo,
-                url: url,
-            }),
-        });
+        
 
-        if (resposta && resposta.ok) {
-            mostrarDiv('divResultado'); // Mostrar a div desejada após buscar
-            atualizarTabela(array_resultado);
-        } else {
-            console.error("Erro ao buscar.");
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
-});
+        let busca = document.getElementById("input_busca").value;
+        let opcao = document.getElementById("busca_opcoes").value;
 
-// Evento buscar
-busca_btn_verificar.addEventListener("click", async () => {
-    try {
-        const busca = input_busca.value;
-        const opcao = busca_opcoes.value;
+        let html = `<table class="table">
+                    <thead>
+                        <tr>    
+                            <th scope="col">id</th>
+                            <th scope="col" class='text-start'>Nome</th>
+                            <th scope="col" class='text-start'>Status</th>
+                            <th scope="col" class='text-start'>Url</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
 
-        let resposta = null;
+        busca_saida.innerHTML = "";
+        input_busca.value = "";
 
+        // Vê qual a escolha da procura
+        let resposta;
         if (opcao === "todos") {
             resposta = await fetch(`${URL_API}/api/midia_indoor`);
         } else if (opcao === "id") {
@@ -106,158 +60,248 @@ busca_btn_verificar.addEventListener("click", async () => {
             resposta = await fetch(`${URL_API}/api/midia_indoor/nome/${busca}`);
         }
 
-        if (resposta && resposta.ok) {
-            const array_resultado = await resposta.json();
-            atualizarTabela(array_resultado);
-        } else {
-            console.error("Erro ao buscar.");
+        // Verifica se a resposta foi bem-sucedida
+        if (resposta.ok) {
+            let array_res = await resposta.json();
+            if (opcao === "todos" || opcao === "nome") {
+                for (const dados of array_res) {
+                    html += `<tr>                
+                        <td>${dados.id}</td>
+                        <td class='text-start'>${dados.nome}</td>
+                        <td class='text-start'>${dados.status}</td>
+                        <td class='text-start'>${dados.url}</td>
+                        <td><i onclick="editar(${dados.id}); toggleOculto();" class="bi bi-pencil"></i></td>
+                        <td><i onclick="excluir(${dados.id});" class="bi bi-trash"></i></td>
+                    </tr>`;
+                }
+            } else if (opcao === "id" && array_res.id !== undefined) {
+                html += `<tr>                
+                    <td>${array_res.id}</td>
+                    <td class='text-start'>${array_res.nome}</td>
+                    <td class='text-start'>${array_res.status}</td>
+                    <td class='text-start'>${array_res.url}</td>
+                    <td><i onclick="editar(${array_res.id}); toggleOculto();" class="bi bi-pencil"></i></td>
+                    <td><i onclick="excluir(${array_res.id});" class="bi bi-trash"></i></td>
+                </tr>`;
+            }
+
+            html += `</tbody></table>`;
         }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
+
+        busca_saida.innerHTML = html;
+    } catch (erro) {
+        console.error("Erro ao buscar midía:", erro);
+    }
+})
+
+/**
+ * Função para atualizar o ocultar
+ */
+function toggleOculto() {
+    var navItem = document.querySelector('.oculto');
+
+    if (navItem.classList.contains('oculto')) {
+        navItem.classList.remove('oculto');
+    } else {
+        navItem.classList.add('oculto');
+    }
+}
+
+// Evento cadastrar
+btn_Cadastrar.addEventListener("click", async () => {
+    try {
+        // Mostrar div escondida
+        mostrarDiv('cadastro');
+
+        // Obter valores do formulário
+        let nome = document.getElementById("cadastro_nome_midia").value;
+        let tipo = document.getElementById("cadastro_tipo").value;
+        let data_inicio = document.getElementById("cadastro_data_inicio").value;
+        let data_fim = document.getElementById("cadastro_data_fim").value;
+        let status = document.getElementById("cadastro_status").value;
+        let tempo = document.getElementById("cadastro_tempo").value;
+        let url = document.getElementById("cadastro_url").value;
+
+        // Enviar dados para o servidor
+        let dados = await fetch(`${URL_API}/api/midia_indoor`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome,
+                tipo,
+                data_inicio,
+                data_fim,
+                status,
+                tempo,
+                url,
+            }),
+        });
+
+        if (dados.ok) {
+            btn_Busca.click();
+            busca_btn_verificar.click();
+        }
+    } catch (erro) {
+        console.error("Erro ao cadastrar midía:", erro);
     }
 });
 
-// Função para atualizar a tabela de busca
-function atualizarTabela(data) {
-    const tbody = document.getElementById("busca_saida");
+/**
+ * Função para mostrar/ocultar divs
+ */
 
-    let html = `<table class="table">
-                    <thead>
-                        <tr>    
-                            <th scope="col">id</th>
-                            <th scope="col" class='text-start'>Nome</th>
-                            <th scope="col" class='text-start'>Url</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Excluir</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
+/**
+ * Função para editar usuário
+ */
+async function editar(id) {
+    try {
+        let resposta = await fetch(`${URL_API}/api/midia_indoor/id/${id}`);
+        if (resposta.ok) {
+            let dados = await resposta.json();
 
-    if (Array.isArray(data)) {
-        data.forEach((item) => {
-            html += `<tr>
-                        <td>${item.id}</td>
-                        <td class='text-start'>${item.nome}</td>
-                        <td class='text-start'>${item.url}</td>
-                        <td><i onclick="editar(${item.id})" class="bi bi-pencil"></i></td>
-                        <td><i onclick="excluir(${item.id})" class="bi bi-trash"></i></td>
-                    </tr>`;
-        });
-    } else {
-        html += `<tr>
-                    <td>${data.id}</td>
-                    <td class='text-start'>${data.nome}</td>
-                    <td class='text-start'>${data.url}</td>
-                    <td><i onclick="editar(${data.id})" class="bi bi-pencil"></i></td>
-                    <td><i onclick="excluir(${data.id})" class="bi bi-trash"></i></td>
-                </tr>`;
+            // Abre a tela de atualizar
+            btn_Atualizar.click();
+
+            // Preenche os campos de atualização
+            document.getElementById("atualizar_data_inicio").value = dados.data_inicio
+            document.getElementById("atualizar_data_fim").value = dados.data_fim
+            document.getElementById("atualizar_status").value = dados.status
+            document.getElementById("atualizar_tempo").value = dados.tempo
+            document.getElementById("atualizar_url").value = dados.url
+            document.getElementById("atualizar_id_editar").value = dados.id
+
+            // Ativa o modo de edição
+            modoEdicaoAtivo = true;
+        }
+    } catch (erro) {
+        console.error("Erro ao editar usuário:", erro);
     }
-
-    html += `</tbody></table>`;
-
-    tbody.innerHTML = html;
 }
 
-// Evento para atualizar os dados
-atualizar_btn_dados.addEventListener("click", async () => {
-    try {
-        const id = atualizar_id_editar.value;
-        const nome_atualizado = atualizar_nome_midia.value;
-        const tipo_atualizado = atualizar_tipos.value;
-        const data_inicio_atualizado = atualizar_data_inicio.value;
-        const data_fim_atualizado = atualizar_data_fim.value;
-        const status_atualizado = atualizar_status.value;
-        const tempo_atualizado = atualizar_tempo.value;
-        const url_atualizado = atualizar_url.value;
+/**
+ * Função para limpar os campos do formulário de cadastro
+ */
+function limparFormularioCadastro() {
+    // Limpa os valores dos campos
+    cadastro_nome_midia.value = "";
+    cadastro_tipos.value = "";
+    cadastro_data_inicio.value = "";
+    cadastro_data_fim.value = "";
+    cadastro_status.value = "";
+    cadastro_tempo.value = "";
+    cadastro_url.value = "";
+}
 
-        const response = await fetch(`${URL_API}/api/midia_indoor`, {
+/**
+ * Função para limpar os campos do formulário de atualização
+ */
+function limparFormularioAtualizacao() {
+    // Limpa os valores dos campos
+    atualizar_id_editar.value = "";
+    atualizar_nome_midia.value = "";
+    atualizar_tipos.value = "";
+    atualizar_data_inicio.value = "";
+    atualizar_data_fim.value = "";
+    atualizar_status.value = "";
+    atualizar_tempo.value = "";
+    atualizar_url.value = "";
+}
+
+/**
+ * Função para excluir usuário
+ */
+async function excluir(id) {
+    const resultado = window.confirm("Deseja excluir este usuário?");
+    if (resultado) {
+        let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (dados.ok) {
+            btn_tela_busca.click();
+            btn_select.click();
+        }
+    }
+}
+
+// ---------------------
+// EVENTOS DO CÓDIGO
+// ---------------------
+
+// Evento para resolver click inicial da pagina
+document.addEventListener("DOMContentLoaded", async () => {
+    // Chama a função cambiarTema() diretamente
+    cambiarTema();
+});
+
+// Evento buscar {REFAZER COM AS NOVAS OPÇÕES}
+btn_Busca.addEventListener("click", async () => {
+    mostrarDiv('busca');
+    
+});
+
+// Evento para atualizar os dados
+btn_Atualizar.addEventListener("click", async () => {
+    try {
+        // Mostrar div escondida
+        mostrarDiv('update');
+
+        // Obter valores do formulário de atualização
+        let nome_atualizado = document.getElementById("atualizar_nome_midia").value
+        let tipo_atualizado = document.getElementById("atualizar_tipos").value
+        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value
+        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value
+        let status_atualizado = document.getElementById("atualizar_status").value
+        let tempo_atualizado = document.getElementById("atualizar_tempo").value
+        let url_atualizado = document.getElementById("atualizar_url").value
+        let id = document.getElementById("atualizar_id_editar").value
+
+
+        // Enviar dados para o servidor
+        let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: id,
+                id,
                 nome: nome_atualizado,
                 tipo: tipo_atualizado,
-                data_inicio: data_inicio_atualizado,
-                data_fim: data_fim_atualizado,
+                dataInicio: data_inicio_atualizado,
+                dataFim: data_fim_atualizado,
                 status: status_atualizado,
                 tempo: tempo_atualizado,
                 url: url_atualizado,
             }),
         });
 
-        if (response.ok) {
-            mostrarDiv('divBusca'); // Mostrar a div desejada após atualizar
+        if (dados.ok) {
+            btn_Busca.click();
             busca_btn_verificar.click();
-            limparFormularioAtualizacao();
-        } else {
-            console.error("Erro ao atualizar.");
         }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
+    } catch (erro) {
+        console.error("Erro ao atualizar midia indoor:", erro);
     }
 });
 
-// Evento para excluir dados
-excluir_btn_dados.addEventListener("click", async () => {
-    try {
-        const id = atualizar_id_editar.value;
-
-        const response = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
-            method: "DELETE",
-        });
-
-        if (response.ok) {
-            mostrarDiv('divBusca'); // Mostrar a div desejada após excluir
-            busca_btn_verificar.click();
-            limparFormularioAtualizacao();
-        } else {
-            console.error("Erro ao excluir.");
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
+// Evento para limpar os inputs do cadastrar
+cadastro_btn_limpar.addEventListener("click", () => {
+    // Chama a função para limpar os campos
+    limparFormularioCadastro();
 });
 
+// Evento para limpar os inputs do Atualizar
+atualizar_btn_limpar.addEventListener("click", () => {
+    // Chama a função para limpar os campos
+    limparFormularioAtualizacao();
+});
 
-// Função para editar dados
-function editar(id) {
-    try {
-        fetch(`${URL_API}/api/midia_indoor/id/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                atualizar_id_editar.value = data.id;
-                atualizar_nome_midia.value = data.nome;
-                atualizar_tipos.value = data.tipo;
-                atualizar_data_inicio.value = data.data_inicio;
-                atualizar_data_fim.value = data.data_fim;
-                atualizar_status.value = data.status;
-                atualizar_tempo.value = data.tempo;
-                atualizar_url.value = data.url;
-            });
-            mostrarDiv('divAtualizar'); // Mostrar a div desejada ao editar
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-        }
-    }
-
-// Função para excluir dados
-function excluir(id) {
-    if (confirm("Deseja realmente excluir?")) {
-        try {
-            fetch(`${URL_API}/api/midia_indoor/${id}`, {
-                method: "DELETE",
-            })
-                .then(response => response.json())
-                .then(data => {
-                    btn_Busca.click();
-                    busca_btn_verificar.click();
-                    limparFormularioAtualizacao();
-                });
-                mostrarDiv('divBusca'); // Mostrar a div desejada após confirmar a exclusão
-            } catch (error) {
-                console.error("Erro na requisição:", error);
-            }
-        }
-    }
+// Copyright @ 2023
+console.log("        /\\_/\\ Copyright © 2023");
+console.log("       ( o.o ) Otávio, Breno, Isa e Kauana.");
+console.log("        > ^ < Todos os direitos reservados.");

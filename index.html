@@ -1,207 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <!-- ICON DO SITE -->
-    <link rel="icon" type="image/x-icon" href="imgs/SENAIERS.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Midia Indoor | Ways</title>
-  </head>
 
-    <style>
-        br {
-            user-select: none;
-        }
-        .clv{
-          border: 0px;
-        }
-    </style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <!-- ICON DO SITE -->
+  <link rel="icon" type="image/x-icon" href="imgs/SENAIERS.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Midia Indoor | Ways</title>
+</head>
 
-  <body>
-    <!-- Efeito de carregamento -->
-    <div class="loading">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <span style="margin: 20px;">Seja bem-vindo</span>
+<style>
+  br {
+    user-select: none;
+  }
+
+  .clv {
+    border: 0px;
+  }
+</style>
+
+<body>
+  <!-- Efeito de carregamento -->
+  <div class="loading">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+    <span style="margin: 20px;">Seja bem-vindo</span>
+  </div>
 
-    <!-- Barra de Navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a style="margin-left: 100px;" class="navbar-brand" href="#" style="margin-right: 15px">
-                <span>Midia Indoor <sub>ways</sub></span>
-            </a>
-            <!-- BOTÃO PARA CELULAR -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- BOTÕES -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <!-- Adiciona a classe mr-auto para alinhar à esquerda -->
-                    <!-- BTN CADASTRAR -->
-                    <li class="nav-item">
-                        <a class="nav-link" id="btn_Cadastrar" href="#">Cadastrar</a>
-                    </li>
-                    <!-- BTN BUSCA -->
-                    <li class="nav-item">
-                      <a class="nav-link" id="btn_Busca" href="#">Buscar</a>
-                    </li>
-                    <!-- BTN ATUALIZAR -->
-                    <li class="nav-item oculto">
-                        <a class="nav-link" id="btn_Atualizar" href="#">Atualizar</a>
-                    </li>
-                    <!-- BTN EXIBIR -->
-                    <li class="nav-item">
-                        <a class="nav-link" id="btn_Exibir" href="midia.html" target="_blank">Exibir</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- BOTÃO PARA MUDAR O TEMA -->
-            <div style="margin-right: 100px;" class="ml-auto">
-                <a class="btn rounded-fill" onclick="cambiarTema()">
-                    <i id="d1-icon" class="bi bi-moon-fill"></i>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!--------------------------------------------------------------------------------------------------------------------->
-
-    <!-- TELA PARA CADASTRO -->
-    <div class="content" id="cadastro">
-      <div class="cadastro-container">
-        <h1 class="text-center">CADASTRO</h1>
-        <br />
-        <!-- NOME DA MIDIA -->
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="cadastro_nome_midia" />
-          <label for="cadastro_nome_midia">Nome da midia</label>
-        </div>
-
-        <!-- Datalist se é imagem ou video -->
-        <div class="form-floating mb-3">
-          <label for="cadastro_tipos" class="form-label">Formato</label>
-          <select id="cadastro_tipo" class="form-select">
-            <option hidden>Tipo da mídia</option>
-            <option>Imagem</option>
-            <option>Video</option>
-          </select>
-        </div>
-
-        <!-- Data inicial -->
-        <div class="form-floating mb-3">
-          <input type="date" class="form-control" id="cadastro_data_inicio" />
-          <label for="cadastro_data_inicio">Data de Inicio</label>
-        </div>
-
-        <!-- Data final -->
-        <div class="form-floating mb-3">
-          <input type="date" class="form-control" id="cadastro_data_fim" />
-          <label for="cadastro_data_fim">Data de Termino</label>
-        </div>
-
-        <!-- Status -->
-        <div class="form-floating mb-3">
-          <label for="cadastro_status" class="form-label">Status</label>
-          <select id="cadastro_status" class="form-select">
-            <option hidden>Status</option>
-            <option>ativado</option>
-            <option>desativado</option>
-          </select>
-        </div>
-
-        <!-- Tempo de exibição -->
-        <div class="form-floating mb-3">
-          <label for="cadastro_tempo" class="form-label"
-            >Tempo de Exibição:</label
-          >
-          <input
-            type="number"
-            id="cadastro_tempo"
-            name="exibicao_tempo"
-            class="form-control"
-          />
-        </div>
-
-        <!-- URL -->
-        <div class="form-floating mb-3">
-          <label for="cadastro_url" class="form-label">URL</label>
-          <input
-            type="name"
-            class="form-control"
-            placeholder="copie e cole sua url"
-            id="cadastro_url"
-          />
-        </div>
-
-        <!-- BOTÃO PARA CADASTRAR -->
-        <div class="clv form-control d-md-flex justify-content-between">
-            <!-- BOTÃO ENVIAR CADASTRO -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2"
-            id="cadastro_btn_cadastro"
-            >
-            Cadastrar
-            </button>
-            <!-- BOTÃO DE LIMPAR CADASTRO -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2"
-            id="cadastro_btn_limpar"
-            >
-            Limpar
-            </button>
-            <!-- BOTÃO PARA VOLTAR -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill"
-            id="cadastro_btn_voltar"
-            onclick="mostrarDiv('cadastro')"
-            >
-            Voltar
-            </button>
-        </div>
-   
-        
+  <!-- Barra de Navegação -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a style="margin-left: 100px;" class="navbar-brand" href="#" style="margin-right: 15px">
+        <span>Midia Indoor <sub>ways</sub></span>
+      </a>
+      <!-- BOTÃO PARA CELULAR -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- BOTÕES -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <!-- Adiciona a classe mr-auto para alinhar à esquerda -->
+          <!-- BTN CADASTRAR -->
+          <li class="nav-item">
+            <a class="nav-link" id="btn_Cadastrar" href="#">Cadastrar</a>
+          </li>
+          <!-- BTN BUSCA -->
+          <li class="nav-item">
+            <a class="nav-link" id="btn_Busca" href="#">Buscar</a>
+          </li>
+          <!-- BTN ATUALIZAR -->
+          <li class="nav-item oculto">
+            <a class="nav-link" id="btn_Atualizar" href="#">Atualizar</a>
+          </li>
+          <!-- BTN EXIBIR -->
+          <li class="nav-item">
+            <a class="nav-link" id="btn_Exibir" href="midia.html" target="_blank">Exibir</a>
+          </li>
+        </ul>
+      </div>
+      <!-- BOTÃO PARA MUDAR O TEMA -->
+      <div style="margin-right: 100px;" class="ml-auto">
+        <a class="btn rounded-fill" onclick="cambiarTema()">
+          <i id="d1-icon" class="bi bi-moon-fill"></i>
+        </a>
       </div>
     </div>
-    <!--------------------------------------------------------------------------------------------------------------------->
+  </nav>
 
-    <!-- TELA PARA ATUALIZAR -->
-    <div class="content" id="update">
-      <h1 class="text-center">ATUALIZAR O CADASTRO</h1>
+  <!--------------------------------------------------------------------------------------------------------------------->
 
-      <!-- EDITAR -->
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control disabled"
-          id="atualizar_id_editar"
-          disabled
-        />
-      </div>
-
+  <!-- TELA PARA CADASTRO -->
+  <div class="content" id="cadastro">
+    <div class="cadastro-container">
+      <h1 class="text-center">CADASTRO</h1>
+      <br />
       <!-- NOME DA MIDIA -->
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="atualizar_nome_midia" />
-        <label for="atualizar_nome_midia">Nome da midia</label>
+        <input type="text" class="form-control" id="cadastro_nome_midia" />
+        <label for="cadastro_nome_midia">Nome da midia</label>
       </div>
 
       <!-- Datalist se é imagem ou video -->
       <div class="form-floating mb-3">
-        <label for="atualizar_tipos" class="form-label">Formato</label>
-        <select id="atualizar_tipos" class="form-select">
+        <label for="cadastro_tipos" class="form-label">Formato</label>
+        <select id="cadastro_tipo" class="form-select">
           <option hidden>Tipo da mídia</option>
           <option>Imagem</option>
           <option>Video</option>
@@ -210,20 +99,20 @@
 
       <!-- Data inicial -->
       <div class="form-floating mb-3">
-        <input type="date" class="form-control" id="atualizar_data_inicio" />
-        <label for="atualizar_data_inicio">Data de Inicio</label>
+        <input type="date" class="form-control" id="cadastro_data_inicio" />
+        <label for="cadastro_data_inicio">Data de Inicio</label>
       </div>
 
       <!-- Data final -->
       <div class="form-floating mb-3">
-        <input type="date" class="form-control" id="atualizar_data_fim" />
-        <label for="atualizar_data_fim">Data de Termino</label>
+        <input type="date" class="form-control" id="cadastro_data_fim" />
+        <label for="cadastro_data_fim">Data de Termino</label>
       </div>
 
       <!-- Status -->
       <div class="form-floating mb-3">
-        <label for="atualizar_status" class="form-label">Status</label>
-        <select id="atualizar_status" class="form-select">
+        <label for="cadastro_status" class="form-label">Status</label>
+        <select id="cadastro_status" class="form-select">
           <option hidden>Status</option>
           <option>ativado</option>
           <option>desativado</option>
@@ -232,180 +121,227 @@
 
       <!-- Tempo de exibição -->
       <div class="form-floating mb-3">
-        <label for="atualizar_tempo" class="form-label"
-          >Tempo de Exibição:</label
-        >
-        <input
-          type="number"
-          id="atualizar_tempo"
-          name="exibicao_tempo"
-          class="form-control"
-        />
+        <label for="cadastro_tempo" class="form-label">Tempo de Exibição:</label>
+        <input type="number" id="cadastro_tempo" name="exibicao_tempo" class="form-control" />
       </div>
 
       <!-- URL -->
       <div class="form-floating mb-3">
-        <label for="atualizar_url" class="form-label">URL</label>
-        <input
-          type="name"
-          class="form-control"
-          placeholder="copie e cole sua url"
-          id="atualizar_url"
-        />
+        <label for="cadastro_url" class="form-label">URL</label>
+        <input type="name" class="form-control" placeholder="copie e cole sua url" id="cadastro_url" />
       </div>
 
-        <!-- BOTÃO PARA ATUALIZAR -->
-        <div class="clv form-control d-md-flex justify-content-between">
-            <!-- BOTÃO ENVIAR ATUALIZAR -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2"
-            id="atualizar_btn_dados"
-            >
-            Atualizar
-            </button>
-            <!-- BOTÃO DE LIMPAR CADASTRO -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2"
-            id="atualizar_btn_limpar"
-            >
-            Limpar
-            </button>
-            <!-- BOTÃO PARA VOLTAR -->
-            <button
-            type="submit"
-            class="btn btn-primary flex-fill"
-            id="atualizar_btn_voltar"
-            onclick="mostrarDiv('update')"
-            >
-            Voltar
-            </button>
-        </div>
-
+      <!-- BOTÃO PARA CADASTRAR -->
+      <div class="clv form-control d-md-flex justify-content-between">
+        <!-- BOTÃO ENVIAR CADASTRO -->
+        <button type="submit" class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2" id="cadastro_btn_cadastro">
+          Cadastrar
+        </button>
+        <!-- BOTÃO DE LIMPAR CADASTRO -->
+        <button type="submit" class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2" id="cadastro_btn_limpar">
+          Limpar
+        </button>
+        <!-- BOTÃO PARA VOLTAR -->
+        <button type="submit" class="btn btn-primary flex-fill" id="cadastro_btn_voltar"
+          onclick="mostrarDiv('cadastro')">
+          Voltar
+        </button>
       </div>
+
+
     </div>
-    <!--------------------------------------------------------------------------------------------------------------------->
+  </div>
+  <!--------------------------------------------------------------------------------------------------------------------->
 
-    <!-- TELA PARA BUSCAR -->
-    <div class="content" id="busca">
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control col-7"
-          id="input_busca"
-          placeholder="Digite sua busca"
-        />
-        <div class="col-4 d-flex align-items-center">
-          <!-- OPÇÕES PARA SELECIONAR MÉTODO DE PESQUISA -->
-          <select
-            style="margin-left: 12px"
-            name=""
-            id="busca_opcoes"
-            class="form-select w-100"
-          >
-            <option value="todos">Todos</option>
-            <option value="id">ID</option>
-            <option value="nome">Nome</option>
-          </select>
-        </div>
-        <div class="input-group-append">
-          <!-- BOTÃO DE BUSCA -->
-          <button
-            class="btn btn-primary ms-3"
-            type="button"
-            id="busca_btn_verificar"
-          >
-            Buscar
-          </button>
-        </div>
-      </div>
-      <div id="busca_saida" class="text-center col-12">
-      </div>
+  <!-- TELA PARA ATUALIZAR -->
+  <div class="content" id="update">
+    <h1 class="text-center">ATUALIZAR O CADASTRO</h1>
+
+    <!-- EDITAR -->
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control disabled" id="atualizar_id_editar" disabled />
     </div>
-    <!--------------------------------------------------------------------------------------------------------------------->
 
-    <!-- Cria um alert personalizado do exibir -->
-    <div id="custom-confirm">
-      <p>Deseja abrir a página em uma nova guia?</p>
-      <button id="confirm-yes">Confirmar</button>
-      <button id="confirm-no">Cancelar</button>
+    <!-- NOME DA MIDIA -->
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="atualizar_nome_midia" />
+      <label for="atualizar_nome_midia">Nome da midia</label>
     </div>
-    
-    <!-- SCRIPTS -->
-    <script src="js/script.js"></script>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Datalist se é imagem ou video -->
+    <div class="form-floating mb-3">
+      <label for="atualizar_tipos" class="form-label">Formato</label>
+      <select id="atualizar_tipos" class="form-select">
+        <option hidden>Tipo da mídia</option>
+        <option>Imagem</option>
+        <option>Video</option>
+      </select>
+    </div>
 
-    <!-- Popper.js -->
-    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <!-- Data inicial -->
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="atualizar_data_inicio" />
+      <label for="atualizar_data_inicio">Data de Inicio</label>
+    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Data final -->
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="atualizar_data_fim" />
+      <label for="atualizar_data_fim">Data de Termino</label>
+    </div>
 
-    <script>
-        // Simula o efeito de carregamento
-        setTimeout(function () {
-          document.querySelector(".loading").style.display = "none";
-          document.querySelector(".navbar").style.display = "block";
-        }, 1000);
-    
-        const temaOscuro = () => {
-            document.body.setAttribute("data-bs-theme", "dark");
-            document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
-            // Adiciona estilos para o modo escuro
-            document.body.style.backgroundColor = "#343a40";
-            document.body.style.color = "#ffffff";
-    
-            // Adiciona a cor ao card de trás
-            const cards = document.querySelectorAll(".content");
-            cards.forEach(card => {
-                card.style.backgroundColor = "#585f67";
-            });
-        };
-    
-        const temaClaro = () => {
-            document.body.setAttribute("data-bs-theme", "light");
-            document.getElementById("d1-icon").setAttribute("class", "bi bi-moon-fill");
-            // Adiciona estilos para o modo claro
-            document.body.style.backgroundColor = "#f8f9fa";
-            document.body.style.color = "#000000";
-    
-            // Remove a cor do card de trás
-            const cards = document.querySelectorAll(".content");
-            cards.forEach(card => {
-                card.style.backgroundColor = "";
-            });
-        };
-    
-            const cambiarTema = () => {
-            const temaAtual = document.body.getAttribute("data-bs-theme");
+    <!-- Status -->
+    <div class="form-floating mb-3">
+      <label for="atualizar_status" class="form-label">Status</label>
+      <select id="atualizar_status" class="form-select">
+        <option hidden>Status</option>
+        <option>ativado</option>
+        <option>desativado</option>
+      </select>
+    </div>
 
-            if (temaAtual === "light") {
-                temaOscuro();
-            } else {
-                temaClaro();
-            }
+    <!-- Tempo de exibição -->
+    <div class="form-floating mb-3">
+      <label for="atualizar_tempo" class="form-label">Tempo de Exibição:</label>
+      <input type="number" id="atualizar_tempo" name="exibicao_tempo" class="form-control" />
+    </div>
 
-            // Use um pequeno atraso para garantir que a mudança de tema tenha ocorrido
-            setTimeout(() => {
-                // Verifica o tema após a mudança
-                const novoTema = document.body.getAttribute("data-bs-theme");
-                if (novoTema === "light") {
-                    document.getElementById("d1-icon").setAttribute("class", "bi bi-moon-fill");
-                } else {
-                    document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
-                }
-            },50); // Ajusta esse valor se necessário
-        };
+    <!-- URL -->
+    <div class="form-floating mb-3">
+      <label for="atualizar_url" class="form-label">URL</label>
+      <input type="name" class="form-control" placeholder="copie e cole sua url" id="atualizar_url" />
+    </div>
 
-    
-        $(document).ready(function () {
-            $('[data-toggle="collapse"]').on("click", function () {
-                $($(this).data("target")).toggleClass("show");
-            });
+    <!-- BOTÃO PARA ATUALIZAR -->
+    <div class="clv form-control d-md-flex justify-content-between">
+      <!-- BOTÃO ENVIAR ATUALIZAR -->
+      <button type="submit" class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2" id="atualizar_btn_dados">
+        Atualizar
+      </button>
+      <!-- BOTÃO DE LIMPAR CADASTRO -->
+      <button type="submit" class="btn btn-primary flex-fill mb-2 mb-md-0 me-md-2" id="atualizar_btn_limpar">
+        Limpar
+      </button>
+      <!-- BOTÃO PARA VOLTAR -->
+      <button type="submit" class="btn btn-primary flex-fill" id="atualizar_btn_voltar" onclick="mostrarDiv('update')">
+        Voltar
+      </button>
+    </div>
+
+  </div>
+  </div>
+  <!--------------------------------------------------------------------------------------------------------------------->
+
+  <!-- TELA PARA BUSCAR -->
+  <div class="content" id="busca">                           
+    <div class="input-group mb-3">
+      <input type="text" class="form-control col-7" id="input_busca" placeholder="Digite sua busca">
+      <div class="col-3 ms-2">
+      <select name="" id="busca_opcoes" class="form-select">
+          <option value="todos">Todos</option>
+          <option value="id">ID</option>
+          <option value="nome">Nome</option>
+      </select>
+      </div>
+      <div class="input-group-append">
+        <button class="btn btn-primary ms-3" type="button" id="busca_btn_verificar">Buscar</button>
+      </div>
+    </div>                        
+    <div id="busca_saida" class="text-center col-12"></div> 
+  </div>
+  <!--------------------------------------------------------------------------------------------------------------------->
+
+  <!-- Cria um alert personalizado do exibir -->
+  <div id="custom-confirm">
+    <p>Deseja abrir a página em uma nova guia?</p>
+    <button id="confirm-yes">Confirmar</button>
+    <button id="confirm-no">Cancelar</button>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/script.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Popper.js -->
+  <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+function mostrarDiv(id) {
+        // Esconde todas as DIVs
+        document.querySelectorAll('.content').forEach(div => {
+          div.style.display = 'none';
         });
-    </script>
-  </body>
+        // Mostra apenas a DIV com o ID correspondente
+        document.getElementById(id).style.display = 'block';
+      }
+    // Simula o efeito de carregamento
+    setTimeout(function () {
+      document.querySelector(".loading").style.display = "none";
+      document.querySelector(".navbar").style.display = "block";
+    }, 1000);
+
+    const temaOscuro = () => {
+      document.body.setAttribute("data-bs-theme", "dark");
+      document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
+      // Adiciona estilos para o modo escuro
+      document.body.style.backgroundColor = "#343a40";
+      document.body.style.color = "#ffffff";
+
+      // Adiciona a cor ao card de trás
+      const cards = document.querySelectorAll(".content");
+      cards.forEach(card => {
+        card.style.backgroundColor = "#585f67";
+      });
+    };
+
+    const temaClaro = () => {
+      document.body.setAttribute("data-bs-theme", "light");
+      document.getElementById("d1-icon").setAttribute("class", "bi bi-moon-fill");
+      // Adiciona estilos para o modo claro
+      document.body.style.backgroundColor = "#f8f9fa";
+      document.body.style.color = "#000000";
+
+      // Remove a cor do card de trás
+      const cards = document.querySelectorAll(".content");
+      cards.forEach(card => {
+        card.style.backgroundColor = "";
+      });
+    };
+
+    const cambiarTema = () => {
+      const temaAtual = document.body.getAttribute("data-bs-theme");
+
+      if (temaAtual === "light") {
+        temaOscuro();
+      } else {
+        temaClaro();
+      }
+
+      // Use um pequeno atraso para garantir que a mudança de tema tenha ocorrido
+      setTimeout(() => {
+        // Verifica o tema após a mudança
+        const novoTema = document.body.getAttribute("data-bs-theme");
+        if (novoTema === "light") {
+          document.getElementById("d1-icon").setAttribute("class", "bi bi-moon-fill");
+        } else {
+          document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
+        }
+      }, 50); // Ajusta esse valor se necessário
+    };
+
+
+    $(document).ready(function () {
+      $('[data-toggle="collapse"]').on("click", function () {
+        $($(this).data("target")).toggleClass("show");
+      });
+    });
+  </script>
+</body>
+
 </html>

@@ -27,12 +27,12 @@ const pool = mysql.createPool({
 // rota pra SELECT
 app.get(`/api/midia_indoor`, async (req, res) => {
     try {
-        const conexao = await pool.getConnection()
-        const sql = `SELECT * FROM midia`
+        const conexao = await pool.getConnection();
+        const sql = `SELECT * FROM midia`;
         //console.log(sql)
-        const [linha] = await conexao.execute(sql)
-        conexao.release()
-        res.json(linha)
+        const [linha] = await conexao.execute(sql);
+        conexao.release();
+        res.json(linha);
 
     } catch (error) {
         console.log(`O erro que ocorreu foi: ${error}`)
