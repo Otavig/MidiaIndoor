@@ -1,0 +1,71 @@
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #000; /* Cor de fundo do corpo */
+    margin: 0; /* Adiciona margem zero para o body */
+    padding: 0; /* Adiciona preenchimento zero para o body */
+}
+
+.carousel-container {
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+    width: 100%; /* Ocupa toda a largura */
+}
+
+.carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 1s ease;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    width: 100%; /* Ocupa toda a largura */
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    height: 100%;
+    width: 100%; /* Ocupa toda a largura do item */
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.progress-bar-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #fff;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: red;
+    width: 0;
+    transition: width linear;
+}
+
+@media (max-width: 767px) {
+    .carousel {
+        flex-wrap: wrap;
+    }
+
+    .carousel-item {
+        flex: 0 0 100%;
+    }
+}

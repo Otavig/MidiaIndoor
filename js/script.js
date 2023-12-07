@@ -4,7 +4,7 @@
 // --------------------
 
 // URL
-const URL_API = "http://10.111.9.16:3000";
+const URL_API = "http://10.111.14.49:3000";
 
 // NAVBAR
 const btn_Cadastrar = document.getElementById("btn_Cadastrar");
