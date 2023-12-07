@@ -1,3 +1,6 @@
+const fs = require("fs")
+const path = require("path")
+
 const express = require("express")
 const cors = require("cors")
 const mysql = require("mysql2/promise")
@@ -7,6 +10,9 @@ const app = express()
 app.use(cors())
 const porta = 3000
 app.use(bodyparser.json())
+
+const multer = require("multer")
+const midia_upload = multer({ dest: "midias_uploads" })
 
 
 // criar uma pool de conexão
@@ -21,31 +27,19 @@ const pool = mysql.createPool({
     
 })
 
-// Rota para obter URLs das imagens e vídeos
-app.get("/api/midia_indoor/mostrar", async (req, res) => {
-    try {
-        var today = new Date();
-        var ano = today.getFullYear();
-        var mes = today.getMonth() + 1;
-        var dia = today.getDate();
-        var d = ano + "-" + mes + "-" + dia;
-        console.log(d);
+app.use("/bancos_midias", express.static("midias"))
 
-        const conection = await pool.getConnection()
-        /*const sql = "SELECT status,data_inicio,data_fim,url,tempo FROM midia"*/
-        const sql = `SELECT * FROM midia WHERE '${d}' > data_inicio  AND '${d}' < data_fim `;
-        console.log(sql)
-        const [linhas] = await conection.execute(sql)
-        console.log(linhas)
-        conection.release()
-        res.json(linhas)
+app.post("/api/midia_indoor", midia_upload.single("arquivo_midia") , (req, res) => {
+    console.log(req.file)
 
-    } catch (error) {
-        console.log(`O Erro que ocorreu foi: ${error}`)
-        res.send(500).json({ error: "Deu algum erro na conexão" })
-    }
+    let midia_arq_recebido = req.file.path
+    let midia_arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname)
+
+    fs.renameSync(midia_arq_recebido, midia_arq_destino)
+
+    res.send(`<a class="nav-link" id="btn_Exibir" target="_blank" href = "http://localhost:3000/bancos_midias/
+    ${ req.file.filename + path.extname(req.file.originalname)}>Exibir</a>`)
 })
-
 
 // rota pra SELECT
 app.get(`/api/midia_indoor`, async (req, res) => {

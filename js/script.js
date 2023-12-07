@@ -99,7 +99,6 @@ busca_btn_verificar.addEventListener("click", async() => {
                             <th scope="col">id</th>
                             <th scope="col" class='text-start'>Nome</th>
                             <th scope="col" class='text-start'>Status</th>
-                            <th scope="col" class='text-start'>Url</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Excluir</th>
                         </tr>
@@ -128,7 +127,6 @@ busca_btn_verificar.addEventListener("click", async() => {
                         <td>${dados.id}</td>
                         <td class='text-start'>${dados.nome}</td>
                         <td class='text-start'>${dados.status}</td>
-                        <td class='text-start'>${dados.url}</td>
                         <td><i onclick="editar(${dados.id}); toggleOculto();" class="bi bi-pencil"></i></td>
                         <td><i onclick="excluir(${dados.id});" class="bi bi-trash"></i></td>
                     </tr>`;
