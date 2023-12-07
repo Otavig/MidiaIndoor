@@ -24,6 +24,28 @@ const pool = mysql.createPool({
 
 })
 
+// Rota para obter URLs das imagens e vídeos
+app.get("/api/midia_indoor/urls", async (req, res) => {
+    try {
+        const conexao = await pool.getConnection();
+        const [linha] = await conexao.query("SELECT tipo, url FROM midia");
+        conexao.release();
+
+        const urls = linha.map(item => {
+            return {
+                tipo: item.tipo,
+                url: item.url
+            };
+        });
+
+        res.json(urls);
+    } catch (error) {
+        console.error("Erro ao obter URLs de imagens e vídeos:", error);
+        res.status(500).json({ error: "Erro ao obter URLs de imagens e vídeos" });
+    }
+});
+
+
 // rota pra SELECT
 app.get(`/api/midia_indoor`, async (req, res) => {
     try {

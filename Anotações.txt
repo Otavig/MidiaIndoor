@@ -69,3 +69,9 @@ Fazer script Busca novo com novas especificações
 Fazer botão de mudar tema funcionar (clique duas vezes)
 Alerta no exibir para escolher outra guia ou não
 Arrumar resonsividade do site para celular
+
+
+
+Tela de login
+
+Certo seria pedia o login antes de aparecer o cadastrar né? tipo loga e libera!

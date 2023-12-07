@@ -21,6 +21,18 @@
   .clv {
     border: 0px;
   }
+
+  .login-button {
+    background-color: #ffffff; /* Fundo branco */
+    color: #007bff; /* Cor do texto (azul) */
+    border: 1px solid #007bff; /* Borda azul */
+  }
+
+  .login-button:hover {
+    background-color: #007bff; /* Cor de fundo azul ao passar o mouse */
+    color: #ffffff; /* Cor do texto branco ao passar o mouse */
+  }
+
 </style>
 
 <body>
@@ -67,10 +79,18 @@
       </div>
       <!-- BOTÃO PARA MUDAR O TEMA -->
       <div style="margin-right: 100px;" class="ml-auto">
+        <!-- ÍCONE DE TROCAR TEMA -->
         <a class="btn rounded-fill" onclick="cambiarTema()">
           <i id="d1-icon" class="bi bi-moon-fill"></i>
         </a>
+
+        <!-- BOTÃO DE LOGIN -->
+        <a href="login.html" class="btn btn-primary btn-lg login-button" style="margin-left: 10px;">
+          <i class="bi bi-person-fill"></i> Login
+        </a>
       </div>
+
+
     </div>
   </nav>
 
@@ -271,58 +291,70 @@
   <script src="js/bootstrap.bundle.min.js"></script>
 
   <script>
-
-function mostrarDiv(id) {
-        // Esconde todas as DIVs
-        document.querySelectorAll('.content').forEach(div => {
-          div.style.display = 'none';
-        });
-        // Mostra apenas a DIV com o ID correspondente
-        document.getElementById(id).style.display = 'block';
-      }
+    function mostrarDiv(id) {
+      // Esconde todas as DIVs
+      document.querySelectorAll('.content').forEach(div => {
+        div.style.display = 'none';
+      });
+      // Mostra apenas a DIV com o ID correspondente
+      document.getElementById(id).style.display = 'block';
+    }
+  
     // Simula o efeito de carregamento
     setTimeout(function () {
       document.querySelector(".loading").style.display = "none";
       document.querySelector(".navbar").style.display = "block";
     }, 1000);
-
+  
     const temaOscuro = () => {
       document.body.setAttribute("data-bs-theme", "dark");
       document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
       // Adiciona estilos para o modo escuro
       document.body.style.backgroundColor = "#343a40";
       document.body.style.color = "#ffffff";
-
+  
       // Adiciona a cor ao card de trás
       const cards = document.querySelectorAll(".content");
       cards.forEach(card => {
         card.style.backgroundColor = "#585f67";
       });
+  
+      // Adiciona classe ao botão de login
+      const loginButton = document.querySelector(".login-icon");
+      if (loginButton) {
+        loginButton.classList.add("dark-mode");
+      }
     };
-
+  
     const temaClaro = () => {
       document.body.setAttribute("data-bs-theme", "light");
       document.getElementById("d1-icon").setAttribute("class", "bi bi-moon-fill");
       // Adiciona estilos para o modo claro
       document.body.style.backgroundColor = "#f8f9fa";
       document.body.style.color = "#000000";
-
+  
       // Remove a cor do card de trás
       const cards = document.querySelectorAll(".content");
       cards.forEach(card => {
         card.style.backgroundColor = "";
       });
+  
+      // Remove classe do botão de login
+      const loginButton = document.querySelector(".login-icon");
+      if (loginButton) {
+        loginButton.classList.remove("dark-mode");
+      }
     };
-
+  
     const cambiarTema = () => {
       const temaAtual = document.body.getAttribute("data-bs-theme");
-
+  
       if (temaAtual === "light") {
         temaOscuro();
       } else {
         temaClaro();
       }
-
+  
       // Use um pequeno atraso para garantir que a mudança de tema tenha ocorrido
       setTimeout(() => {
         // Verifica o tema após a mudança
@@ -334,14 +366,14 @@ function mostrarDiv(id) {
         }
       }, 50); // Ajusta esse valor se necessário
     };
-
-
+  
     $(document).ready(function () {
       $('[data-toggle="collapse"]').on("click", function () {
         $($(this).data("target")).toggleClass("show");
       });
     });
   </script>
+  
 </body>
 
 </html>
