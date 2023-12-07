@@ -21,24 +21,29 @@
 
         body {
             background-color: #000; /* Cor de fundo do corpo */
+            margin: 0; /* Adiciona margem zero para o body */
+            padding: 0; /* Adiciona preenchimento zero para o body */
         }
 
         .carousel-container {
             position: relative;
             margin-bottom: 30px;
             overflow: hidden;
+            width: 100%; /* Ocupa toda a largura */
         }
 
         .carousel {
             display: flex;
             flex-wrap: nowrap;
             transition: transform 1s ease;
-            height: 300px; /* Adicione uma altura ao carrossel para torná-lo visível */
+            height: 100vh; /* Ocupa 100% da altura da tela */
+            width: 100%; /* Ocupa toda a largura */
         }
 
         .carousel-item {
             flex: 0 0 100%;
             height: 100%;
+            width: 100%; /* Ocupa toda a largura do item */
         }
 
         .carousel-item img {
@@ -77,18 +82,18 @@
 
 <body>
 
-     <!-- CARROSSEL -->
-     <div class="carousel-container">
+    <!-- CARROSSEL -->
+    <div class="carousel-container">
         <div class="carousel">
             <!-- Exemplo estático (pode ser removido quando integrar com o backend) -->
             <div class="carousel-item">
-                <img src="" alt="Midia do Carrossel Estático">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/5eeea355389655.59822ff824b72.gif" alt="Midia do Carrossel Estático">
             </div>
             <div class="carousel-item">
-                <img src="URL_DA_IMAGEM_OU_VIDEO_2" alt="Midia do Carrossel Estático">
+                <img src="https://compote.slate.com/images/697b023b-64a5-49a0-8059-27b963453fb1.gif" alt="Midia do Carrossel Estático">
             </div>
             <div class="carousel-item">
-                <img src="URL_DA_IMAGEM_OU_VIDEO_3" alt="Midia do Carrossel Estático">
+                <img src="https://media3.giphy.com/media/RtdRhc7TxBxB0YAsK6/giphy.gif" alt="Midia do Carrossel Estático">
             </div>
             <!-- Fim do exemplo estático -->
 

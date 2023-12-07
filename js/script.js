@@ -307,3 +307,4 @@ atualizar_btn_limpar.addEventListener("click", () => {
 console.log("        /\\_/\\ Copyright © 2023");
 console.log("       ( o.o ) Otávio, Breno, Isa e Kauana.");
 console.log("        > ^ < Todos os direitos reservados.");
+console.log("       >     <  SEMPRE OLHAR AS ANOTAÇÕES")

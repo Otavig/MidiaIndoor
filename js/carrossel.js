@@ -3,11 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const progressBar = document.querySelector('#carrosselDinamico .progress-bar');
     let currentIndex = 0;
     let tempoTotal = 0;
+    let dadosDoBanco = []; // Adicionado para armazenar os dados carregados do banco
 
     async function carregarImagensDoBanco() {
         try {
             const response = await fetch('http://localhost:3000/api/midia_indoor/urls');
-            const dadosDoBanco = await response.json();
+            dadosDoBanco = await response.json();
 
             for (const dados of dadosDoBanco) {
                 const divImagem = document.createElement('div');
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Configura outro temporizador para atualizar a barra de progresso quando a mídia for removida
                 setTimeout(() => {
-                    updateProgressBar();
+                    updateProgressBar(dados.tempo);
                 }, dados.tempo - 50); // Subtraindo 50ms para ajustar a sincronização
             }
 
