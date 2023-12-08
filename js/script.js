@@ -4,7 +4,7 @@
 // --------------------
 
 // URL
-const URL_API = "http://10.111.14.49:3000";
+const URL_API = "http://localhost:3000";
 
 // NAVBAR
 const btn_Cadastrar = document.getElementById("btn_Cadastrar");
@@ -46,42 +46,44 @@ btn_Cadastrar.addEventListener("click", async () => {
 
 cadastro_btn_cadastro.addEventListener("click", async () =>{
     try {
-        // Mostrar div escondida
-
-        // Obter valores do formulário
-        let nome = document.getElementById("cadastro_nome_midia").value;
-        let tipo = document.getElementById("cadastro_tipo").value;
-        let data_inicio = document.getElementById("cadastro_data_inicio").value;
-        let data_fim = document.getElementById("cadastro_data_fim").value;
-        let status = document.getElementById("cadastro_status").value;
-        let tempo = document.getElementById("cadastro_tempo").value;
-        let url = document.getElementById("cadastro_url").value;
-
-        // Enviar dados para o servidor
-        let dados = await fetch(`${URL_API}/api/midia_indoor`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nome,
-                tipo,
-                data_inicio,
-                data_fim,
-                status,
-                tempo,
-                url,
-            }),
+                // Obter valores do formulário
+                let nome = document.getElementById("cadastro_nome_midia").value;
+                let tipo = document.getElementById("cadastro_tipo").value;
+                let data_inicio = document.getElementById("cadastro_data_inicio").value;
+                let data_fim = document.getElementById("cadastro_data_fim").value;
+                let status = document.getElementById("cadastro_status").value;
+                let tempo = document.getElementById("cadastro_tempo").value;
+                let url = document.getElementById("cadastro_url").value;
+        
+                // Formatar datas no padrão 'YYYY-MM-DD'
+                data_inicio = new Date(data_inicio).toISOString().split('T')[0];
+                data_fim = new Date(data_fim).toISOString().split('T')[0];
+        
+                // Enviar dados para o servidor
+                let dados = await fetch(`${URL_API}/api/midia_indoor`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nome,
+                        tipo,
+                        data_inicio,
+                        data_fim,
+                        status,
+                        tempo,
+                        url,
+                    }),
+                });
+        
+                if (dados.ok) {
+                    btn_Busca.click();
+                    busca_btn_verificar.click();
+                }
+            } catch (erro) {
+                console.error("Erro ao cadastrar midía:", erro);
+            }
         });
-
-        if (dados.ok) {
-            btn_Busca.click();
-            busca_btn_verificar.click();
-        }
-    } catch (erro) {
-        console.error("Erro ao cadastrar midía:", erro);
-    }
-})
 
 
 busca_btn_verificar.addEventListener("click", async() => {
@@ -161,15 +163,18 @@ atualizar_btn_dados.addEventListener("click", async () => {
         // Mostrar div escondida
 
         // Obter valores do formulário de atualização
-        let nome_atualizado = document.getElementById("atualizar_nome_midia").value
-        let tipo_atualizado = document.getElementById("atualizar_tipos").value
-        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value
-        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value
-        let status_atualizado = document.getElementById("atualizar_status").value
-        let tempo_atualizado = document.getElementById("atualizar_tempo").value
-        let url_atualizado = document.getElementById("atualizar_url").value
-        let id = document.getElementById("atualizar_id_editar").value
+        let nome_atualizado = document.getElementById("atualizar_nome_midia").value;
+        let tipo_atualizado = document.getElementById("atualizar_tipos").value;
+        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value;
+        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value;
+        let status_atualizado = document.getElementById("atualizar_status").value;
+        let tempo_atualizado = document.getElementById("atualizar_tempo").value;
+        let url_atualizado = document.getElementById("atualizar_url").value;
+        let id = document.getElementById("atualizar_id_editar").value;
 
+        // Formatar datas no padrão 'YYYY-MM-DD'
+        data_inicio_atualizado = new Date(data_inicio_atualizado).toISOString().split('T')[0];
+        data_fim_atualizado = new Date(data_fim_atualizado).toISOString().split('T')[0];
 
         // Enviar dados para o servidor
         let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
@@ -181,8 +186,8 @@ atualizar_btn_dados.addEventListener("click", async () => {
                 id,
                 nome: nome_atualizado,
                 tipo: tipo_atualizado,
-                dataInicio: data_inicio_atualizado,
-                dataFim: data_fim_atualizado,
+                data_inicio: data_inicio_atualizado,
+                data_fim: data_fim_atualizado,
                 status: status_atualizado,
                 tempo: tempo_atualizado,
                 url: url_atualizado,
@@ -196,7 +201,7 @@ atualizar_btn_dados.addEventListener("click", async () => {
     } catch (erro) {
         console.error("Erro ao atualizar midia indoor:", erro);
     }
-})
+});
 
 /**
  * Função para editar usuário

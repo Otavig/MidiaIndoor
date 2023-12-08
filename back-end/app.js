@@ -29,17 +29,17 @@ const pool = mysql.createPool({
 
 app.use("/bancos_midias", express.static("midias"))
 
-app.post("/api/midia_indoor", midia_upload.single("arquivo_midia") , (req, res) => {
-    console.log(req.file)
+// app.post("/api/midia_indoor", midia_upload.single("arquivo_midia") , (req, res) => {
+//     console.log(req.file)
 
-    let midia_arq_recebido = req.file.path
-    let midia_arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname)
+//     let midia_arq_recebido = req.file.path
+//     let midia_arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname)
 
-    fs.renameSync(midia_arq_recebido, midia_arq_destino)
+//     fs.renameSync(midia_arq_recebido, midia_arq_destino)
 
-    res.send(`<a class="nav-link" id="btn_Exibir" target="_blank" href = "http://localhost:3000/bancos_midias/
-    ${ req.file.filename + path.extname(req.file.originalname)}>Exibir</a>`)
-})
+//     res.send(`<a class="nav-link" id="btn_Exibir" target="_blank" href = "http://localhost:3000/bancos_midias/
+//     ${ req.file.filename + path.extname(req.file.originalname)}>Exibir</a>`)
+// })
 
 // rota pra SELECT
 app.get(`/api/midia_indoor`, async (req, res) => {

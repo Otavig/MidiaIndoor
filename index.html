@@ -356,7 +356,7 @@
         temaClaro();
       }
   
-      // Use um pequeno atraso para garantir que a mudança de tema tenha ocorrido
+      // Usa um pequeno atraso para garantir que a mudança de tema tenha ocorrido
       setTimeout(() => {
         // Verifica o tema após a mudança
         const novoTema = document.body.getAttribute("data-bs-theme");
@@ -365,7 +365,7 @@
         } else {
           document.getElementById("d1-icon").setAttribute("class", "bi bi-sun-fill");
         }
-      }, 50); // Ajusta esse valor se necessário
+      }, 50);
     };
   
     $(document).ready(function () {
