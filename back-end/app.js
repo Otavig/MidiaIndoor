@@ -12,7 +12,8 @@ const porta = 3000
 app.use(bodyparser.json())
 
 const multer = require("multer")
-const midia_upload = multer({ dest: "midias_uploads" })
+const mw_upload = multer({ dest: "./dir_uploads" })
+
 
 
 // criar uma pool de conexão
@@ -27,35 +28,60 @@ const pool = mysql.createPool({
     
 })
 
-app.use("/bancos_midias", express.static("midias"))
-
-// app.post("/api/midia_indoor", midia_upload.single("arquivo_midia") , (req, res) => {
-//     console.log(req.file)
-
-//     let midia_arq_recebido = req.file.path
-//     let midia_arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname)
-
-//     fs.renameSync(midia_arq_recebido, midia_arq_destino)
-
-//     res.send(`<a class="nav-link" id="btn_Exibir" target="_blank" href = "http://localhost:3000/bancos_midias/
-//     ${ req.file.filename + path.extname(req.file.originalname)}>Exibir</a>`)
-// })
-
-// rota pra SELECT
-app.get(`/api/midia_indoor`, async (req, res) => {
+// Rota para obter todas as mídias
+app.get("/api/midia_indoor/", async (req, res) => {
     try {
         const conexao = await pool.getConnection();
         const sql = `SELECT * FROM midia`;
-        //console.log(sql)
         const [linha] = await conexao.execute(sql);
         conexao.release();
         res.json(linha);
-
     } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`)
-        res.send(500).json({ error: "Deu algum erro na busca" })
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro na busca" });
     }
-})
+});
+
+app.use("/api/midia_indoor", express.static("midias"))
+
+app.post("/upload", mw_upload.single("arquivo"), (req, res) => { 
+        console.log(req.file)
+
+        let arq_recebido = req.file.path
+        let arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname)
+
+        // res.send("Rota de Upload funcionando!")
+        // Movendo arquivo recebido
+        fs.renameSync(arq_recebido, arq_destino)
+
+
+        res.send(`Rota de Upload funcionando! <a href="http://localhost:3007/banco_midias/${req.file.filename + path.extname(req.file.originalname)}"> Abrir</a>`)
+    })
+
+    app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
+        try {
+            console.log(req.file);
+    
+            if (!req.file) {
+                return res.status(400).json({ error: "Nenhum arquivo foi enviado." });
+            }
+    
+            let arq_recebido = req.file.path;
+            let arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname);
+    
+            // Movendo arquivo recebido
+            fs.renameSync(arq_recebido, arq_destino);
+    
+            res.status(200).json({
+                message: "Arquivo recebido e movido com sucesso.",
+                filename: req.file.filename + path.extname(req.file.originalname),
+            });
+        } catch (error) {
+            console.error("Erro no upload:", error);
+            res.status(500).json({ error: "Erro interno durante o upload." });
+        }
+    });
+    
 
 // rota pra SELECT com o ID
 app.get(`/api/midia_indoor/id/:id`, async (req, res) => {

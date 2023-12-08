@@ -12,6 +12,9 @@ const btn_Atualizar = document.getElementById("btn_Atualizar");
 const btn_Busca = document.getElementById("btn_Busca");
 const btn_Exibir = document.getElementById("btn_Exibir");
 
+//esconder
+const btn_Update = document.getElementById("update");
+
 
 // BUSCA
 let modoEdicaoAtivo = false;
@@ -29,6 +32,10 @@ const busca_saida = document.getElementById("busca_saida");
  * Função para atualizar o ocultar
  */
 function toggleOculto() {
+    //aparece o editar
+    btn_Update.style.display = "block";
+    btn_Atualizar.style.display = "block";
+
     var navItem = document.querySelector('.oculto');
 
     if (navItem.classList.contains('oculto')) {
@@ -41,11 +48,18 @@ function toggleOculto() {
 // Evento cadastrar
 btn_Cadastrar.addEventListener("click", async () => {
     mostrarDiv('cadastro');
+    //esconde o editar
+    btn_Update.style.display = "none";
+    btn_Atualizar.style.display = "none";
 
 });
 
-cadastro_btn_cadastro.addEventListener("click", async () =>{
+cadastro_btn_cadastro.addEventListener("click", async (evt) =>{
     try {
+                //esconde o editar
+                btn_Update.style.display = "none";
+                btn_Atualizar.style.display = "none";
+
                 // Obter valores do formulário
                 let nome = document.getElementById("cadastro_nome_midia").value;
                 let tipo = document.getElementById("cadastro_tipo").value;
@@ -54,6 +68,36 @@ cadastro_btn_cadastro.addEventListener("click", async () =>{
                 let status = document.getElementById("cadastro_status").value;
                 let tempo = document.getElementById("cadastro_tempo").value;
                 let url = document.getElementById("cadastro_url").value;
+                let arquivo = document.getElementById("cadastro_arquivo")
+                // arquivos
+                evt.preventDefault()
+
+                const arq = arquivo.files[0]
+
+                // Validar se selecionou um arquivo
+                // if (!arq) {
+                //     alert("Selecione um arquivo")
+                //     return
+                // }
+                // try {
+
+                //     const fd = new FormData()
+                //     fd.append("arquivo", arq)
+                //     fd.append("dados", JSON.stringify({ titulo: "teste" }))
+
+
+                //     let resp = await fetch("http://localhost:3007/upload",
+                //         {
+                //             method: 'POST',
+                //             body: fd
+                //         })
+                //     if (resp.ok) {
+                //         alert("Enviado com sucesso")
+                //     }
+                // } catch (erro) {
+                //     alert("Erro")
+                // }
+
         
                 // Formatar datas no padrão 'YYYY-MM-DD'
                 data_inicio = new Date(data_inicio).toISOString().split('T')[0];
@@ -89,8 +133,6 @@ cadastro_btn_cadastro.addEventListener("click", async () =>{
 busca_btn_verificar.addEventListener("click", async() => {
     try {
         // Mostrar div escondida
-
-        
 
         let busca = document.getElementById("input_busca").value;
         let opcao = document.getElementById("busca_opcoes").value;
@@ -163,18 +205,15 @@ atualizar_btn_dados.addEventListener("click", async () => {
         // Mostrar div escondida
 
         // Obter valores do formulário de atualização
-        let nome_atualizado = document.getElementById("atualizar_nome_midia").value;
-        let tipo_atualizado = document.getElementById("atualizar_tipos").value;
-        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value;
-        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value;
-        let status_atualizado = document.getElementById("atualizar_status").value;
-        let tempo_atualizado = document.getElementById("atualizar_tempo").value;
-        let url_atualizado = document.getElementById("atualizar_url").value;
-        let id = document.getElementById("atualizar_id_editar").value;
+        let nome_atualizado = document.getElementById("atualizar_nome_midia").value
+        let tipo_atualizado = document.getElementById("atualizar_tipos").value
+        let data_inicio_atualizado = document.getElementById("atualizar_data_inicio").value
+        let data_fim_atualizado = document.getElementById("atualizar_data_fim").value
+        let status_atualizado = document.getElementById("atualizar_status").value
+        let tempo_atualizado = document.getElementById("atualizar_tempo").value
+        let url_atualizado = document.getElementById("atualizar_url").value
+        let id = document.getElementById("atualizar_id_editar").value
 
-        // Formatar datas no padrão 'YYYY-MM-DD'
-        data_inicio_atualizado = new Date(data_inicio_atualizado).toISOString().split('T')[0];
-        data_fim_atualizado = new Date(data_fim_atualizado).toISOString().split('T')[0];
 
         // Enviar dados para o servidor
         let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
@@ -186,8 +225,8 @@ atualizar_btn_dados.addEventListener("click", async () => {
                 id,
                 nome: nome_atualizado,
                 tipo: tipo_atualizado,
-                data_inicio: data_inicio_atualizado,
-                data_fim: data_fim_atualizado,
+                dataInicio: data_inicio_atualizado,
+                dataFim: data_fim_atualizado,
                 status: status_atualizado,
                 tempo: tempo_atualizado,
                 url: url_atualizado,
@@ -201,7 +240,7 @@ atualizar_btn_dados.addEventListener("click", async () => {
     } catch (erro) {
         console.error("Erro ao atualizar midia indoor:", erro);
     }
-});
+})
 
 /**
  * Função para editar usuário
@@ -216,12 +255,12 @@ async function editar(id) {
             btn_Atualizar.click();
 
             // Preenche os campos de atualização
-            document.getElementById("atualizar_data_inicio").value = dados.data_inicio
-            document.getElementById("atualizar_data_fim").value = dados.data_fim
-            document.getElementById("atualizar_status").value = dados.status
-            document.getElementById("atualizar_tempo").value = dados.tempo
-            document.getElementById("atualizar_url").value = dados.url
-            document.getElementById("atualizar_id_editar").value = dados.id
+            document.getElementById("atualizar_data_inicio").value = dados.data_inicio;
+            document.getElementById("atualizar_data_fim").value = dados.data_fim;
+            document.getElementById("atualizar_status").value = dados.status;
+            document.getElementById("atualizar_tempo").value = dados.tempo;
+            document.getElementById("atualizar_url").value = dados.url;
+            document.getElementById("atualizar_id_editar").value = dados.id;
 
             // Ativa o modo de edição
             modoEdicaoAtivo = true;
@@ -232,11 +271,16 @@ async function editar(id) {
 }
 
 
+
 /**
  * Função para excluir usuário
 */
 
 async function excluir(id) {
+        //esconde o editar
+        btn_Update.style.display = "none";
+        btn_Atualizar.style.display = "none";
+
         let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
             method: "DELETE",
             headers: {
