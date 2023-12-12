@@ -69,8 +69,7 @@ cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
                 let tempo = document.getElementById("cadastro_tempo").value;
                 let url = document.getElementById("cadastro_url").value;
                 let arquivo = document.getElementById("cadastro_arquivo")
-                // arquivos
-                evt.preventDefault()
+
 
                 const arq = arquivo.files[0]
 
