@@ -10,5 +10,14 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  }
+  },
+  "name": "back-end",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Breno H. G. Freguglia, Isabelle D. Vincolleto, Kauana R. Silva, Otávio G. dos Santos",
+  "license": "ISC",
+  "description": ""
 }

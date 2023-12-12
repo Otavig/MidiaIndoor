@@ -10,7 +10,6 @@ const app = express()
 app.use(cors())
 const porta = 3000
 app.use(bodyparser.json())
-
 const multer = require("multer")
 const mw_upload = multer({ dest: "./dir_uploads" })
 

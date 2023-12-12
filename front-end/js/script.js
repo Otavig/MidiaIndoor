@@ -255,6 +255,8 @@ async function editar(id) {
             btn_Atualizar.click();
 
             // Preenche os campos de atualização
+            document.getElementById("atualizar_nome_midia").value = dados.nome;
+            document.getElementById("atualizar_tipos").value = dados.tipo;
             document.getElementById("atualizar_data_inicio").value = dados.data_inicio;
             document.getElementById("atualizar_data_fim").value = dados.data_fim;
             document.getElementById("atualizar_status").value = dados.status;
