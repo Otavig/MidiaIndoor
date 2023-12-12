@@ -54,7 +54,7 @@ btn_Cadastrar.addEventListener("click", async () => {
 
 });
 
-cadastro_btn_cadastro.addEventListener("click", async (evt) =>{
+cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
     try {
                 //esconde o editar
                 btn_Update.style.display = "none";
@@ -250,15 +250,14 @@ async function editar(id) {
         let resposta = await fetch(`${URL_API}/api/midia_indoor/id/${id}`);
         if (resposta.ok) {
             let dados = await resposta.json();
-
-            // Abre a tela de atualizar
-            btn_Atualizar.click();
+            
+            // Formatação das datas para o padrão ISO
+            document.getElementById("atualizar_data_inicio").value = formatarDataParaInput(dados.data_inicio);
+            document.getElementById("atualizar_data_fim").value = formatarDataParaInput(dados.data_fim);
 
             // Preenche os campos de atualização
             document.getElementById("atualizar_nome_midia").value = dados.nome;
             document.getElementById("atualizar_tipos").value = dados.tipo;
-            document.getElementById("atualizar_data_inicio").value = dados.data_inicio;
-            document.getElementById("atualizar_data_fim").value = dados.data_fim;
             document.getElementById("atualizar_status").value = dados.status;
             document.getElementById("atualizar_tempo").value = dados.tempo;
             document.getElementById("atualizar_url").value = dados.url;
@@ -266,11 +265,39 @@ async function editar(id) {
 
             // Ativa o modo de edição
             modoEdicaoAtivo = true;
+
+            // Lógica para selecionar a opção correta no campo de tipo
+            if (dados.tipo === "V") {
+                document.getElementById("atualizar_tipos").value = "Video";
+            } else if (dados.tipo === "I") {
+                document.getElementById("atualizar_tipos").value = "Imagem";
+            }
+
+            // Lógica para ativar ou desativar o campo de status
+            if (dados.status === "a") {
+                document.getElementById("atualizar_status").value = "ativado";
+            } else {
+                document.getElementById("atualizar_status").value = "desativado";
+            }
+
+            // Abre a tela de atualizar
+            btn_Atualizar.click();
         }
     } catch (erro) {
         console.error("Erro ao editar usuário:", erro);
     }
 }
+
+
+// Função para formatar a data para o formato de input date
+function formatarDataParaInput(dataString) {
+    const data = new Date(dataString);
+    const ano = data.getFullYear();
+    let mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    let dia = data.getDate().toString().padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+}
+
 
 
 
