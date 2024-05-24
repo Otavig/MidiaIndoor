@@ -99,7 +99,7 @@ body {
     left: 0;
     width: 0;
     height: 5px; /* Altura da barra de progresso */
-    background-color: #007bff; /* Cor da barra de progresso */
+    background-color: #0160C6; /* Cor da barra de progresso */
     transition: width linear; /* Transição linear da largura */
 }
 
