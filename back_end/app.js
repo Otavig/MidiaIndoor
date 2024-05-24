@@ -49,7 +49,7 @@ app.get("/api/midia_indoor/", async (req, res) => {
     }
 });
 
-app.use("", express.static("front-end/public"))
+app.use("", express.static("front-end/"))
 
 
 app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
@@ -61,7 +61,7 @@ app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
         }
 
         let arq_recebido = req.file.path;
-        let arq_destino = "front-end/public/midias/" + req.file.filename + path.extname(req.file.originalname);
+        let arq_destino = "front-end/midias/" + req.file.filename + path.extname(req.file.originalname);
 
         // Movendo arquivo recebido
         fs.renameSync(arq_recebido, arq_destino);

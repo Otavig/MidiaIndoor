@@ -11,22 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const carousel = document.getElementById("carousel_midia");
       let currentIndex = 0; // Índice da mídia atual no array
 
-      function goFullscreen(iframe) {
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-          iframe.msRequestFullscreen();
-        }
-      }
-
-      function isYouTubeURL(url) {
-        return url.toLowerCase().includes("youtube.com");
-      }
-
       function mostrarProximaMidia() {
         // Remove a mídia atual do carrossel
         carousel.innerHTML = '';
@@ -52,32 +36,53 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Verifica se a mídia está ativa e se a data atual está entre a data de início e de término
         if (status_midia === 'a' && data_atual_formatada >= data_inicio_formatada && data_atual_formatada <= data_fim_formatada) {
+          // Cria a barra de progresso
+          const progressBar = document.createElement("div");
+          progressBar.className = "progress-bar";
+          progressBar.style.transitionDuration = `${tempo_exibicao / 1000}s`; // Define a duração da animação
+
           if (tipo_midia === 'I') {
             // Se for uma imagem
             div.innerHTML = `<img src="midias/${url_midia}" data-tempo="${tempo_exibicao}">`;
           } else if (tipo_midia === 'V') {
             // Se for um vídeo local
-            if (isYouTubeURL(url_midia)) {
-              // Se for um vídeo do YouTube, usa a API de incorporação do YouTube para embutir o vídeo
-              div.innerHTML = `<iframe width="100%" height="100%" src="${url_midia}" frameborder="0" allowfullscreen></iframe>`;
-              const iframe = div.querySelector('iframe');
-              goFullscreen(iframe);
-            } else {
-              // Se não for um vídeo do YouTube e for um vídeo local
-              div.innerHTML = `<video src="${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay onended="mostrarProximaMidia()"></video>`;
-            }
+            div.innerHTML = `<video src="${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay onended="mostrarProximaMidia()"></video>`;
           } else {
             // Se for outro tipo de mídia, pule para o próximo item
             mostrarProximaMidia();
             return;
           }
 
+          div.appendChild(progressBar);
           carousel.appendChild(div);
+
+          // Reconfigura a largura da barra de progresso para 0
+          progressBar.style.width = "0";
+
+          // Atualiza a largura da barra de progresso para preencher completamente
+          setTimeout(() => {
+            progressBar.style.width = "100%";
+          }, 50); // Adiciona um pequeno atraso para garantir que a largura da barra de progresso seja atualizada após a adição ao DOM
+
+          // Reinicia a barra de progresso quando uma nova mídia é exibida
+          setTimeout(() => {
+            progressBar.style.width = "0";
+          }, tempo_exibicao);
+
           currentIndex = (currentIndex + 1) % dados.length;
           setTimeout(mostrarProximaMidia, tempo_exibicao);
         } else {
           currentIndex = (currentIndex + 1) % dados.length;
           mostrarProximaMidia();
+        }
+
+        // Verifica se a exibição atual é a última mídia
+        if (currentIndex === 0) {
+          // Adiciona um pequeno atraso antes de recarregar a página para garantir que o último item seja exibido completamente
+          setTimeout(() => {
+            // Recarrega a página após o término do ciclo do carrossel
+            location.reload();
+          }, tempo_exibicao);
         }
       }
 
