@@ -24,58 +24,6 @@ body {
     width: 100%; /* Ocupa toda a largura */
 }
 
-* {
-    user-select: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body,
-html {
-    height: 100%;
-    overflow: hidden;
-}
-
-body {
-    background-color: #000; /* Cor de fundo do corpo */
-    margin: 0; /* Adiciona margem zero para o body */
-    padding: 0; /* Adiciona preenchimento zero para o body */
-}
-
-.carousel-container {
-    position: relative;
-    margin-bottom: 30px;
-    overflow: hidden;
-    width: 100%; /* Ocupa toda a largura */
-}
-
-* {
-    user-select: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body,
-html {
-    height: 100%;
-    overflow: hidden;
-}
-
-body {
-    background-color: #000; /* Cor de fundo do corpo */
-    margin: 0; /* Adiciona margem zero para o body */
-    padding: 0; /* Adiciona preenchimento zero para o body */
-}
-
-.carousel-container {
-    position: relative;
-    margin-bottom: 30px;
-    overflow: hidden;
-    width: 100%; /* Ocupa toda a largura */
-}
-
 .carousel {
     display: flex;
     flex-wrap: nowrap;
