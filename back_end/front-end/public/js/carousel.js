@@ -46,7 +46,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             div.innerHTML = `<img src="midias/${url_midia}" data-tempo="${tempo_exibicao}">`;
           } else if (tipo_midia === 'V') {
             // Se for um vídeo local
-            div.innerHTML = `<video src="midias/${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay onended="mostrarProximaMidia()"></video>`;
+            if (tempo_exibicao === 0) {
+              // Se o tempo de exibição for 0, definimos o tempo de exibição como a duração real do vídeo
+              let video = document.createElement("video");
+              video.src = `midias/${url_midia}`;
+              video.muted = true;
+              video.autoplay = true;
+              video.onended = mostrarProximaMidia;
+              div.appendChild(video);
+
+              // Obtém a duração do vídeo e define como tempo de exibição
+              video.onloadedmetadata = function() {
+                tempo_exibicao = video.duration * 1000; // Convertendo para milissegundos
+                progressBar.style.transitionDuration = `${tempo_exibicao / 1000}s`; // Atualiza a duração da barra de progresso
+                setTimeout(() => {
+                  progressBar.style.width = "100%";
+                }, 50); // Adiciona um pequeno atraso para garantir que a largura da barra de progresso seja atualizada após a adição ao DOM
+              };
+            } else {
+              // Se o tempo de exibição não for 0, exibe o vídeo normalmente
+              div.innerHTML = `<video src="midias/${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay onended="mostrarProximaMidia()"></video>`;
+            }
           } else {
             // Se for outro tipo de mídia, pule para o próximo item
             mostrarProximaMidia();

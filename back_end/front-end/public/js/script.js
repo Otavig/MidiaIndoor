@@ -70,6 +70,17 @@ cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
                 let url = document.getElementById("cadastro_url").value;
                 let arquivo = document.getElementById("cadastro_arquivo")
                
+                if (!nome) {
+                    alert('Digite um nome para midia.');
+                    return
+                } else if (tipo === "Tipo da mídia"){
+                    alert('Selecione um tipo de midia.');
+                    return
+                }  else if (url < 0 || url === null || url == null || url == ""|| url === "" || !url || url === " "){
+                    alert('Tempo de exibição invalido.');
+                    return
+                }
+
                 const arq = arquivo.files[0]
 
                 //Validar se selecionou um arquivo
@@ -102,7 +113,9 @@ cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
                     alert("Erro")
                 }
 
-        
+                // Converter o status para minúsculas
+                status = status.toLowerCase();
+
                 // Formatar datas no padrão 'YYYY-MM-DD'
                 data_inicio = new Date(data_inicio).toISOString().split('T')[0];
                 data_fim = new Date(data_fim).toISOString().split('T')[0];
@@ -133,7 +146,46 @@ cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
             }
         });
 
+function traduzirStatus(status) {
+    return status === "a" ? "Ativado" : "Desativado";
+}
+        
+// Função para traduzir o tipo
+function traduzirTipo(tipo) {
+    return tipo === "I" ? "Imagem" : "Vídeo";
+}
 
+// Função para formatar a entrada de texto para corresponder aos valores do banco de dados
+function formatarEntradaTipo(texto) {
+    // Converte para minúsculas
+    texto = texto.toLowerCase();
+    
+    // Verifica se é "video" ou "imagem" e substitui por "V" ou "I" respectivamente
+    if (texto === "video" || texto === "v") {
+        return "V";
+    } else if (texto === "imagem" || texto === "i" || texto === "image") {
+        return "I";
+    }
+
+    // Se não for "video" nem "imagem", retorna o texto original
+    return texto;
+}
+
+function formatarEntradaStatus(texto) {
+    // Converte para minúsculas
+    texto = texto.toLowerCase();
+    
+    // Verifica se é "video" ou "imagem" e substitui por "V" ou "I" respectivamente
+    if (texto === "ativado") {
+        return "a";
+    } else if (texto === "destivado") {
+        return "d";
+    }
+
+    // Se não for "video" nem "imagem", retorna o texto original
+    return texto;
+}
+        
 busca_btn_verificar.addEventListener("click", async() => {
     try {
         // Mostrar div escondida
@@ -141,12 +193,23 @@ busca_btn_verificar.addEventListener("click", async() => {
         let busca = document.getElementById("input_busca").value;
         let opcao = document.getElementById("busca_opcoes").value;
 
+        console.log(busca)
+        // if (opcao !== "todos") {
+        //     // Verifica se o campo de busca está vazio ou contém apenas espaços em branco
+        //     if (!busca) {
+        //         // Exibe um alerta informando ao usuário para inserir um valor de busca válido
+        //         alert("Por favor, insira um valor de busca válido.");
+        //         return; // Retorna para evitar enviar a requisição
+        //     }
+        // }
+
         let html = `<table class="table">
                     <thead>
                         <tr>    
                             <th scope="col">id</th>
                             <th scope="col" class='text-start'>Nome</th>
                             <th scope="col" class='text-start'>Status</th>
+                            <th scope="col" class='text-start'>Tipo</th>
                             <th scope="col">Editar</th>
                             <th scope="col">Excluir</th>
                         </tr>
@@ -164,27 +227,33 @@ busca_btn_verificar.addEventListener("click", async() => {
             resposta = await fetch(`${URL_API}/api/midia_indoor/id/${busca}`);
         } else if (opcao === "nome") {
             resposta = await fetch(`${URL_API}/api/midia_indoor/nome/${busca}`);
+        } else if (opcao === "status") {
+            resposta = await fetch(`${URL_API}/api/midia_indoor/status/${formatarEntradaStatus(busca)}`);
+        } else if (opcao === "tipo") {
+            resposta = await fetch(`${URL_API}/api/midia_indoor/tipo/${formatarEntradaTipo(busca)}`);
         }
 
         // Verifica se a resposta foi bem-sucedida
         if (resposta.ok) {
             let array_res = await resposta.json();
-            if (opcao === "todos" || opcao === "nome") {
+            if (opcao === "todos" || opcao === "nome" || opcao === "status" || opcao === "tipo") {
                 for (const dados of array_res) {
                     html += `<tr>                
                         <td>${dados.id}</td>
                         <td class='text-start'>${dados.nome}</td>
-                        <td class='text-start'>${dados.status}</td>
+                        <td class='text-start'>${traduzirStatus(dados.status)}</td>
+                        <td class='text-start'>${traduzirTipo(dados.tipo)}</td>
                         <td><i onclick="editar(${dados.id}); toggleOculto();" class="bi bi-pencil"></i></td>
                         <td><i onclick="excluir(${dados.id});" class="bi bi-trash"></i></td>
                     </tr>`;
                 }
-            } else if (opcao === "id" && array_res.id !== undefined) {
+            } 
+            else if (opcao === "id" && array_res.id !== undefined) {
                 html += `<tr>                
                     <td>${array_res.id}</td>
                     <td class='text-start'>${array_res.nome}</td>
                     <td class='text-start'>${array_res.status}</td>
-                    <td class='text-start'>${array_res.url}</td>
+                    <td class='text-start'>${array_res.tipo}</td>
                     <td><i onclick="editar(${array_res.id}); toggleOculto();" class="bi bi-pencil"></i></td>
                     <td><i onclick="excluir(${array_res.id});" class="bi bi-trash"></i></td>
                 </tr>`;
@@ -218,6 +287,8 @@ atualizar_btn_dados.addEventListener("click", async () => {
         let url_atualizado = document.getElementById("atualizar_url").value
         let id = document.getElementById("atualizar_id_editar").value
 
+        // Converter o status para minúsculas
+        status_atualizado = status_atualizado.toLowerCase();
 
         // Enviar dados para o servidor
         let dados = await fetch(`${URL_API}/api/midia_indoor/${id}`, {
@@ -329,10 +400,29 @@ async function excluir(id) {
 
 
 
-// Evento para resolver click inicial da pagina
+// Evento para resolver click inicial da pagina e tbm tipo de midia
 document.addEventListener("DOMContentLoaded", async () => {
     // Chama a função cambiarTema() diretamente
     cambiarTema();
+
+    // // Alternar tipo de video ou imagem para duração do elemento
+    // const tipoSelect = document.getElementById("cadastro_tipo");
+    // const tempoExibicaoDiv = document.querySelector("#cadastro_tempo").closest(".form-floating");
+
+    // // Função para atualizar a visibilidade do campo "Tempo de Exibição"
+    // function atualizarVisibilidadeTempoExibicao() {
+    //     if (tipoSelect.value === "Imagem") {
+    //     tempoExibicaoDiv.style.display = "block";
+    //     } else {
+    //     tempoExibicaoDiv.style.display = "none";
+    //     }
+    // }
+
+    // // Atualiza a visibilidade inicialmente
+    // atualizarVisibilidadeTempoExibicao();
+
+    // // Adiciona um evento de mudança ao seletor de tipo
+    // tipoSelect.addEventListener("change", atualizarVisibilidadeTempoExibicao);
 });
 
 // Evento buscar {REFAZER COM AS NOVAS OPÇÕES}

@@ -41,7 +41,7 @@
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    <span style="margin: 20px;">Seja bem-vindo</span>
+    <span style="margin: 20px;">Carregando...</span>
   </div>
 
   <!-- Barra de Navegação -->
@@ -134,15 +134,15 @@
         <label for="cadastro_status" class="form-label">Status</label>
         <select id="cadastro_status" class="form-select">
           <option hidden>Status</option>
-          <option>ativado</option>
-          <option>desativado</option>
+          <option>Ativado</option>
+          <option>Desativado</option>
         </select>
       </div>
 
       <!-- Tempo de exibição -->
       <div class="form-floating mb-3">
         <label for="cadastro_tempo" class="form-label">Tempo de Exibição:</label>
-        <input type="number" id="cadastro_tempo" name="exibicao_tempo" class="form-control" />
+        <input type="number" id="cadastro_tempo" name="exibicao_tempo" class="form-control" value="0" />
       </div>
 
       <!-- URL -->
@@ -230,8 +230,8 @@
       <label for="atualizar_status" class="form-label">Status</label>
       <select id="atualizar_status" class="form-select">
         <option hidden>Status</option>
-        <option>ativado</option>
-        <option>desativado</option>
+        <option>Ativado</option>
+        <option>Desativado</option>
       </select>
     </div>
 
@@ -288,8 +288,10 @@
       <div class="col-3 ms-2">
       <select name="" id="busca_opcoes" class="form-select">
           <option value="todos">Todos</option>
-          <option value="id">ID</option>
+          <option value="id">Id</option>
           <option value="nome">Nome</option>
+          <option value="tipo">Tipo</option>
+          <option value="status">Status</option>
       </select>
       </div>
       <div class="input-group-append">

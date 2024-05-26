@@ -13,8 +13,6 @@ app.use(bodyparser.json())
 const multer = require("multer")
 const mw_upload = multer({ dest: "./dir_uploads" })
 
-
-
 // criar uma pool de conexão
 const pool = mysql.createPool({
     host: `localhost`,
@@ -73,6 +71,40 @@ app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
     } catch (error) {
         console.error("Erro no upload:", error);
         res.status(500).json({ error: "Erro interno durante o upload." });
+    }
+});
+
+// Rota para SELECT com o status
+app.get(`/api/midia_indoor/status/:status`, async (req, res) => {
+    try {
+        const status = req.params.status;
+        const conexao = await pool.getConnection();
+        const sql = `SELECT * FROM midia WHERE status = '${status}'`;
+        const [linha] = await conexao.execute(sql);
+        console.log(sql);
+        console.log(linha);
+        conexao.release();
+        res.json(linha);
+    } catch (error) {
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro na busca" });
+    }
+});
+
+// Rota para SELECT com o tipo
+app.get(`/api/midia_indoor/tipo/:tipo`, async (req, res) => {
+    try {
+        const tipo = req.params.tipo;
+        const conexao = await pool.getConnection();
+        const sql = `SELECT * FROM midia WHERE tipo = '${tipo}'`;
+        const [linha] = await conexao.execute(sql);
+        console.log(sql);
+        console.log(linha);
+        conexao.release();
+        res.json(linha);
+    } catch (error) {
+        console.log(`O erro que ocorreu foi: ${error}`);
+        res.status(500).json({ error: "Deu algum erro na busca" });
     }
 });
 
@@ -148,13 +180,31 @@ app.put("/api/midia_indoor/:id", async (req, res) => {
     }
 });
 
-// Rota pra deletar
+// Rota para deletar
 app.delete("/api/midia_indoor/:id", async (req, res) => {
     try {
         const id = req.params.id;
         const conexao = await pool.getConnection();
-        const sql = `DELETE FROM midia WHERE id = ${id}`;
-        const [linha] = await conexao.execute(sql, [id]);
+        
+        // Primeiro, busca a informação da mídia para obter o nome do arquivo
+        const selectSql = `SELECT * FROM midia WHERE id = ${id}`;
+        const [selectResult] = await conexao.execute(selectSql);
+
+        if (selectResult.length === 0) {
+            conexao.release();
+            return res.status(404).json({ error: "Mídia não encontrada." });
+        }
+
+        const url_midia = selectResult[0].url;
+        
+        // Deleta a entrada da mídia no banco de dados
+        const deleteSql = `DELETE FROM midia WHERE id = ${id}`;
+        await conexao.execute(deleteSql);
+
+        // Deleta o arquivo de imagem
+        const caminho_arquivo = path.join(__dirname, `front-end/midias/${url_midia}`);
+        fs.unlinkSync(caminho_arquivo);
+
         conexao.release();
         res.json({ msg: "Registro excluído!" });
     } catch (error) {
@@ -162,6 +212,7 @@ app.delete("/api/midia_indoor/:id", async (req, res) => {
         res.status(500).json({ error: "Deu algum erro na exclusão" });
     }
 });
+
 
 
 app.listen(porta, () => {
