@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               };
             } else {
               // Se o tempo de exibição não for 0, exibe o vídeo normalmente
-              div.innerHTML = `<video src="midias/${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay onended="mostrarProximaMidia()"></video>`;
+              div.innerHTML = `<video src="midias/${url_midia}" data-tempo="${tempo_exibicao}" muted autoplay loop onended="mostrarProximaMidia()"></video>`;
             }
           } else {
             // Se for outro tipo de mídia, pule para o próximo item

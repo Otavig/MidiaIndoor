@@ -76,7 +76,7 @@ cadastro_btn_cadastro.addEventListener("click", async (/*evt*/) =>{
                 } else if (tipo === "Tipo da mídia"){
                     alert('Selecione um tipo de midia.');
                     return
-                }  else if (url < 0 || url === null || url == null || url == ""|| url === "" || !url || url === " "){
+                }  else if (tempo < 0 || tempo === null || tempo == null || tempo == ""|| tempo === "" || !tempo || tempo === " "){
                     alert('Tempo de exibição invalido.');
                     return
                 }
