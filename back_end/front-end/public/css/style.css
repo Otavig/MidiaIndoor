@@ -72,9 +72,6 @@ body {
 .nav-link:hover {
     background-color: #0056b3; /* Cor ao passar o mouse sobre os botões */
 }
-.custom-file-input{
-    margin-left: 2px;
-}
 
 .loading {
     position: fixed;

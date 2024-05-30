@@ -13,6 +13,8 @@ app.use(bodyparser.json())
 const multer = require("multer")
 const mw_upload = multer({ dest: "./dir_uploads" })
 
+
+
 // criar uma pool de conexão
 const pool = mysql.createPool({
     host: `localhost`,
@@ -73,41 +75,6 @@ app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
         res.status(500).json({ error: "Erro interno durante o upload." });
     }
 });
-
-// Rota para SELECT com o status
-app.get(`/api/midia_indoor/status/:status`, async (req, res) => {
-    try {
-        const status = req.params.status;
-        const conexao = await pool.getConnection();
-        const sql = `SELECT * FROM midia WHERE status = '${status}'`;
-        const [linha] = await conexao.execute(sql);
-        console.log(sql);
-        console.log(linha);
-        conexao.release();
-        res.json(linha);
-    } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`);
-        res.status(500).json({ error: "Deu algum erro na busca" });
-    }
-});
-
-// Rota para SELECT com o tipo
-app.get(`/api/midia_indoor/tipo/:tipo`, async (req, res) => {
-    try {
-        const tipo = req.params.tipo;
-        const conexao = await pool.getConnection();
-        const sql = `SELECT * FROM midia WHERE tipo = '${tipo}'`;
-        const [linha] = await conexao.execute(sql);
-        console.log(sql);
-        console.log(linha);
-        conexao.release();
-        res.json(linha);
-    } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`);
-        res.status(500).json({ error: "Deu algum erro na busca" });
-    }
-});
-
 
 // rota pra SELECT com o ID
 app.get(`/api/midia_indoor/id/:id`, async (req, res) => {
@@ -180,38 +147,49 @@ app.put("/api/midia_indoor/:id", async (req, res) => {
     }
 });
 
-// Rota para deletar
+// Rota pra deletar
 app.delete("/api/midia_indoor/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const conexao = await pool.getConnection();
-        
-        // Primeiro, busca a informação da mídia para obter o nome do arquivo
-        const selectSql = `SELECT * FROM midia WHERE id = ${id}`;
-        const [selectResult] = await conexao.execute(selectSql);
+    const id = req.params.id;
+    let conexao;
 
-        if (selectResult.length === 0) {
-            conexao.release();
-            return res.status(404).json({ error: "Mídia não encontrada." });
+    try {
+        conexao = await pool.getConnection();
+        const sqlSelect = `SELECT url FROM midia WHERE id = ?`;
+        const [rows] = await conexao.execute(sqlSelect, [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: "Registro não encontrado" });
         }
 
-        const url_midia = selectResult[0].url;
-        
-        // Deleta a entrada da mídia no banco de dados
-        const deleteSql = `DELETE FROM midia WHERE id = ${id}`;
-        await conexao.execute(deleteSql);
+        const arquivoUrl = rows[0].url;
+        const caminhoArquivo = path.join(__dirname, 'front-end', 'midias', arquivoUrl);
 
-        // Deleta o arquivo de imagem
-        const caminho_arquivo = path.join(__dirname, `front-end/midias/${url_midia}`);
-        fs.unlinkSync(caminho_arquivo);
+        await excluirArquivo(caminhoArquivo);
+
+        const sqlDelete = `DELETE FROM midia WHERE id = ?`;
+        await conexao.execute(sqlDelete, [id]);
 
         conexao.release();
-        res.json({ msg: "Registro excluído!" });
+
+        res.json({ msg: "Registro e arquivo excluídos!" });
     } catch (error) {
-        console.log(`O erro que ocorreu foi: ${error}`);
+        if (conexao) conexao.release();
+        console.error(`Erro ao excluir registro: ${error}`);
         res.status(500).json({ error: "Deu algum erro na exclusão" });
     }
 });
+
+// Função para excluir o arquivo
+function excluirArquivo(caminho) {
+    return new Promise((resolve, reject) => {
+        fs.unlink(caminho, (erro) => {
+            if (erro) {
+                return reject(erro);
+            }
+            resolve();
+        });
+    });
+}
 
 
 

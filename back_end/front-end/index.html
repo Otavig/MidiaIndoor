@@ -23,14 +23,14 @@
   }
 
   .login-button {
-    background-color: #ffffff; /* Fundo branco */
-    color: #007bff; /* Cor do texto (azul) */
-    border: 1px solid #007bff; /* Borda azul */
+    background-color: #ffffff;
+    color: #007bff; 
+    border: 1px solid #007bff; 
   }
 
   .login-button:hover {
-    background-color: #007bff; /* Cor de fundo azul ao passar o mouse */
-    color: #ffffff; /* Cor do texto branco ao passar o mouse */
+    background-color: #007bff; 
+    color: #ffffff; 
   }
 
 </style>
@@ -41,7 +41,7 @@
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    <span style="margin: 20px;">Carregando...</span>
+    <span style="margin: 20px;">Seja bem-vindo</span>
   </div>
 
   <!-- Barra de Navegação -->
@@ -132,7 +132,7 @@
       <!-- Status -->
       <div class="form-floating mb-3">
         <label for="cadastro_status" class="form-label">Status</label>
-        <select id="cadastro_status" class="form-select">
+        <select id="cadastro_status" class="form-select" required>
           <option hidden>Status</option>
           <option>Ativado</option>
           <option>Desativado</option>
@@ -142,7 +142,7 @@
       <!-- Tempo de exibição -->
       <div class="form-floating mb-3">
         <label for="cadastro_tempo" class="form-label">Tempo de Exibição:</label>
-        <input type="number" id="cadastro_tempo" name="exibicao_tempo" class="form-control" value="0" />
+        <input type="number" id="cadastro_tempo" name="exibicao_tempo" class="form-control" />
       </div>
 
       <!-- URL -->
@@ -230,8 +230,8 @@
       <label for="atualizar_status" class="form-label">Status</label>
       <select id="atualizar_status" class="form-select">
         <option hidden>Status</option>
-        <option>Ativado</option>
-        <option>Desativado</option>
+        <option>ativado</option>
+        <option>desativado</option>
       </select>
     </div>
 
@@ -288,10 +288,8 @@
       <div class="col-3 ms-2">
       <select name="" id="busca_opcoes" class="form-select">
           <option value="todos">Todos</option>
+          <option value="id">ID</option>
           <option value="nome">Nome</option>
-          <option value="id">Id</option>
-          <option value="tipo">Tipo</option>
-          <option value="status">Status</option>
       </select>
       </div>
       <div class="input-group-append">
