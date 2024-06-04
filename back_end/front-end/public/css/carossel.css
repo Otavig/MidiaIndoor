@@ -65,3 +65,7 @@ video {
     position: relative;
     overflow: hidden;
 }
+
+.fullscreen {
+    object-fit: fill;
+}
