@@ -43,10 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           if (tipo_midia === 'I') {
             // Se for uma imagem
-            div.innerHTML = `<img src="midias/${url_midia}" data-tempo="${tempo_exibicao}">`;
+            div.innerHTML = `<img src="../../midias/${url_midia}" data-tempo="${tempo_exibicao}">`;
           } else if (tipo_midia === 'V') {
             // Se for um vídeo local
-            div.innerHTML = `<video class="fullscreen" src="midias/${url_midia}" muted autoplay></video>`;
+            div.innerHTML = `<video class="fullscreen" src="../../midias/${url_midia}" muted autoplay></video>`;
           } else {
             // Se for outro tipo de mídia, pule para o próximo item
             mostrarProximaMidia();

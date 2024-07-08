@@ -11,7 +11,7 @@ app.use(cors())
 const porta = 3000
 app.use(bodyparser.json())
 const multer = require("multer")
-const mw_upload = multer({ dest: "./dir_uploads" })
+const mw_upload = multer({ dest: "dir_uploads" })
 
 
 
@@ -28,11 +28,11 @@ const pool = mysql.createPool({
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/front-end/index.html')
+    res.sendFile(__dirname + '/public/pages/index.html')
 })
 
 app.get('/exibir', (req, res) => {
-    res.sendFile(__dirname + '/front-end/midia.html')
+    res.sendFile(__dirname + '/public/pages/midia.html')
 })
 
 // Rota para obter todas as mídias
@@ -61,7 +61,7 @@ app.post("/upload", mw_upload.single("arquivo"), (req, res) => {
         }
 
         let arq_recebido = req.file.path;
-        let arq_destino = "front-end/midias/" + req.file.filename + path.extname(req.file.originalname);
+        let arq_destino = "midias/" + req.file.filename + path.extname(req.file.originalname);
 
         // Movendo arquivo recebido
         fs.renameSync(arq_recebido, arq_destino);
@@ -162,7 +162,7 @@ app.delete("/api/midia_indoor/:id", async (req, res) => {
         }
 
         const arquivoUrl = rows[0].url;
-        const caminhoArquivo = path.join(__dirname, 'front-end', 'midias', arquivoUrl);
+        const caminhoArquivo = path.join(__dirname, 'midias', arquivoUrl);
 
         await excluirArquivo(caminhoArquivo);
 
