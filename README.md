@@ -1,6 +1,6 @@
 **Projeto Mídia Indoor** 📺
 
-<img src="midias/87b12c69971a2c5ca116b86bc18c9ed4.png" height="600px" align="center"/>
+<img src="midias/87b12c69971a2c5ca116b86bc18c9ed4.png" height="600px"/>
 
 <p align="justify">O Projeto Mídia Indoor é uma iniciativa desenvolvida no SENAI pelos alunos Otávio, Breno, Kauana e Isabelle. Este repositório contém informações e recursos relacionados ao projeto, que tem como objetivo criar uma plataforma de mídia indoor para divulgação de conteúdo em ambientes fechados.</p>
 
