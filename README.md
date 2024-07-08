@@ -29,7 +29,7 @@ Antes de tudo certifique de ter o Node instalado.
     https://nodejs.org/en
 Se não baixe e instale o NODE acima:
 
-Também você ira precisar do xampp para iniciar localmente.
+Também você vai precisar do xampp para iniciar localmente.
 
     https://www.apachefriends.org/download.html
 
