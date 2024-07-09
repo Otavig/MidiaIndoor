@@ -45,7 +45,7 @@ ou MySql:
 
     git clone https://github.com/Otavig/ProjetoMidiaIndoor.git
 
-### 2. Istale as dependências (express, cors, ...): 
+### 2. Faça a instalação das dependências: 
 
     npm install -Nome da depêndencia-
 Ou apenas digite `npm i` que automaticamente instala todas as dependências necessárias.
