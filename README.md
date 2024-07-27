@@ -164,6 +164,7 @@ The project is developed using various technologies, including:
 <details>
     <summary>Spaish</summary>
     <br>
+    
 **Visión General** 🚀
 <p align="justify">Mídia Indoor es un método de comunicación eficaz en espacios internos como centros comerciales, aeropuertos, gimnasios y otros lugares de alta circulación. El proyecto busca crear una solución completa que permita la exhibición de anuncios, información y entretenimiento en pantallas ubicadas en lugares estratégicos.</p>
 
