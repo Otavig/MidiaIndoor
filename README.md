@@ -162,7 +162,7 @@ The project is developed using various technologies, including:
 </details>
 
 <details>
-    <summary>Spaish</summary>
+    <summary>Spanish</summary>
     <br>
     
 **Visión General** 🚀
